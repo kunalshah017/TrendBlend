@@ -68,8 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\account.svg" />
-    <Content Include="pages\Account.aspx" />
     <Content Include="pages\Home.aspx" />
+    <Content Include="pages\Account.aspx" />
     <Content Include="styles\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -81,19 +81,19 @@
     <Compile Include="layouts\PrivateLayout.Master.designer.cs">
       <DependentUpon>PrivateLayout.Master</DependentUpon>
     </Compile>
-    <Compile Include="pages\Account.aspx.cs">
-      <DependentUpon>Account.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\Account.aspx.designer.cs">
-      <DependentUpon>Account.aspx</DependentUpon>
-    </Compile>
     <Compile Include="pages\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Account.aspx.cs">
+      <DependentUpon>Account.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Account.aspx.designer.cs">
+      <DependentUpon>Account.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
