@@ -9,11 +9,21 @@
     </asp:ContentPlaceHolder>
     <link href="~/styles/styles.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="main">
         <div class="navbar">
-            Header
+            <p class="logo-text">
+                TrendBlend
+            </p>
+            <div class="user-account-btn" runat="server" onclick="Account_Click">
+                <form runat="server">
+                    <asp:ImageButton ID="ImageButton1" runat="server" OnClick="Account_Click" Height="30px" Width="30px" ImageUrl="~/assets/account.svg" />
+                </form>
+            </div>
         </div>
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         </asp:ContentPlaceHolder>

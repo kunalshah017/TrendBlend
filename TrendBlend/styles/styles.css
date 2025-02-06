@@ -19,3 +19,27 @@ body {
     height: 100%;
     background-color: white;
 }
+
+.navbar {
+    background-color:#F9A32C;
+    border:1px solid red;
+    padding: 20px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo-text {
+    color: #251601;
+    width:fit-content;
+    border: 1px solid red;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 2rem;
+    font-family: "Satisfy", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.user-account-btn{}

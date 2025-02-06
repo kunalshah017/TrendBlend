@@ -5,18 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace TrendBlend.layouts
+namespace TrendBlend.pages
 {
-    public partial class Site1 : System.Web.UI.MasterPage
+    public partial class WebForm2 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-        protected void Account_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/pages/Account.aspx");
         }
     }
 }
