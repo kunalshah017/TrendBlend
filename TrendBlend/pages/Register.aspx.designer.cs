@@ -15,13 +15,31 @@ namespace TrendBlend.pages
     {
 
         /// <summary>
-        /// Label1 control.
+        /// registertext control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label registertext;
+
+        /// <summary>
+        /// firstname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label firstname;
+
+        /// <summary>
+        /// lastname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lastname;
 
         /// <summary>
         /// fNameInput control.
@@ -33,15 +51,6 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.TextBox fNameInput;
 
         /// <summary>
-        /// Label2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
-
-        /// <summary>
         /// lNameInput control.
         /// </summary>
         /// <remarks>
@@ -51,13 +60,22 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.TextBox lNameInput;
 
         /// <summary>
-        /// Label3 control.
+        /// agetext control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label agetext;
+
+        /// <summary>
+        /// favcolor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label favcolor;
 
         /// <summary>
         /// ageinput control.
@@ -69,15 +87,6 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.TextBox ageinput;
 
         /// <summary>
-        /// Label4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
-
-        /// <summary>
         /// colorinput control.
         /// </summary>
         /// <remarks>
@@ -87,13 +96,13 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.TextBox colorinput;
 
         /// <summary>
-        /// Label5 control.
+        /// emailtext control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
+        protected global::System.Web.UI.WebControls.Label emailtext;
 
         /// <summary>
         /// emailinput control.
@@ -105,13 +114,13 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.TextBox emailinput;
 
         /// <summary>
-        /// Label6 control.
+        /// usernametext control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
+        protected global::System.Web.UI.WebControls.Label usernametext;
 
         /// <summary>
         /// usernameinput control.
@@ -123,13 +132,13 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.TextBox usernameinput;
 
         /// <summary>
-        /// Label7 control.
+        /// passwordtext control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
+        protected global::System.Web.UI.WebControls.Label passwordtext;
 
         /// <summary>
         /// passwordinput control.
