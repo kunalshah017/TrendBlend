@@ -33,15 +33,6 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.Label firstname;
 
         /// <summary>
-        /// lastname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lastname;
-
-        /// <summary>
         /// fNameInput control.
         /// </summary>
         /// <remarks>
@@ -49,6 +40,15 @@ namespace TrendBlend.pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox fNameInput;
+
+        /// <summary>
+        /// lastname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lastname;
 
         /// <summary>
         /// lNameInput control.
@@ -69,15 +69,6 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.Label agetext;
 
         /// <summary>
-        /// favcolor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label favcolor;
-
-        /// <summary>
         /// ageinput control.
         /// </summary>
         /// <remarks>
@@ -85,6 +76,15 @@ namespace TrendBlend.pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ageinput;
+
+        /// <summary>
+        /// favcolor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label favcolor;
 
         /// <summary>
         /// colorinput control.
@@ -157,14 +157,5 @@ namespace TrendBlend.pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
-
-        /// <summary>
-        /// Label8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
     }
 }
