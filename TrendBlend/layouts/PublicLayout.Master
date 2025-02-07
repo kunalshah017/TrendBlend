@@ -4,15 +4,40 @@
 
 <html>
 <head runat="server">
-    <title></title>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background-color: black;
+        }
+
+        #main {
+            width: 100%;
+            max-width: 768px;
+            height: 100%;
+        }
+    </style>
+
 </head>
 <body>
-    <form id="form1" runat="server">
+    <div id="main">
+        <form id="form1" runat="server">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
-    </form>
+        </form>
+    </div>
 </body>
 </html>

@@ -72,12 +72,12 @@
       <DependentUpon>TrendBlendDB.mdf</DependentUpon>
     </Content>
     <Content Include="assets\account.svg" />
-    <Content Include="assets\registration.jpg" />
     <Content Include="pages\Home.aspx" />
     <Content Include="pages\Account.aspx" />
     <Content Include="pages\Register.aspx" />
-    <Content Include="styles\styles.css" />
-    <Content Include="styles\Register.css" />
+    <Content Include="styles\Home\styles.css" />
+    <Content Include="styles\PrivateLayout\styles.css" />
+    <Content Include="styles\Register\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

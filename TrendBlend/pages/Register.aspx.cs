@@ -21,24 +21,24 @@ namespace TrendBlend.pages
         {
             SqlConnection con = new SqlConnection(cs);
             string query = "insert into Users(firstName, lastName, age, favColor, userName, password, email) values (@firstname, @lastname, @age, @favColor, @userName, @password, @email)";
-            SqlCommand cmd = new SqlCommand(query,con);
-            cmd.Parameters.AddWithValue("@firstName",fNameInput.Text);
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@firstName", fNameInput.Text);
             cmd.Parameters.AddWithValue("@lastName", lNameInput.Text);
             cmd.Parameters.AddWithValue("@age", ageinput.Text);
-            cmd.Parameters.AddWithValue("@favColor",colorinput.Text);
+            cmd.Parameters.AddWithValue("@favColor", colorinput.Text);
             cmd.Parameters.AddWithValue("@userName", usernameinput.Text);
             cmd.Parameters.AddWithValue("@password", passwordinput.Text);
-            cmd.Parameters.AddWithValue("@email",emailinput.Text);
+            cmd.Parameters.AddWithValue("@email", emailinput.Text);
             con.Open();
             int a = cmd.ExecuteNonQuery();
-            if(a > 0)
-            {
-                Label8.Text = "success ";
-            }
-            else
-            {
-                Label8.Text = "failed";
-            }
+            //if(a > 0)
+            //{
+            //    Label8.Text = "success ";
+            //}
+            //else
+            //{
+            //    Label8.Text = "failed";
+            //}
         }
     }
 }
