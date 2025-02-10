@@ -67,10 +67,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\TrendBlendDB.mdf" />
+    <Content Include="App_Data\TrendBlendDB_log.ldf">
+      <DependentUpon>TrendBlendDB.mdf</DependentUpon>
+    </Content>
     <Content Include="assets\account.svg" />
-    <Content Include="pages\Account.aspx" />
     <Content Include="pages\Home.aspx" />
-    <Content Include="styles\styles.css" />
+    <Content Include="pages\Account.aspx" />
+    <Content Include="pages\Login.aspx" />
+    <Content Include="pages\Register.aspx" />
+    <Content Include="pages\FirstScreen.aspx" />
+    <Content Include="styles\Home\styles.css" />
+    <Content Include="styles\Login\styles.css" />
+    <Content Include="styles\PrivateLayout\styles.css" />
+    <Content Include="styles\Register\styles.css" />
+    <Content Include="styles\FirstScreen\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -81,12 +92,12 @@
     <Compile Include="layouts\PrivateLayout.Master.designer.cs">
       <DependentUpon>PrivateLayout.Master</DependentUpon>
     </Compile>
-    <Compile Include="pages\Account.aspx.cs">
-      <DependentUpon>Account.aspx</DependentUpon>
+    <Compile Include="layouts\PublicLayout.Master.cs">
+      <DependentUpon>PublicLayout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\Account.aspx.designer.cs">
-      <DependentUpon>Account.aspx</DependentUpon>
+    <Compile Include="layouts\PublicLayout.Master.designer.cs">
+      <DependentUpon>PublicLayout.Master</DependentUpon>
     </Compile>
     <Compile Include="pages\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
@@ -95,10 +106,39 @@
     <Compile Include="pages\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\Account.aspx.cs">
+      <DependentUpon>Account.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Account.aspx.designer.cs">
+      <DependentUpon>Account.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\FirstScreen.aspx.cs">
+      <DependentUpon>FirstScreen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\FirstScreen.aspx.designer.cs">
+      <DependentUpon>FirstScreen.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="layouts\PrivateLayout.Master" />
+    <Content Include="layouts\PublicLayout.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

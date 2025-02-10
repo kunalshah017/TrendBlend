@@ -1,0 +1,92 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+form {
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #efeff1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 90%;
+    padding: 10px 20px;
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid orange;
+}
+
+.content-background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+    
+}
+
+.registertext {
+    font-family: "Satisfy", serif;
+    font-size: 40px;
+    font-style: italic;
+    text-align: left;
+}
+
+.text {
+    font-family: "Satisfy", serif;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.input-feild {
+    width: 100%;
+    border: 2px solid #FFA500; 
+    border-radius: 5px;
+    background-color: rgba(255, 255, 0, 0.1); 
+    padding: 8px 12px;
+    outline: none;
+    transition: all 0.3s ease;
+    ;
+}
+
+.input-field:focus,
+.input-field:active {
+        border-color: #FFD700;
+        background-color: #FFFFE0;
+        box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+.multi-input-container {
+    display: flex;
+    gap: 10px;
+}
+
+.single-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.buttonregister {
+    background-color: orange;
+    border: 1px solid orange;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Satisfy", serif;
+    text-align: center;
+}
+
+    .buttonregister:active {
+        background-color: orange;
+    }
