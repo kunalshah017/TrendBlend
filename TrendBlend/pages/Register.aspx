@@ -6,7 +6,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="content">
-        <img class="content-background" src="~/assets/registration.jpg" />
 
         <div class="registertext">
             <asp:Label ID="registertext" runat="server" Text="Register" CssClass="registertext"></asp:Label>
@@ -50,6 +49,9 @@
         </div>
 
         <asp:Button ID="Button1" runat="server" Text="Register" OnClick="Button1_Click" Height="40px" Width="90px" CssClass="buttonregister" />
-
+        <div>
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/pages/Login.aspx">Already have an account? Login!</asp:HyperLink>
+        </div>
+        
     </div>
 </asp:Content>
