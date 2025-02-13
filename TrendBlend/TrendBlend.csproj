@@ -67,10 +67,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\TrendBlendDB.mdf" />
-    <Content Include="App_Data\TrendBlendDB_log.ldf">
-      <DependentUpon>TrendBlendDB.mdf</DependentUpon>
-    </Content>
     <Content Include="assets\account.svg" />
     <Content Include="assets\dress_icons\coat-1.svg" />
     <Content Include="assets\dress_icons\coat-2.svg" />
