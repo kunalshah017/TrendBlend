@@ -1,0 +1,57 @@
+﻿:root {
+    --pale-purple: hsla(269, 49%, 90%, 1);
+    --magnolia: hsla(263, 100%, 97%, 1);
+    --periwinkle: hsla(252, 100%, 88%, 1);
+    --tropical-indigo: hsla(250, 89%, 78%, 1);
+    --medium-slate-blue: hsla(241, 96%, 72%, 1);
+}
+
+.main_container {
+    height: 100%;
+    width: 100%;
+    background-color: var(--magnolia);
+    position: relative;
+}
+
+.app_title {
+    width: 100%;
+    position: absolute;
+    top: 15%;
+    transform: translate(0,-50%);
+    font-size: 3rem;
+    font-family: "Pacifico", serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    color: var(--medium-slate-blue);
+}
+
+.onboarding_icons {
+    position: absolute;
+    inset: 0;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+    overflow: hidden;
+}
+
+    .onboarding_icons img {
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        opacity: 0;
+    }
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%) translateY(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+    }
+}

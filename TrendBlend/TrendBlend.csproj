@@ -72,6 +72,13 @@
       <DependentUpon>TrendBlendDB.mdf</DependentUpon>
     </Content>
     <Content Include="assets\account.svg" />
+    <Content Include="assets\dress_icons\coat-1.svg" />
+    <Content Include="assets\dress_icons\coat-2.svg" />
+    <Content Include="assets\dress_icons\hoodie-1.svg" />
+    <Content Include="assets\dress_icons\jeans-1.svg" />
+    <Content Include="assets\dress_icons\woman-dress-1.svg" />
+    <Content Include="assets\dress_icons\woman-dress-2.svg" />
+    <Content Include="assets\dress_icons\woman-shirt-1.svg" />
     <Content Include="pages\Home.aspx" />
     <Content Include="pages\Account.aspx" />
     <Content Include="pages\Login.aspx" />

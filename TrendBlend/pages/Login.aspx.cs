@@ -14,7 +14,7 @@ namespace TrendBlend.pages
         string cs = ConfigurationManager.ConnectionStrings["TrendBlendDB"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
@@ -42,9 +42,9 @@ namespace TrendBlend.pages
             cmd.Parameters.AddWithValue("@Password", passwordTextBox.Text);
             con.Open();
             int a = (int)cmd.ExecuteScalar();
-            if(a> 0 )
-            {   
-              
+            if (a > 0)
+            {
+
                 Response.Redirect("/pages/Home.aspx");
 
             }
@@ -53,9 +53,10 @@ namespace TrendBlend.pages
                 Label1.Visible = true;
                 Label1.Text = "incorrect username or password";
             }
-            
+            con.Close();
+
         }
 
-        
+
     }
 }
