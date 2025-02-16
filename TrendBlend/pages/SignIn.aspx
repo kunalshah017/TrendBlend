@@ -40,7 +40,7 @@
                 <asp:Label ID="Label1" runat="server" Text="Label" ForeColor="Red" Visible="False"></asp:Label>
             </div>
             <div>
-                <asp:HyperLink ID="HyperLink1" runat="server">New Here? Register </asp:HyperLink>
+                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/pages/Register.aspx">New Here? Register </asp:HyperLink>
             </div>
         </div>
 

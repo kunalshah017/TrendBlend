@@ -50,8 +50,8 @@
 
         <asp:Button ID="Button1" runat="server" Text="Register" OnClick="Button1_Click" Height="40px" Width="90px" CssClass="buttonregister" />
         <div>
-            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/pages/Login.aspx">Already have an account? Login!</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/pages/SignIn.aspx">Already have an account? Login!</asp:HyperLink>
         </div>
-        
+
     </div>
 </asp:Content>
