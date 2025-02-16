@@ -79,9 +79,9 @@
     <Content Include="pages\SignIn.aspx" />
     <Content Include="pages\Register.aspx" />
     <Content Include="styles\Home\styles.css" />
+    <Content Include="styles\Layout\styles.css" />
     <Content Include="styles\SignIn\styles.css" />
     <Content Include="styles\Onboarding\styles.css" />
-    <Content Include="styles\PrivateLayout\styles.css" />
     <Content Include="styles\Register\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
