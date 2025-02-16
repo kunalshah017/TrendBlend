@@ -11,7 +11,7 @@ namespace TrendBlend.pages
 {
 
 
-    public partial class WebForm4
+    public partial class Onboarding
     {
 
         /// <summary>
