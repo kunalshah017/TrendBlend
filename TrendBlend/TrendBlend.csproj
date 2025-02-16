@@ -140,6 +140,7 @@
   <ItemGroup>
     <Content Include="layouts\PrivateLayout.Master" />
     <Content Include="layouts\PublicLayout.Master" />
+    <Content Include="db.config" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
