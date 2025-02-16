@@ -77,7 +77,7 @@
     <Content Include="assets\dress_icons\woman-shirt-1.svg" />
     <Content Include="pages\Home.aspx" />
     <Content Include="pages\Account.aspx" />
-    <Content Include="pages\Login.aspx" />
+    <Content Include="pages\SignIn.aspx" />
     <Content Include="pages\Register.aspx" />
     <Content Include="pages\FirstScreen.aspx" />
     <Content Include="styles\Home\styles.css" />
@@ -116,12 +116,12 @@
     <Compile Include="pages\Account.aspx.designer.cs">
       <DependentUpon>Account.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="pages\SignIn.aspx.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="pages\SignIn.aspx.designer.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>

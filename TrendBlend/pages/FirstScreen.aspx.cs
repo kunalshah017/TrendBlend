@@ -14,12 +14,12 @@ namespace TrendBlend.pages
 
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        { 
-            Response.Redirect("~/pages/Login.aspx");
+        protected void SignInButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/pages/SignIn.aspx");
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        protected void RegisterButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/pages/Register.aspx");
         }

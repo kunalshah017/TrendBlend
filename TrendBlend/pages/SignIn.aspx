@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/layouts/PublicLayout.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="TrendBlend.pages.Login" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/layouts/PublicLayout.Master" AutoEventWireup="true" CodeBehind="SignIn.aspx.cs" Inherits="TrendBlend.pages.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/styles/Login/styles.css" rel="stylesheet" type="text/css" />
@@ -18,7 +18,7 @@
             </div>
 
             <div class="textbox">
-                <asp:TextBox ID="usernameTextBox" runat="server" CssClass="usernametextbox" ></asp:TextBox>
+                <asp:TextBox ID="usernameTextBox" runat="server" CssClass="usernametextbox"></asp:TextBox>
             </div>
 
             <div class="password-text">
@@ -34,10 +34,10 @@
             <div class="button">
                 <asp:Button ID="Button1" runat="server" Text="Login" CssClass="loginbutton" OnClick="Button1_Click" />
                 <br />
-               
+
             </div>
             <div class="error">
-                 <asp:Label ID="Label1" runat="server" Text="Label" ForeColor="Red" Visible="False"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text="Label" ForeColor="Red" Visible="False"></asp:Label>
             </div>
             <div>
                 <asp:HyperLink ID="HyperLink1" runat="server">New Here? Register </asp:HyperLink>
