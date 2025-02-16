@@ -31,14 +31,12 @@ namespace TrendBlend.pages
             cmd.Parameters.AddWithValue("@email", emailinput.Text);
             con.Open();
             int a = cmd.ExecuteNonQuery();
-            //if(a > 0)
-            //{
-            //    Label8.Text = "success ";
-            //}
-            //else
-            //{
-            //    Label8.Text = "failed";
-            //}
+            if (a > 0)
+            {
+                Response.Redirect("~/pages/Home.aspx");
+            }
+            
+            
         }
     }
 }
