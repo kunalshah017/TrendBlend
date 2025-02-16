@@ -79,12 +79,10 @@
     <Content Include="pages\Account.aspx" />
     <Content Include="pages\SignIn.aspx" />
     <Content Include="pages\Register.aspx" />
-    <Content Include="pages\FirstScreen.aspx" />
     <Content Include="styles\Home\styles.css" />
     <Content Include="styles\Login\styles.css" />
     <Content Include="styles\PrivateLayout\styles.css" />
     <Content Include="styles\Register\styles.css" />
-    <Content Include="styles\FirstScreen\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -129,13 +127,6 @@
     </Compile>
     <Compile Include="pages\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\FirstScreen.aspx.cs">
-      <DependentUpon>FirstScreen.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\FirstScreen.aspx.designer.cs">
-      <DependentUpon>FirstScreen.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
