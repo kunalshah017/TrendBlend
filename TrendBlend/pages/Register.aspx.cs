@@ -6,11 +6,21 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.UI.HtmlControls;
 
 namespace TrendBlend.pages
 {
-    public partial class WebForm3 : System.Web.UI.Page
+    public partial class Register : System.Web.UI.Page
     {
+        protected TextBox firstNameInput;
+        protected TextBox lastNameInput;
+        protected TextBox userNameInput;
+        protected TextBox passwordInput;
+        protected TextBox emailInput;
+        protected TextBox ageInput;
+        protected DropDownList colorInput;
+        protected HtmlInputGenericControl customColorPicker;
+
         string cs = ConfigurationManager.ConnectionStrings["TrendBlendDB"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -18,26 +28,76 @@ namespace TrendBlend.pages
 
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void HandleRegister(object sender, EventArgs e)
         {
             SqlConnection con = new SqlConnection(cs);
-            string query = "insert into Users(FirstName, LastName, UserName, Password, Email, Age, FavouriteColor) values (@firstname, @lastname, @userName, @password, @email, @age, @favColor)";
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@firstName", fNameInput.Text);
-            cmd.Parameters.AddWithValue("@lastName", lNameInput.Text);
-            cmd.Parameters.AddWithValue("@userName", usernameinput.Text);
-            cmd.Parameters.AddWithValue("@password", passwordinput.Text);
-            cmd.Parameters.AddWithValue("@email", emailinput.Text);
-            cmd.Parameters.AddWithValue("@age", ageinput.Text);
-            cmd.Parameters.AddWithValue("@favColor", colorinput.Text);
-            con.Open();
-            int a = cmd.ExecuteNonQuery();
-            if (a > 0)
+
+            try
             {
-                Response.Redirect("~/pages/Home.aspx");
+                // Check for existing username
+                string query = "SELECT UserName FROM Users WHERE UserName = @userName";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@userName", userNameInput.Text);
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    ErrorLabel.Text = "Try a different username";
+                    userNameInput.Focus();
+                    reader.Close();
+                    return;
+                }
+                reader.Close();
+                con.Close();
+
+                // Check for existing email
+                query = "SELECT Email FROM Users WHERE Email = @email";
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@email", emailInput.Text);
+                con.Open();
+                reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    ErrorLabel.Text = "Email is already registered";
+                    emailInput.Focus();
+                    reader.Close();
+                    return;
+                }
+                reader.Close();
+                con.Close();
+
+                // Add user to db
+                query = "INSERT INTO Users(FirstName, LastName, UserName, Password, Email, Age, FavouriteColor) VALUES (@firstname, @lastname, @userName, @password, @email, @age, @favColor)";
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@firstName", firstNameInput.Text);
+                cmd.Parameters.AddWithValue("@lastName", lastNameInput.Text);
+                cmd.Parameters.AddWithValue("@userName", userNameInput.Text);
+                cmd.Parameters.AddWithValue("@password", passwordInput.Text);
+                cmd.Parameters.AddWithValue("@email", emailInput.Text);
+                cmd.Parameters.AddWithValue("@age", ageInput.Text);
+                cmd.Parameters.AddWithValue("@favColor", colorInput.SelectedValue);
+                con.Open();
+                int result = cmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    Response.Redirect("~/pages/Home.aspx");
+                }
+                else
+                {
+                    ErrorLabel.Text = "Some Error Occurred :(";
+                }
             }
-
-
+            catch (Exception ex)
+            {
+                ErrorLabel.Text = "An error occurred. Please try again." + ex;
+            }
+            finally
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
         }
     }
 }

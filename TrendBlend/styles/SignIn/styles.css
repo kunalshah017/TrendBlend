@@ -1,81 +1,132 @@
-﻿
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+﻿:root {
+    --pale-purple: hsla(269, 49%, 90%, 1);
+    --magnolia: hsla(263, 100%, 97%, 1);
+    --periwinkle: hsla(252, 100%, 88%, 1);
+    --tropical-indigo: hsla(250, 89%, 78%, 1);
+    --medium-slate-blue: hsla(241, 96%, 72%, 1);
 }
-form {
+
+.main_container {
+    height: 100%;
     width: 100%;
-    height: 100vh;
+    background-color: var(--magnolia);
+    position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: antiquewhite;
-}
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    gap: 20px;
-  
-    width: 90%;
-    border: 1px solid white;
-    padding: 10px;
-    background: #EEB774;
-    border-radius: 20px;
-}
-.boundaries{
-    
-    height:35vh;
-    width:90%;
-    border:3px solid white;
-    align-items:center;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:10px;
-    text-align:left;
-    border-radius:20px;
-}
-.username-text, .password-text {
-    text-align: left;
-    font-family: "Satisfy";
-}
-.login-text {
-    width: 90%;
-    background: transparent;
-    border: 1px solid transparent;
-    font-size: 2em;
-    font-weight: bold;
-    color: white;
-    padding: 10px;
-    text-align: left;
-    font-family: "Satisfy";
-    border-block-end:2px solid black;
+    justify-content: space-around;
+    padding: 70px 30px 50px 30px;
 }
 
+.back_button {
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    font-size: 1.7rem;
+    color: var(--medium-slate-blue);
+    cursor: pointer;
+}
 
-.button {
-    width: 100%; 
+.page_title {
+    font-family: "Pacifico", serif;
+    font-size: 2.5rem;
+    color: var(--medium-slate-blue);
+    line-height: 55px;
+    animation: slideFromLeft 0.8s ease-out;
+}
+
+.login_form {
     display: flex;
-    justify-content: center; 
-    padding: 10px;
-    background-color:transparent;
-    
+    flex-direction: column;
+    gap: 30px;
+    animation: appear 1s ease-out;
 }
 
-.loginbutton {
-    width: 80%;
-    font-size: 1.2em;
-    padding: 15px;
-    background-color: orange;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    font-family: "Satisfy",Serif;
+.input_container {
+    font-family: "Poppins", serif;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-.loginbutton:active {
-            background-color: lightcoral; 
-            color: white; 
- }
+
+.text_input {
+    width: 100%;
+    padding: 7px 7px;
+    font-family: "Poppins";
+    font-size: 1rem;
+    background-color: var(--pale-purple);
+    border: 2px solid var(--medium-slate-blue);
+    border-radius: 5px;
+}
+
+    .text_input:focus {
+        outline: none;
+    }
+
+.cta_button_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    animation: slideFromBottom 1s ease-out;
+}
+
+    .cta_button_container div {
+        border: 4px solid var(--medium-slate-blue);
+        width: 70%;
+        display: flex;
+        border-radius: 30px;
+        padding: 3px;
+        animation: grow 0.5s ease-out;
+    }
+
+.cta_button {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    background: var(--tropical-indigo);
+    border-radius: 30px;
+    color: white;
+    font-family: "Poppins", serif;
+    font-weight: 500;
+    font-size: 1rem;
+    outline: none;
+}
+
+.error_label {
+    font-family: "Poppins", serif;
+}
+
+@keyframes slideFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromBottom {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

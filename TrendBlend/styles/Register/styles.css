@@ -1,92 +1,151 @@
-﻿* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+﻿:root {
+    --pale-purple: hsla(269, 49%, 90%, 1);
+    --magnolia: hsla(263, 100%, 97%, 1);
+    --periwinkle: hsla(252, 100%, 88%, 1);
+    --tropical-indigo: hsla(250, 89%, 78%, 1);
+    --medium-slate-blue: hsla(241, 96%, 72%, 1);
 }
 
-form {
+.main_container {
     height: 100%;
     width: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #efeff1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.content {
-    width: 90%;
-    padding: 10px 20px;
-    overflow: hidden;
-    border-radius: 20px;
+    background-color: var(--magnolia);
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    border: 1px solid orange;
+    justify-content: space-between;
+    padding: 70px 30px 50px 30px;
 }
 
-.content-background {
-    height: 100%;
-    width: 100%;
+.back_button {
     position: absolute;
-    inset: 0;
-    z-index: -10;
-    
+    top: 13px;
+    left: 13px;
+    font-size: 1.7rem;
+    color: var(--medium-slate-blue);
+    cursor: pointer;
 }
 
-.registertext {
-    font-family: "Satisfy", serif;
-    font-size: 40px;
-    font-style: italic;
-    text-align: left;
+.page_title {
+    font-family: "Pacifico", serif;
+    font-size: 2.5rem;
+    color: var(--medium-slate-blue);
+    animation: slideFromLeft 0.8s ease-out;
 }
 
-.text {
-    font-family: "Satisfy", serif;
-    font-size: 20px;
-    font-style: italic;
-}
-
-.input-feild {
-    width: 100%;
-    border: 2px solid #FFA500; 
-    border-radius: 5px;
-    background-color: rgba(255, 255, 0, 0.1); 
-    padding: 8px 12px;
-    outline: none;
-    transition: all 0.3s ease;
-    ;
-}
-
-.input-field:focus,
-.input-field:active {
-        border-color: #FFD700;
-        background-color: #FFFFE0;
-        box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
-}
-
-.multi-input-container {
+.register_form {
     display: flex;
+    flex-direction: column;
+    gap: 2em;
+    animation: appear 1s ease-out;
+}
+
+.multi_input_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.input_container {
+    font-family: "Poppins", serif;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 
-.single-input-container {
+.text_input {
+    width: 100%;
+    padding: 7px 7px;
+    font-family: "Poppins";
+    font-size: 1rem;
+    background-color: var(--pale-purple);
+    border: 2px solid var(--medium-slate-blue);
+    border-radius: 5px;
+}
+
+    .text_input:focus {
+        outline: none;
+    }
+
+input[type="color"] {
+    -webkit-appearance: none;
+    padding: 0;
+    width: 100%;
+    height: 40px;
+    cursor: pointer;
+}
+
+    input[type="color"]::-webkit-color-swatch-wrapper {
+        padding: 0;
+    }
+
+    input[type="color"]::-webkit-color-swatch {
+        border: none;
+        border-radius: 4px;
+    }
+
+.cta_button_container {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    align-items: center;
+    gap: 30px;
+    animation: slideFromBottom 1s ease-out;
 }
 
-.buttonregister {
-    background-color: orange;
-    border: 1px solid orange;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: "Satisfy", serif;
-    text-align: center;
-}
-
-    .buttonregister:active {
-        background-color: orange;
+    .cta_button_container div {
+        border: 4px solid var(--medium-slate-blue);
+        width: 70%;
+        display: flex;
+        border-radius: 30px;
+        padding: 3px;
+        animation: grow 0.5s ease-out;
     }
+
+.cta_button {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    background: var(--tropical-indigo);
+    border-radius: 30px;
+    color: white;
+    font-family: "Poppins", serif;
+    font-weight: 500;
+    font-size: 1rem;
+    outline: none;
+}
+
+@keyframes slideFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromBottom {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

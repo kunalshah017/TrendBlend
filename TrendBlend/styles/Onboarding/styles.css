@@ -1,156 +1,188 @@
 ﻿:root {
-  --pale-purple: hsla(269, 49%, 90%, 1);
-  --magnolia: hsla(263, 100%, 97%, 1);
-  --periwinkle: hsla(252, 100%, 88%, 1);
-  --tropical-indigo: hsla(250, 89%, 78%, 1);
-  --medium-slate-blue: hsla(241, 96%, 72%, 1);
+    --pale-purple: hsla(269, 49%, 90%, 1);
+    --magnolia: hsla(263, 100%, 97%, 1);
+    --periwinkle: hsla(252, 100%, 88%, 1);
+    --tropical-indigo: hsla(250, 89%, 78%, 1);
+    --medium-slate-blue: hsla(241, 96%, 72%, 1);
 }
 
 .main_container {
-  height: 100%;
-  width: 100%;
-  background-color: var(--magnolia);
-  position: relative;
+    height: 100%;
+    width: 100%;
+    background-color: var(--magnolia);
+    position: relative;
 }
 
 .app_title {
-  width: 100%;
-  position: absolute;
-  top: 30%;
-  transform: translate(0, -50%);
-  font-size: 3rem;
-  font-family: "Pacifico", serif;
-  font-weight: 400;
-  font-style: normal;
-  text-align: center;
-  color: var(--medium-slate-blue);
+    width: 100%;
+    position: absolute;
+    top: 30%;
+    transform: translate(0, -50%);
+    font-size: 3rem;
+    font-family: "Pacifico", serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    color: var(--medium-slate-blue);
+    animation: titleTilt 2s ease-out forwards;
+    transform-origin: center;
 }
+
 
 .onboarding_icons {
-  position: absolute;
-  inset: 0;
-  height: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+    position: absolute;
+    inset: 0;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
-.onboarding_icons img {
-  position: absolute;
-  height: 50px;
-  width: 50px;
-  opacity: 0;
-  animation: slideIn 1s forwards;
+    .onboarding_icons img {
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        opacity: 0;
+        animation: slideIn 1s forwards;
+    }
+
+        /* Coat - sliding from left */
+        .onboarding_icons img:nth-child(1) {
+            animation-name: slideFromLeft;
+            animation-delay: 0.2s;
+            transform: rotate(30deg);
+        }
+
+        /* Jeans - sliding from right */
+        .onboarding_icons img:nth-child(2) {
+            animation-name: slideFromRight;
+            animation-delay: 0.4s;
+        }
+
+        /* Hoodie - sliding from left */
+        .onboarding_icons img:nth-child(3) {
+            animation-name: slideFromLeft;
+            animation-delay: 0.6s;
+        }
+
+        /* Woman shirt - sliding from right */
+        .onboarding_icons img:nth-child(4) {
+            animation-name: slideFromRight;
+            animation-delay: 0.8s;
+        }
+
+        /* Woman dress - sliding from top */
+        .onboarding_icons img:nth-child(5) {
+            animation-name: slideFromTop;
+            animation-delay: 1s;
+        }
+
+.cta_button_container {
+    position: absolute;
+    top: 55%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }
 
-/* Coat - sliding from left */
-.onboarding_icons img:nth-child(1) {
-  animation-name: slideFromLeft;
-  animation-delay: 0.2s;
-  transform: rotate(30deg);
-}
+    .cta_button_container div {
+        border: 4px solid var(--medium-slate-blue);
+        width: 70%;
+        display: flex;
+        border-radius: 30px;
+        padding: 3px;
+        animation: grow 0.5s ease-out;
+    }
 
-/* Jeans - sliding from right */
-.onboarding_icons img:nth-child(2) {
-  animation-name: slideFromRight;
-  animation-delay: 0.4s;
-}
-
-/* Hoodie - sliding from left */
-.onboarding_icons img:nth-child(3) {
-  animation-name: slideFromLeft;
-  animation-delay: 0.6s;
-}
-
-/* Woman shirt - sliding from right */
-.onboarding_icons img:nth-child(4) {
-  animation-name: slideFromRight;
-  animation-delay: 0.8s;
-}
-
-/* Woman dress - sliding from top */
-.onboarding_icons img:nth-child(5) {
-  animation-name: slideFromTop;
-  animation-delay: 1s;
+.cta_button {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    background: var(--tropical-indigo);
+    border-radius: 30px;
+    color: white;
+    font-family: "Poppins", serif;
+    font-weight: 500;
+    font-size: 1rem;
+    outline: none;
 }
 
 @keyframes slideFromLeft {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
 
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 @keyframes slideFromRight {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
 
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 @keyframes slideFromTop {
-  0% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
 
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.cta_button_container {
-  position: absolute;
-  top: 55%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-}
-
-.cta_button_container div {
-  border: 4px solid var(--medium-slate-blue);
-  width: 70%;
-  display: flex;
-  border-radius: 30px;
-  padding: 3px;
-  animation: grow 0.5s ease-out;
-}
-
-.cta_button {
-  width: 100%;
-  border: none;
-  padding: 10px;
-  background: var(--tropical-indigo);
-  border-radius: 30px;
-  color: white;
-  font-family: "Poppins", serif;
-  font-weight: 500;
-  font-size: 1rem;
-  outline: none;
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 @keyframes grow {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
 
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes titleTilt {
+    0% {
+        transform: translate(0, -50%) rotate(-15deg) scale(0);
+        opacity: 0;
+    }
+
+    20% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    40% {
+        transform: translate(0, -50%) rotate(10deg) scale(1);
+        opacity: 1;
+    }
+
+    60% {
+        transform: translate(0, -50%) rotate(-5deg);
+    }
+
+    80% {
+        transform: translate(0, -50%) rotate(2deg);
+    }
+
+    100% {
+        transform: translate(0, -50%) rotate(0deg);
+    }
 }
