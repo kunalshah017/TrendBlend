@@ -142,6 +142,7 @@
     <Content Include="layouts\PublicLayout.Master" />
     <Content Include="db.config" />
     <None Include="packages.config" />
+    <Content Include="security.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

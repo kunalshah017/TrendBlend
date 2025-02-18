@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/layouts/PublicLayout.Master" AutoEventWireup="true" CodeBehind="SignIn.aspx.cs" Inherits="TrendBlend.pages.SignIn" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>TrendBlend | SignIn</title>
     <link href="/styles/SignIn/styles.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 

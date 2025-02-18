@@ -24,13 +24,13 @@ namespace TrendBlend.layouts
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
 
         /// <summary>
-        /// onboardingForm control.
+        /// serverComponentsForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm onboardingForm;
+        protected global::System.Web.UI.HtmlControls.HtmlForm serverComponentsForm;
 
         /// <summary>
         /// ContentPlaceHolder1 control.
