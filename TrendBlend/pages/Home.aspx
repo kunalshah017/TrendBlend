@@ -9,5 +9,13 @@
             Welcome,
             <asp:Label ID="userNameLabel" runat="server" />
         </div>
+        <asp:FileUpload ID="FileUpload1" runat="server" />
+
+        <div class="upload-button">
+            <asp:Button ID="Upload" runat="server" Text="Upload" OnClick="Upload_Click" />
+        </div>
+        <div class="label">
+            <asp:Label ID="Label1" runat="server" Text="Label" Visible="False"></asp:Label>
+        </div>
     </div>
 </asp:Content>
