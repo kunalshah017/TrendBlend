@@ -71,6 +71,7 @@ namespace TrendBlend.pages
                             HttpCookie userCookie = new HttpCookie("UserInfo");
                             userCookie.Values["Username"] = userNameInput.Text;
                             userCookie.Values["Password"] = hashedPassword;
+                            Session["Username"] = userNameInput.Text;
                             Session["FirstName"] = reader["FirstName"].ToString();
                             Session["LastName"] = reader["LastName"].ToString();
                             userCookie.Expires = DateTime.MaxValue;

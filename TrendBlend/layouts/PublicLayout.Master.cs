@@ -34,6 +34,7 @@ namespace TrendBlend.layouts
                         if (reader.Read())
                         {
                             userCookie.Expires = DateTime.MaxValue;
+                            Session["Username"] = userCookie["Username"].ToString();
                             Session["FirstName"] = reader["FirstName"].ToString();
                             Session["LastName"] = reader["LastName"].ToString();
                             Response.Cookies.Add(userCookie);
