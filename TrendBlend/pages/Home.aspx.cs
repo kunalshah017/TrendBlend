@@ -11,7 +11,32 @@ namespace TrendBlend.pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                // Check for authentication
+                if (Session["FirstName"] != null)
+                {
+                    // User is in session
+                    userNameLabel.Text = Session["FirstName"].ToString();
+                }
+            }
+        }
 
+        protected void LogoutButton_Click(object sender, EventArgs e)
+        {
+            // Clear cookie if exists
+            if (Request.Cookies["UserInfo"] != null)
+            {
+                HttpCookie userCookie = new HttpCookie("UserInfo");
+                userCookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(userCookie);
+            }
+
+            // Clear session
+            Session.Clear();
+
+            // Redirect to login
+            Response.Redirect("~/pages/SignIn.aspx");
         }
     }
 }

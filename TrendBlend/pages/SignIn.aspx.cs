@@ -43,6 +43,7 @@ namespace TrendBlend.pages
 
 
         string cs = ConfigurationManager.ConnectionStrings["TrendBlendDB"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -50,28 +51,51 @@ namespace TrendBlend.pages
 
         protected void HandleSignIn(object sender, EventArgs e)
         {
-
             SqlConnection con = new SqlConnection(cs);
             string hashedPassword = HashPassword(passwordInput.Text);
 
-            string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND Password = @Password";
+            string query = "SELECT FirstName, LastName FROM Users WHERE Username = @Username AND Password = @Password";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@Username", userNameInput.Text);
             cmd.Parameters.AddWithValue("@Password", hashedPassword);
-            con.Open();
-            int a = (int)cmd.ExecuteScalar();
-            if (a > 0)
+            try
             {
+                con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        // Create cookies if remember me is checked
+                        if (rememberMe.Checked)
+                        {
+                            HttpCookie userCookie = new HttpCookie("UserInfo");
+                            userCookie.Values["Username"] = userNameInput.Text;
+                            userCookie.Values["Password"] = hashedPassword;
+                            Session["FirstName"] = reader["FirstName"].ToString();
+                            Session["LastName"] = reader["LastName"].ToString();
+                            userCookie.Expires = DateTime.MaxValue;
+                            Response.Cookies.Add(userCookie);
+                        }
+                        else
+                        {
+                            Session["Username"] = userNameInput.Text;
+                            Session["FirstName"] = reader["FirstName"].ToString();
+                            Session["LastName"] = reader["LastName"].ToString();
+                        }
 
-                Response.Redirect("/pages/Home.aspx");
-
+                        Response.Redirect("~/pages/Home.aspx");
+                    }
+                    else
+                    {
+                        errorLabel.Visible = true;
+                        errorLabel.Text = "Incorrect username or password";
+                    }
+                }
             }
-            else
+            finally
             {
-                errorLabel.Visible = true;
-                errorLabel.Text = "Incorrect username or password";
+                con.Close();
             }
-
         }
 
 

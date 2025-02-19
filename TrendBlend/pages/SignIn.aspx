@@ -38,6 +38,10 @@
                     <i class="fa fa-eye-slash password_toggle" style="font-size: 1.5rem; color: var(--medium-slate-blue);" id="passwordToggle"></i>
                 </div>
             </div>
+            <div style="display: flex; gap: 10px; font-family: 'Poppins',serif;">
+                <asp:CheckBox ID="rememberMe" runat="server" />
+                <p>Remember Me!</p>
+            </div>
         </div>
 
         <div class="cta_button_container">

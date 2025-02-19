@@ -4,7 +4,10 @@
     <link href="~/styles/Home/styles.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div>
-        Trend Blend
+    <div class="main_container">
+        <div class="welcome_message">
+            Welcome,
+            <asp:Label ID="userNameLabel" runat="server" />
+        </div>
     </div>
 </asp:Content>

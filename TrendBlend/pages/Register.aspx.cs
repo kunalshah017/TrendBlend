@@ -97,7 +97,6 @@ namespace TrendBlend.pages
 
                 string hashedPassword = HashPassword(passwordInput.Text);
 
-
                 // Add user to db
                 query = "INSERT INTO Users(FirstName, LastName, UserName, Password, Email, Age, FavouriteColor) VALUES (@firstname, @lastname, @userName, @password, @email, @age, @favColor)";
                 cmd = new SqlCommand(query, con);
@@ -112,6 +111,9 @@ namespace TrendBlend.pages
                 int result = cmd.ExecuteNonQuery();
                 if (result > 0)
                 {
+                    Session["Username"] = userNameInput.Text;
+                    Session["FirstName"] = reader["FirstName"].ToString();
+                    Session["LastName"] = reader["LastName"].ToString();
                     Response.Redirect("~/pages/Home.aspx");
                 }
                 else
