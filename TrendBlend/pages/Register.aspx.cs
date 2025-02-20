@@ -97,8 +97,11 @@ namespace TrendBlend.pages
 
                 string hashedPassword = HashPassword(passwordInput.Text);
 
-                // Add user to db
-                query = "INSERT INTO Users(FirstName, LastName, UserName, Password, Email, Age, FavouriteColor) VALUES (@firstname, @lastname, @userName, @password, @email, @age, @favColor)";
+                // Add user to db and return the inserted data
+                query = @"INSERT INTO Users(FirstName, LastName, UserName, Password, Email, Age, FavouriteColor) 
+                         VALUES (@firstName, @lastName, @userName, @password, @email, @age, @favColor);
+                         SELECT FirstName, LastName FROM Users WHERE UserName = @userName;";
+
                 cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@firstName", firstNameInput.Text);
                 cmd.Parameters.AddWithValue("@lastName", lastNameInput.Text);
@@ -107,23 +110,26 @@ namespace TrendBlend.pages
                 cmd.Parameters.AddWithValue("@email", emailInput.Text);
                 cmd.Parameters.AddWithValue("@age", ageInput.Text);
                 cmd.Parameters.AddWithValue("@favColor", colorInput.SelectedValue);
+
                 con.Open();
-                int result = cmd.ExecuteNonQuery();
-                if (result > 0)
+                using (SqlDataReader insertReader = cmd.ExecuteReader())
                 {
-                    Session["Username"] = userNameInput.Text;
-                    Session["FirstName"] = reader["FirstName"].ToString();
-                    Session["LastName"] = reader["LastName"].ToString();
-                    Response.Redirect("~/pages/Home.aspx");
-                }
-                else
-                {
-                    ErrorLabel.Text = "Some Error Occurred :(";
+                    if (insertReader.Read())
+                    {
+                        Session["Username"] = userNameInput.Text;
+                        Session["FirstName"] = insertReader["FirstName"].ToString();
+                        Session["LastName"] = insertReader["LastName"].ToString();
+                        Response.Redirect("~/pages/Home.aspx");
+                    }
+                    else
+                    {
+                        ErrorLabel.Text = "Registration failed. Please try again.";
+                    }
                 }
             }
             catch (Exception ex)
             {
-                ErrorLabel.Text = "An error occurred. Please try again." + ex;
+                ErrorLabel.Text = "An error occurred. Please try again." + ex.Message;
             }
             finally
             {
