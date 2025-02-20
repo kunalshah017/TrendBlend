@@ -11,7 +11,18 @@ namespace TrendBlend.layouts
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                // Check for authentication
+                HttpCookie userCookie = Request.Cookies["UserInfo"];
 
+
+                if (userCookie == null && Session["Username"] == null)
+                {
+                    // Not authenticated, redirect to login
+                    Response.Redirect("~/pages/Onboarding.aspx");
+                }
+            }
         }
 
         protected void Account_Click(object sender, EventArgs e)

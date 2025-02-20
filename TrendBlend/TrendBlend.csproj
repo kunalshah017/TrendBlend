@@ -65,21 +65,40 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Content Include="App_Data\TrendBlendDB.mdf" />
     <Content Include="App_Data\TrendBlendDB_log.ldf">
       <DependentUpon>TrendBlendDB.mdf</DependentUpon>
     </Content>
+=======
+>>>>>>> feat-auth-account
     <Content Include="assets\account.svg" />
+    <Content Include="assets\dress_icons\coat-1.svg" />
+    <Content Include="assets\dress_icons\coat-2.svg" />
+    <Content Include="assets\dress_icons\hoodie-1.svg" />
+    <Content Include="assets\dress_icons\jeans-1.svg" />
+    <Content Include="assets\dress_icons\woman-dress-1.svg" />
+    <Content Include="assets\dress_icons\woman-dress-2.svg" />
+    <Content Include="assets\dress_icons\woman-shirt-1.svg" />
     <Content Include="pages\Home.aspx" />
     <Content Include="pages\Account.aspx" />
-    <Content Include="pages\Login.aspx" />
+    <Content Include="pages\Onboarding.aspx" />
+    <Content Include="pages\SignIn.aspx" />
     <Content Include="pages\Register.aspx" />
+<<<<<<< HEAD
     <Content Include="pages\Onboarding.aspx" />
     <Content Include="styles\Home\styles.css" />
     <Content Include="styles\Layout\styles.css" />
     <Content Include="styles\Login\styles.css" />
     <Content Include="styles\Register\styles.css" />
     <Content Include="styles\Onboarding\styles.css" />
+=======
+    <Content Include="styles\Home\styles.css" />
+    <Content Include="styles\Layout\styles.css" />
+    <Content Include="styles\SignIn\styles.css" />
+    <Content Include="styles\Onboarding\styles.css" />
+    <Content Include="styles\Register\styles.css" />
+>>>>>>> feat-auth-account
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -111,12 +130,19 @@
     <Compile Include="pages\Account.aspx.designer.cs">
       <DependentUpon>Account.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="pages\Onboarding.aspx.cs">
+      <DependentUpon>Onboarding.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="pages\Onboarding.aspx.designer.cs">
+      <DependentUpon>Onboarding.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\SignIn.aspx.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\SignIn.aspx.designer.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
@@ -125,6 +151,7 @@
     <Compile Include="pages\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="pages\Onboarding.aspx.cs">
       <DependentUpon>Onboarding.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -132,12 +159,16 @@
     <Compile Include="pages\Onboarding.aspx.designer.cs">
       <DependentUpon>Onboarding.aspx</DependentUpon>
     </Compile>
+=======
+>>>>>>> feat-auth-account
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="layouts\PrivateLayout.Master" />
     <Content Include="layouts\PublicLayout.Master" />
+    <Content Include="db.config" />
     <None Include="packages.config" />
+    <Content Include="security.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
