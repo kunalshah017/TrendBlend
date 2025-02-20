@@ -20,7 +20,7 @@ namespace TrendBlend.layouts
                 if (userCookie == null && Session["Username"] == null)
                 {
                     // Not authenticated, redirect to login
-                    Response.Redirect("~/pages/SignIn.aspx");
+                    Response.Redirect("~/pages/Onboarding.aspx");
                 }
             }
         }
