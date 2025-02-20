@@ -1,1 +1,25 @@
-﻿
+﻿.box {
+    height: 100px;
+    width: 100px;
+    background-color: mediumpurple;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.topboxes {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 30px 30px 30px;
+}
+
+.bottomboxes {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 30px 30px 30px;
+}
+
+.accessoriesboxes {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 30px 30px 30px;
+}
