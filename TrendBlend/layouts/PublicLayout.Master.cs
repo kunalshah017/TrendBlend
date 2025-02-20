@@ -44,7 +44,7 @@ namespace TrendBlend.layouts
                         {
                             userCookie.Expires = DateTime.Now.AddDays(-1);
                             Response.Cookies.Add(userCookie);
-                            Response.Redirect("~/pages/SignIn.aspx");
+                            Response.Redirect("~/pages/Onboarding.aspx");
                         }
                     }
                 }
