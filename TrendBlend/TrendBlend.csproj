@@ -80,15 +80,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Data\TrendBlendDB.mdf" />
-    <Content Include="App_Data\TrendBlendDB_log.ldf">
-      <DependentUpon>TrendBlendDB.mdf</DependentUpon>
-    </Content>
     <Content Include="assets\account.svg" />
     <Content Include="assets\dress_icons\coat-1.svg" />
     <Content Include="assets\dress_icons\coat-2.svg" />
@@ -97,21 +88,27 @@
     <Content Include="assets\dress_icons\woman-dress-1.svg" />
     <Content Include="assets\dress_icons\woman-dress-2.svg" />
     <Content Include="assets\dress_icons\woman-shirt-1.svg" />
+    <Content Include="Default.aspx" />
     <Content Include="pages\Home.aspx" />
     <Content Include="pages\Account.aspx" />
     <Content Include="pages\Onboarding.aspx" />
     <Content Include="pages\SignIn.aspx" />
     <Content Include="pages\Register.aspx" />
-    <Content Include="pages\FirstScreen.aspx" />
     <Content Include="styles\Home\styles.css" />
     <Content Include="styles\Layout\styles.css" />
     <Content Include="styles\SignIn\styles.css" />
     <Content Include="styles\Onboarding\styles.css" />
     <Content Include="styles\Register\styles.css" />
-    <Content Include="styles\FirstScreen\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="layouts\PrivateLayout.Master.cs">
       <DependentUpon>PrivateLayout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -161,13 +158,6 @@
     <Compile Include="pages\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\FirstScreen.aspx.cs">
-      <DependentUpon>FirstScreen.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\FirstScreen.aspx.designer.cs">
-      <DependentUpon>FirstScreen.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
      </ItemGroup>
   <ItemGroup>
@@ -176,6 +166,7 @@
     <Content Include="db.config" />
     <None Include="packages.config" />
     <Content Include="security.config" />
+    <None Include="Properties\PublishProfiles\TrendBlend - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\TrendBlend20250220141557 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -186,7 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\" />
-     </ItemGroup>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
