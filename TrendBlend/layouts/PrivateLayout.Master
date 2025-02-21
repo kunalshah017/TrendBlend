@@ -6,6 +6,7 @@
 <head runat="server">
 
     <title>TrendBlend | Home</title>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 
@@ -14,19 +15,87 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="~/styles/Layout/styles.css" rel="stylesheet" />
 
 </head>
 <body>
     <form id="serverComponentsForm" runat="server">
-        <div class="top_bar"></div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+        <div class="top_bar">
+            <p class="top_bar_logo_text">Trend Blend</p>
+            <div class="top_bar_user_account_btn">
+                <i class="fa fa-user"></i>
+            </div>
+        </div>
+
+        <asp:ContentPlaceHolder ID="body" runat="server">
         </asp:ContentPlaceHolder>
+
+        <div class="apparel_upload_form" id="apparelUploadModal">
+            <div class="close_btn_container">
+                <i class='bx bx-x'></i>
+            </div>
+
+            <div class="camera_container">
+                <div id="webcam"></div>
+                <img id="imgCapture" alt="Captured image" />
+            </div>
+
+
+            <div class="input_container">
+                <p>Apparel Name</p>
+                <asp:TextBox ID="TextBox1" runat="server" CssClass="text_input"></asp:TextBox>
+            </div>
+            <div class="multi_input_container">
+                <div class="input_container">
+                    <p>Type of Apparel</p>
+                    <asp:DropDownList ID="apparelTypeDropDown" runat="server"
+                        CssClass="text_input">
+                        <asp:ListItem>Top</asp:ListItem>
+                        <asp:ListItem>Bottom</asp:ListItem>
+                        <asp:ListItem>Footwear</asp:ListItem>
+                        <asp:ListItem>Accessory</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="input_container">
+                    <p>Color</p>
+                </div>
+            </div>
+            <div class="multi_input_container">
+                <div class="input_container">
+                    <p>Size</p>
+                    <asp:TextBox ID="SizeInput" runat="server" CssClass="text_input" />
+                </div>
+                <div class="input_container" style="display: none;">
+                    <p>Type of Accessory</p>
+                    <asp:TextBox ID="AccessoryInput" runat="server" CssClass="text_input" placeholder="Watch, Necklace, Cap, etc..." />
+                </div>
+            </div>
+            <div class="input_container">
+                <p>Description</p>
+                <asp:TextBox ID="TextBox2" runat="server" CssClass="text_input" TextMode="MultiLine" Rows="5" />
+            </div>
+
+            <div class="cta_buttons_container">
+                <div>
+                    <i class='bx bxs-cloud-upload' style="font-size: 2.5rem; color: var(--tropical-indigo);"></i>
+                </div>
+                <div class="cta_capture_btn" id="btnCapture">
+                    <i class="fa fa-camera" style="font-size: 2.7rem; color: white;"></i>
+                </div>
+                <div>
+                    <i class="fa fa-check" id="btnUpload" style="font-size: 2rem; color: var(--tropical-indigo);"></i>
+                </div>
+            </div>
+
+        </div>
+
         <div class="bottom_bar">
             <div class="bottom_bar_item" style="position: absolute; left: 20%; transform: translate(-50%,0);">
                 <i class="fa fa-calendar"></i>
             </div>
-            <div class="bottom_bar_camera_btn">
+            <div class="bottom_bar_camera_btn" id="apparelUpload">
                 <i class="fa fa-camera"></i>
             </div>
             <div class="bottom_bar_item" style="position: absolute; left: 80%; transform: translate(-50%,0);">
@@ -34,5 +103,113 @@
             </div>
         </div>
     </form>
+
+
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js"></script>
+    <script type="text/javascript">
+
+        function toggleApparelUploadModal() {
+            if (isApparelUploadModalVisible) {
+                isApparelUploadModalVisible = false;
+                apparelUploadModal.css('top', '100%');
+            } else {
+                apparelUploadModal.css('top', '0%');
+                isApparelUploadModalVisible = true;
+            }
+        }
+
+        $(function () {
+            const webcamElement = $('#webcam');
+            const imgCapture = $('#imgCapture');
+            const captureBtn = $('#btnCapture');
+            const apparelUploadModal = $('#apparelUploadModal');
+
+            const apparelUploadBtn = $('#apparelUpload');
+
+            let isCaptureModeActive = true;
+            let isApparelUploadModalVisible = false;
+
+            apparelUploadBtn.click(toggleApparelUploadModal());
+
+            Webcam.set({
+                width: 640,
+                height: 480,
+                image_format: 'jpeg',
+                jpeg_quality: 90
+            });
+            Webcam.attach('#webcam');
+
+            captureBtn.click(function () {
+                if (isCaptureModeActive) {
+                    // Capture image
+                    Webcam.snap(function (data_uri) {
+                        imgCapture.attr('src', data_uri);
+                        webcamElement.hide();
+                        imgCapture.show();
+
+                        // Change button to retry mode
+                        captureBtn.find('i')
+                            .removeClass('fa-camera')
+                            .addClass('fa-refresh');
+                        isCaptureModeActive = false;
+                    });
+                } else {
+                    // Retry - switch back to camera
+                    webcamElement.show();
+                    imgCapture.hide();
+
+                    // Change button back to capture mode
+                    captureBtn.find('i')
+                        .removeClass('fa-refresh')
+                        .addClass('fa-camera');
+                    isCaptureModeActive = true;
+                }
+            });
+
+            $("#btnUpload").click(function () {
+                const imageData = imgCapture.attr('src');
+                if (!imageData) return;
+
+                $.ajax({
+                    type: "POST",
+                    url: "Default.aspx/SaveCapturedImage",
+                    data: JSON.stringify({ data: imageData }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (r) {
+                        console.log('Image uploaded successfully');
+                    },
+                    error: function (err) {
+                        console.error('Upload failed:', err);
+                    }
+                });
+            });
+        });
+
+
+        $(document).ready(function () {
+            function toggleAccessoryInput() {
+                var selectedValue = $("#<%= apparelTypeDropDown.ClientID %>").val();
+                var accessoryContainer = $("#<%= AccessoryInput.ClientID %>").parent();
+
+                if (selectedValue === "Accessory") {
+                    accessoryContainer.fadeIn();
+                } else {
+                    accessoryContainer.fadeOut();
+                    $("#<%= AccessoryInput.ClientID %>").val(''); // Clear the input when hidden
+                }
+            }
+
+            toggleAccessoryInput();
+
+            $("#<%= apparelTypeDropDown.ClientID %>").change(function () {
+                toggleAccessoryInput();
+            });
+
+        });
+    </script>
+
 </body>
 </html>

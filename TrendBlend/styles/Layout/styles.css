@@ -19,6 +19,7 @@ body {
     height: 100dvh;
     width: 100vw;
     background-color: dimgray;
+    overflow: hidden;
 }
 
 form {
@@ -28,6 +29,33 @@ form {
     position: relative;
     background-color: var(--magnolia);
 }
+
+.top_bar {
+    height: 70px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background-color: var(--periwinkle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-radius: 0 0 30px 30px;
+    color: var(--medium-slate-blue);
+    z-index: 10;
+}
+
+.top_bar_logo_text {
+    font-family: "Pacifico", serif;
+    font-size: 1.7rem;
+    text-shadow: 2px 2px 5px white;
+}
+
+.top_bar_user_account_btn {
+    font-size: 1.9rem;
+    color: white;
+}
+
 
 .bottom_bar {
     height: 70px;
@@ -62,4 +90,107 @@ form {
     justify-content: center;
     align-items: center;
     color: white;
+}
+
+.apparel_upload_form {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 100%;
+    left: 0%;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    backdrop-filter: blur(20px); /* Blur effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+.close_btn_container {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 2rem;
+    color: var(--tropical-indigo)
+}
+
+.camera_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50%;
+    background-color: var(--tropical-indigo);
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+#webcam, #imgCapture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#imgCapture {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.multi_input_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.input_container {
+    font-family: "Poppins", serif;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.text_input {
+    width: 100%;
+    padding: 7px 7px;
+    font-family: "Poppins";
+    font-size: 1rem;
+    background-color: var(--pale-purple);
+    border: 2px solid var(--medium-slate-blue);
+    border-radius: 5px;
+}
+
+    .text_input:focus {
+        outline: none;
+    }
+
+    .text_input::placeholder {
+        font-size: 0.7rem;
+    }
+
+.cta_buttons_container {
+    position: sticky;
+    bottom: 5px;
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cta_capture_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--tropical-indigo);
+    height: 80px;
+    aspect-ratio: 1/1;
+    padding: 15px;
+    border-radius: 50%;
 }
