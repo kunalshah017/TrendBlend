@@ -54,7 +54,7 @@ namespace TrendBlend.pages
             SqlConnection con = new SqlConnection(cs);
             string hashedPassword = HashPassword(passwordInput.Text);
 
-            string query = "SELECT FirstName, LastName FROM Users WHERE Username = @Username AND Password = @Password";
+            string query = "SELECT FirstName, LastName FROM Users WHERE UserName = @Username AND Password = @Password";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@Username", userNameInput.Text);
             cmd.Parameters.AddWithValue("@Password", hashedPassword);
@@ -69,9 +69,9 @@ namespace TrendBlend.pages
                         if (rememberMe.Checked)
                         {
                             HttpCookie userCookie = new HttpCookie("UserInfo");
-                            userCookie.Values["Username"] = userNameInput.Text;
+                            userCookie.Values["UserName"] = userNameInput.Text;
                             userCookie.Values["Password"] = hashedPassword;
-                            Session["Username"] = userNameInput.Text;
+                            Session["UserName"] = userNameInput.Text;
                             Session["FirstName"] = reader["FirstName"].ToString();
                             Session["LastName"] = reader["LastName"].ToString();
                             userCookie.Expires = DateTime.MaxValue;
@@ -79,7 +79,7 @@ namespace TrendBlend.pages
                         }
                         else
                         {
-                            Session["Username"] = userNameInput.Text;
+                            Session["UserName"] = userNameInput.Text;
                             Session["FirstName"] = reader["FirstName"].ToString();
                             Session["LastName"] = reader["LastName"].ToString();
                         }
