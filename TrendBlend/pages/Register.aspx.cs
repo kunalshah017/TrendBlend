@@ -97,10 +97,17 @@ namespace TrendBlend.pages
 
                 string hashedPassword = HashPassword(passwordInput.Text);
 
+                // Determine the selected color
+                string selectedColor = colorInput.SelectedValue;
+                if (string.IsNullOrEmpty(selectedColor))
+                {
+                    selectedColor = customColorPicker.Value;
+                }
+
                 // Add user to db and return the inserted data
                 query = @"INSERT INTO Users(FirstName, LastName, UserName, Password, Email, Age, FavouriteColor) 
-                         VALUES (@firstName, @lastName, @userName, @password, @email, @age, @favColor);
-                         SELECT FirstName, LastName FROM Users WHERE UserName = @userName;";
+                 VALUES (@firstName, @lastName, @userName, @password, @email, @age, @favColor);
+                 SELECT FirstName, LastName FROM Users WHERE UserName = @userName;";
 
                 cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@firstName", firstNameInput.Text);
@@ -109,14 +116,14 @@ namespace TrendBlend.pages
                 cmd.Parameters.AddWithValue("@password", hashedPassword);
                 cmd.Parameters.AddWithValue("@email", emailInput.Text);
                 cmd.Parameters.AddWithValue("@age", ageInput.Text);
-                cmd.Parameters.AddWithValue("@favColor", colorInput.SelectedValue);
+                cmd.Parameters.AddWithValue("@favColor", selectedColor);
 
                 con.Open();
                 using (SqlDataReader insertReader = cmd.ExecuteReader())
                 {
                     if (insertReader.Read())
                     {
-                        Session["Username"] = userNameInput.Text;
+                        Session["UserName"] = userNameInput.Text;
                         Session["FirstName"] = insertReader["FirstName"].ToString();
                         Session["LastName"] = insertReader["LastName"].ToString();
                         Response.Redirect("~/pages/Home.aspx");

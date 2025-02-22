@@ -364,4 +364,4 @@ FodyWeavers.xsd
 
 # DB Config
 db.config
-security.config
+env.config

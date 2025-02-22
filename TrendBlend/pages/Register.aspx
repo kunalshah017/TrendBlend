@@ -33,7 +33,7 @@
             <div class="multi_input_container">
                 <div class="input_container" style="flex-basis: 30%;">
                     <p>Age</p>
-                    <asp:TextBox ID="ageInput" runat="server" CssClass="text_input" TextMode="Number"></asp:TextBox>
+                    <asp:TextBox ID="ageInput" runat="server" CssClass="text_input" TextMode="Number" min="2"></asp:TextBox>
                 </div>
                 <div class="input_container" style="flex-basis: 70%;">
                     <p>Favourite Color</p>
@@ -73,6 +73,7 @@
         </div>
     </div>
     <script type="text/javascript">
+
         $(document).ready(function () {
             // Get references to all input elements
             var firstNameInput = $('#<%= firstNameInput.ClientID %>');
@@ -84,6 +85,7 @@
             var passwordInput = $('#<%= passwordInput.ClientID %>');
             var registerButton = $('#<%= registerButton.ClientID %>');
             var errorLabel = $('#<%= ErrorLabel.ClientID %>');
+            var customColorPicker = $('#<%= customColorPicker.ClientID %>');
 
             // Initially disable the button
             registerButton.prop('disabled', true);
@@ -129,7 +131,7 @@
                     errorLabel.show();
                     return false;
                 }
-                if (!color) {
+                if (!color && !customColorPicker.val()) {
                     errorLabel.text('Please select a color');
                     errorLabel.show();
                     return false;
@@ -178,44 +180,48 @@
             emailInput.on('input', updateButtonState);
             userNameInput.on('input', updateButtonState);
             passwordInput.on('input', updateButtonState);
+            customColorPicker.on('input change', updateButtonState);
 
             function updateColorPreview(color) {
                 $('.color-preview').css('background-color', color);
             }
 
-            $('#<%= customColorPicker.ClientID %>').on('change', function () {
+            customColorPicker.on('input change', function () {
                 var hexValue = $(this).val();
                 var $dropdown = $('#<%= colorInput.ClientID %>');
 
                 // Remove existing custom option if present
+                $dropdown.find('option[value="' + hexValue + '"]').remove();
                 $dropdown.find('option:contains("Custom Color")').remove();
 
                 // Add new custom option
                 $('<option>', {
                     value: hexValue,
-                    text: 'Custom Color'
+                    text: 'Custom Color: ' + hexValue,
+                    selected: true
                 }).appendTo($dropdown);
 
                 // Set the dropdown to the new value
                 $dropdown.val(hexValue);
-
-                // Update color preview
                 updateColorPreview(hexValue);
+                updateButtonState();
             });
 
-            // Initialize color preview with current dropdown value
-            $('#<%= colorInput.ClientID %>').on('change', function () {
+            // Handle dropdown changes
+            colorInput.on('change', function () {
                 var selectedColor = $(this).val();
-                $('#<%= customColorPicker.ClientID %>').val(selectedColor);
+                customColorPicker.val(selectedColor);
                 updateColorPreview(selectedColor);
+                updateButtonState();
             });
 
-            // Initial color preview
-            updateColorPreview($('#<%= colorInput.ClientID %>').val());
+            // Initialize custom color picker with a default color
+            customColorPicker.val('#000000');
 
             $('#backButton').on('click', function () {
-                window.location.href = '/pages/onboarding.aspx';
+                window.location.href = '/pages/Onboarding.aspx';
             });
         });
+
     </script>
 </asp:Content>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -17,7 +18,7 @@ namespace TrendBlend.layouts
                 HttpCookie userCookie = Request.Cookies["UserInfo"];
 
 
-                if (userCookie == null && Session["Username"] == null)
+                if (userCookie == null && Session["UserName"] == null)
                 {
                     // Not authenticated, redirect to login
                     Response.Redirect("~/pages/Onboarding.aspx");

@@ -47,21 +47,32 @@
                 <p>Apparel Name</p>
                 <asp:TextBox ID="TextBox1" runat="server" CssClass="text_input"></asp:TextBox>
             </div>
-            <div class="multi_input_container">
-                <div class="input_container">
-                    <p>Type of Apparel</p>
-                    <asp:DropDownList ID="apparelTypeDropDown" runat="server"
-                        CssClass="text_input">
-                        <asp:ListItem>Top</asp:ListItem>
-                        <asp:ListItem>Bottom</asp:ListItem>
-                        <asp:ListItem>Footwear</asp:ListItem>
-                        <asp:ListItem>Accessory</asp:ListItem>
-                    </asp:DropDownList>
-                </div>
-                <div class="input_container">
-                    <p>Color</p>
+
+            <div class="input_container">
+                <p>Type of Apparel</p>
+                <asp:DropDownList ID="apparelTypeDropDown" runat="server"
+                    CssClass="text_input">
+                    <asp:ListItem>Top</asp:ListItem>
+                    <asp:ListItem>Bottom</asp:ListItem>
+                    <asp:ListItem>Footwear</asp:ListItem>
+                    <asp:ListItem>Accessory</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+
+            <div class="input_container">
+                <p>Select your Apparel Color</p>
+                <div class="color_input_container">
+                    <div class="color_selector">
+                        <input type="color" id="customColorInput" class="custom_color_input" value="#ffffff">
+                        <i class='bx bxs-pencil custom_color_icon'></i>
+                        <asp:HiddenField ID="selectedColorInput" runat="server" EnableViewState="true" />
+                    </div>
+                    <div class="dominant_colors_container">
+                        <!-- Dominant colors will be added here dynamically -->
+                    </div>
                 </div>
             </div>
+
             <div class="multi_input_container">
                 <div class="input_container">
                     <p>Size</p>
@@ -77,15 +88,18 @@
                 <asp:TextBox ID="TextBox2" runat="server" CssClass="text_input" TextMode="MultiLine" Rows="5" />
             </div>
 
+            <input type="file" id="fileInput" accept="image/jpeg,image/png" style="display: none;">
+
             <div class="cta_buttons_container">
-                <div>
+                <div id="btnUpload" class="upload_btn">
                     <i class='bx bxs-cloud-upload' style="font-size: 2.5rem; color: var(--tropical-indigo);"></i>
                 </div>
+
                 <div class="cta_capture_btn" id="btnCapture">
                     <i class="fa fa-camera" style="font-size: 2.7rem; color: white;"></i>
                 </div>
                 <div>
-                    <i class="fa fa-check" id="btnUpload" style="font-size: 2rem; color: var(--tropical-indigo);"></i>
+                    <i class="fa fa-check" id="finalSubmit" style="font-size: 2rem; color: var(--tropical-indigo);"></i>
                 </div>
             </div>
 
@@ -104,63 +118,240 @@
         </div>
     </form>
 
-
-
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js"></script>
-    <script type="text/javascript">
 
-        function toggleApparelUploadModal() {
-            if (isApparelUploadModalVisible) {
-                isApparelUploadModalVisible = false;
-                apparelUploadModal.css('top', '100%');
-            } else {
-                apparelUploadModal.css('top', '0%');
-                isApparelUploadModalVisible = true;
-            }
-        }
+    <script type="text/javascript">
+        // Add Color-Thief library to head first
+        const colorThiefScript = document.createElement('script');
+        colorThiefScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js';
+        document.head.appendChild(colorThiefScript);
 
         $(function () {
             const webcamElement = $('#webcam');
             const imgCapture = $('#imgCapture');
             const captureBtn = $('#btnCapture');
-            const apparelUploadModal = $('#apparelUploadModal');
-
-            const apparelUploadBtn = $('#apparelUpload');
+            const apparelUploadModal = $('.apparel_upload_form');
+            const apparelUploadBtn = $('.bottom_bar_camera_btn');
+            const closeModalBtn = $('.close_btn_container .bx-x');
+            const customColorInput = $('#customColorInput');
+            const selectedColorInput = $("[id$='selectedColorInput']");
+            const dominantColorsContainer = $('.dominant_colors_container');
+            const fileInput = $('#fileInput');
+            const uploadBtn = $('#btnUpload');
+            const finalSubmitBtn = $('#finalSubmit');
+            const username = '<%= Session["UserName"] %>';
 
             let isCaptureModeActive = true;
-            let isApparelUploadModalVisible = false;
+            let isWebcamAttached = false;
+            let selectedColorBox = null;
 
-            apparelUploadBtn.click(toggleApparelUploadModal());
+            function selectColor(color, element) {
+                $('.color_box').removeClass('selected');
 
+                if (element) {
+                    $(element).addClass('selected');
+                    selectedColorBox = element;
+                    // Update custom color input background
+                    const hexColor = rgbToHex(color);
+                    customColorInput.val(hexColor);
+                    customColorInput[0].style.backgroundColor = hexColor;
+                } else {
+                    selectedColorBox = null;
+                    // For direct color input changes
+                    customColorInput[0].style.backgroundColor = color;
+                }
+
+                selectedColorInput.val(color);
+            }
+
+            // Custom color input handler
+            customColorInput.on('input change', function () {
+                const color = this.value;
+                this.style.backgroundColor = color;
+                selectColor(color);
+            });
+
+
+            function extractDominantColors(imageElement, numColors) {
+                const colorThief = new ColorThief();
+                try {
+                    const palette = colorThief.getPalette(imageElement, numColors);
+                    return palette.map(color => `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
+                } catch (error) {
+                    console.error('Color extraction failed:', error);
+                    return [];
+                }
+            }
+
+            function rgbToHex(rgb) {
+                if (rgb.startsWith('#')) return rgb;
+                const rgbArray = rgb.match(/\d+/g);
+                if (!rgbArray) return rgb;
+                const hex = rgbArray.map(x => {
+                    const hexValue = parseInt(x).toString(16);
+                    return hexValue.length === 1 ? '0' + hexValue : hexValue;
+                });
+                return '#' + hex.join('');
+            }
+
+            // Modal Controls
+            function showModal() {
+                apparelUploadModal.addClass('visible');
+                if (!isWebcamAttached) {
+                    Webcam.attach('#webcam');
+                    isWebcamAttached = true;
+                }
+            }
+
+            function hideModal() {
+                apparelUploadModal.removeClass('visible');
+                if (isWebcamAttached) {
+                    Webcam.reset();
+                    isWebcamAttached = false;
+                }
+                webcamElement.show();
+                imgCapture.hide();
+                captureBtn.find('i')
+                    .removeClass('fa-refresh')
+                    .addClass('fa-camera');
+                isCaptureModeActive = true;
+                dominantColorsContainer.empty();
+                selectColor(customColorInput.val());
+                fileInput.val(''); // Reset file input
+            }
+
+            function validateFormInputs() {
+                const apparelName = $("[id$='TextBox1']").val().trim();
+                const apparelType = $("[id$='apparelTypeDropDown']").val();
+                const color = $("[id$='selectedColorInput']").val();
+                const size = $("[id$='SizeInput']").val().trim();
+                const accessoryType = $("[id$='AccessoryInput']").val().trim();
+                const description = $("[id$='TextBox2']").val().trim();
+                const imageData = imgCapture.attr('src');
+
+                let errors = [];
+
+                // Image validation
+                if (!imageData) {
+                    errors.push("Please capture or upload an image");
+                }
+
+                // Apparel name validation
+                if (!apparelName) {
+                    errors.push("Apparel name is required");
+                } else if (apparelName.length < 3) {
+                    errors.push("Apparel name must be at least 3 characters long");
+                } else if (apparelName.length > 100) {
+                    errors.push("Apparel name must not exceed 100 characters");
+                }
+
+                // Apparel type validation
+                if (!apparelType) {
+                    errors.push("Please select an apparel type");
+                }
+
+                // Color validation
+                if (!color) {
+                    errors.push("Please select a color");
+                }
+
+                // Size validation
+                if (!size) {
+                    errors.push("Size is required");
+                } else if (size.length > 20) {
+                    errors.push("Size must not exceed 20 characters");
+                }
+
+                // Accessory type validation (only if apparel type is "Accessory")
+                if (apparelType === "Accessory" && !accessoryType) {
+                    errors.push("Please specify the type of accessory");
+                }
+
+                // Description validation
+                if (description.length > 1000) {
+                    errors.push("Description must not exceed 1000 characters");
+                }
+
+                return {
+                    isValid: errors.length === 0,
+                    errors: errors
+                };
+            }
+
+            // Add this helper function to display errors
+            function showValidationErrors(errors) {
+                const errorList = errors.join('\n• ');
+                alert('Please fix the following errors:\n\n• ' + errorList);
+            }
+
+            // Event Listeners
+            apparelUploadBtn.click(function (e) {
+                e.preventDefault();
+                showModal();
+            });
+
+            closeModalBtn.click(function (e) {
+                e.preventDefault();
+                hideModal();
+            });
+
+            customColorInput.on('input change', function () {
+                selectColor(this.value);
+            });
+
+            // Webcam Configuration
             Webcam.set({
                 width: 640,
                 height: 480,
                 image_format: 'jpeg',
                 jpeg_quality: 90
             });
-            Webcam.attach('#webcam');
 
+            // Capture Button Handler
             captureBtn.click(function () {
                 if (isCaptureModeActive) {
-                    // Capture image
                     Webcam.snap(function (data_uri) {
                         imgCapture.attr('src', data_uri);
                         webcamElement.hide();
                         imgCapture.show();
 
-                        // Change button to retry mode
+                        // Extract colors after image is loaded
+                        const img = new Image();
+                        img.onload = function () {
+                            const dominantColors = extractDominantColors(this, 5);
+                            dominantColorsContainer.empty();
+
+                            // Add dominant color boxes
+                            dominantColors.forEach((color, index) => {
+                                const colorBox = $('<div>')
+                                    .addClass('color_box')
+                                    .css('background-color', color)
+                                    .click(function () {
+                                        selectColor(color, this);
+                                    });
+                                dominantColorsContainer.append(colorBox);
+
+                                if (index === 0) {
+                                    selectColor(color, colorBox);
+                                }
+                            });
+                        };
+
+                        img.crossOrigin = "Anonymous"; // Add this line to handle CORS
+                        img.src = data_uri;
+
                         captureBtn.find('i')
                             .removeClass('fa-camera')
                             .addClass('fa-refresh');
                         isCaptureModeActive = false;
                     });
                 } else {
-                    // Retry - switch back to camera
                     webcamElement.show();
                     imgCapture.hide();
+                    dominantColorsContainer.empty();
+                    selectColor(customColorInput.val());
 
-                    // Change button back to capture mode
                     captureBtn.find('i')
                         .removeClass('fa-refresh')
                         .addClass('fa-camera');
@@ -168,27 +359,127 @@
                 }
             });
 
-            $("#btnUpload").click(function () {
-                const imageData = imgCapture.attr('src');
-                if (!imageData) return;
 
+            uploadBtn.click(function (e) {
+                console.log("click");
+                e.preventDefault();
+                fileInput.click();
+            });
+
+            fileInput.change(function (e) {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        // Hide webcam and show uploaded image
+                        webcamElement.hide();
+                        imgCapture.attr('src', e.target.result).show();
+
+                        // Extract colors from uploaded image
+                        const img = new Image();
+                        img.onload = function () {
+                            const dominantColors = extractDominantColors(this, 5);
+                            dominantColorsContainer.empty();
+
+                            // Add dominant color boxes
+                            dominantColors.forEach((color, index) => {
+                                const colorBox = $('<div>')
+                                    .addClass('color_box')
+                                    .css('background-color', color)
+                                    .click(function () {
+                                        selectColor(color, this);
+                                    });
+                                dominantColorsContainer.append(colorBox);
+
+                                if (index === 0) {
+                                    selectColor(color, colorBox);
+                                }
+                            });
+                        };
+
+                        img.crossOrigin = "Anonymous";
+                        img.src = e.target.result;
+
+                        // Update capture button to show refresh icon
+                        captureBtn.find('i')
+                            .removeClass('fa-camera')
+                            .addClass('fa-refresh');
+                        isCaptureModeActive = false;
+                    };
+
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            finalSubmitBtn.click(function (e) {
+                e.preventDefault();
+
+                const validation = validateFormInputs();
+                if (!validation.isValid) {
+                    showValidationErrors(validation.errors);
+                    return;
+                }
+
+                // Get form values
+                const apparelName = $("[id$='TextBox1']").val();
+                const apparelType = $("[id$='apparelTypeDropDown']").val();
+                const color = $("[id$='selectedColorInput']").val();
+                const size = $("[id$='SizeInput']").val();
+                const accessoryType = $("[id$='AccessoryInput']").val();
+                const description = $("[id$='TextBox2']").val();
+
+                // Get image data
+                const imageData = imgCapture.attr('src');
+
+                if (!imageData) {
+                    alert('Please capture or upload an image first');
+                    return;
+                }
+
+                if (!apparelName || !apparelType || !color || !size) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+
+                // Show loading state
+                finalSubmitBtn.addClass('loading');
+
+                // Submit data
                 $.ajax({
                     type: "POST",
-                    url: "Default.aspx/SaveCapturedImage",
-                    data: JSON.stringify({ data: imageData }),
+                    url: "/services/ApparelService.asmx/SubmitApparel",
+                    data: JSON.stringify({
+                        username: username,
+                        imageData: imageData,
+                        apparelName: apparelName,
+                        apparelType: apparelType,
+                        color: color,
+                        size: size,
+                        accessoryType: accessoryType,
+                        description: description
+                    }),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (r) {
-                        console.log('Image uploaded successfully');
+                    success: function (response) {
+                        if (response.d === "success") {
+                            alert('Apparel added successfully!');
+                            hideModal();
+                            location.reload(); // Refresh page to show new apparel
+                        } else {
+                            alert('Error: ' + response.d);
+                        }
                     },
-                    error: function (err) {
-                        console.error('Upload failed:', err);
+                    error: function () {
+                        alert('Error submitting apparel');
+                    },
+                    complete: function () {
+                        finalSubmitBtn.removeClass('loading');
                     }
                 });
             });
         });
 
-
+        // Accessory input toggle function
         $(document).ready(function () {
             function toggleAccessoryInput() {
                 var selectedValue = $("#<%= apparelTypeDropDown.ClientID %>").val();
@@ -198,7 +489,7 @@
                     accessoryContainer.fadeIn();
                 } else {
                     accessoryContainer.fadeOut();
-                    $("#<%= AccessoryInput.ClientID %>").val(''); // Clear the input when hidden
+                    $("#<%= AccessoryInput.ClientID %>").val('');
                 }
             }
 
@@ -207,9 +498,11 @@
             $("#<%= apparelTypeDropDown.ClientID %>").change(function () {
                 toggleAccessoryInput();
             });
-
         });
+
+
     </script>
+
 
 </body>
 </html>

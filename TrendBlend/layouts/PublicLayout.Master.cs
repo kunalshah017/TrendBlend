@@ -21,9 +21,9 @@ namespace TrendBlend.layouts
 
                 SqlConnection con = new SqlConnection(cs);
 
-                string query = "SELECT FirstName, LastName FROM Users WHERE Username = @Username AND Password = @Password";
+                string query = "SELECT UserName, FirstName, LastName FROM Users WHERE UserName = @Username AND Password = @Password";
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Username", userCookie["Username"].ToString());
+                cmd.Parameters.AddWithValue("@Username", userCookie["UserName"].ToString());
                 cmd.Parameters.AddWithValue("@Password", userCookie["Password"].ToString());
 
                 try
@@ -34,7 +34,7 @@ namespace TrendBlend.layouts
                         if (reader.Read())
                         {
                             userCookie.Expires = DateTime.MaxValue;
-                            Session["Username"] = userCookie["Username"].ToString();
+                            Session["UserName"] = reader["UserName"].ToString();
                             Session["FirstName"] = reader["FirstName"].ToString();
                             Session["LastName"] = reader["LastName"].ToString();
                             Response.Cookies.Add(userCookie);
