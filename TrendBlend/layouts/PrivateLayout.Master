@@ -442,7 +442,8 @@
                 }
 
                 // Show loading state
-                finalSubmitBtn.addClass('loading');
+                finalSubmitBtn.prop('disabled', true);
+                captureBtn.find('i').addClass('loading-spinner');
 
                 // Submit data
                 $.ajax({
