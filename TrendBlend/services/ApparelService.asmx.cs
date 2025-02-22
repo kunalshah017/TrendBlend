@@ -109,7 +109,7 @@ namespace TrendBlend.services
                         // Insert Apparel
                         string insertQuery = @"INSERT INTO Apparels 
                     (UserID, Name, Type, Size, AccessoryType, Description, ImageUrl, CreatedAt, R, G, B) 
-                    VALUES (@UserID, @Name, @Type, @Size, @AccessoryType, @Description, @ImageUrl, GETDATE())";
+                    VALUES (@UserID, @Name, @Type, @Size, @AccessoryType, @Description, @ImageUrl, GETDATE(), @R, @G, @B)";
 
                         using (SqlCommand cmd = new SqlCommand(insertQuery, con))
                         {
