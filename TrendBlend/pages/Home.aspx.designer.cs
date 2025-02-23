@@ -42,6 +42,15 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.HyperLink topviewmore;
 
         /// <summary>
+        /// topsSlider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater topsSlider;
+
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace TrendBlend.pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+
+        /// <summary>
+        /// bottomsSlider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater bottomsSlider;
 
         /// <summary>
         /// Label2 control.
@@ -78,6 +96,15 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
 
         /// <summary>
+        /// footwearsSlider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater footwearsSlider;
+
+        /// <summary>
         /// Label3 control.
         /// </summary>
         /// <remarks>
@@ -94,5 +121,14 @@ namespace TrendBlend.pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink3;
+
+        /// <summary>
+        /// accessoriesSlider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater accessoriesSlider;
     }
 }

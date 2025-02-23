@@ -8,7 +8,6 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
-using System.Diagnostics.Eventing.Reader;
 
 namespace TrendBlend.pages
 {
@@ -25,8 +24,62 @@ namespace TrendBlend.pages
                 {
                     // User is in session
                     userNameLabel.Text = Session["FirstName"].ToString();
+                    LoadApparels(Session["UserName"].ToString());
                 }
             }
+        }
+
+        private void LoadApparels(string username)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                string query = "SELECT * FROM Apparels WHERE UserID = (SELECT Id FROM Users WHERE UserName = @Username)";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Username", username);
+
+                try
+                {
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    List<Apparel> apparels = new List<Apparel>();
+
+                    while (reader.Read())
+                    {
+                        apparels.Add(new Apparel
+                        {
+                            Name = reader["Name"].ToString(),
+                            Type = reader["Type"].ToString(),
+                            Size = reader["Size"].ToString(),
+                            AccessoryType = reader["AccessoryType"].ToString(),
+                            Description = reader["Description"].ToString(),
+                            ImageUrl = reader["ImageUrl"].ToString()
+                        });
+                    }
+
+                    // Bind the apparels to the UI
+                    BindApparels(apparels);
+                }
+                catch (Exception ex)
+                {
+                    // Handle exception
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        private void BindApparels(List<Apparel> apparels)
+        {
+            // Bind the apparels to the sliders
+            BindSlider(apparels.Where(a => a.Type == "Top").ToList(), topsSlider);
+            BindSlider(apparels.Where(a => a.Type == "Bottom").ToList(), bottomsSlider);
+            BindSlider(apparels.Where(a => a.Type == "Footwear").ToList(), footwearsSlider);
+            BindSlider(apparels.Where(a => a.Type == "Accessory").ToList(), accessoriesSlider);
+        }
+
+        private void BindSlider(List<Apparel> apparels, Repeater repeater)
+        {
+            repeater.DataSource = apparels;
+            repeater.DataBind();
         }
 
         protected void LogoutButton_Click(object sender, EventArgs e)
@@ -45,5 +98,15 @@ namespace TrendBlend.pages
             // Redirect to login
             Response.Redirect("~/pages/SignIn.aspx");
         }
+    }
+
+    public class Apparel
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public string Size { get; set; }
+        public string AccessoryType { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

@@ -42,13 +42,13 @@ namespace TrendBlend.layouts
         protected global::System.Web.UI.WebControls.ContentPlaceHolder body;
 
         /// <summary>
-        /// TextBox1 control.
+        /// ApparelNameInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox ApparelNameInput;
 
         /// <summary>
         /// apparelTypeDropDown control.
@@ -87,12 +87,12 @@ namespace TrendBlend.layouts
         protected global::System.Web.UI.WebControls.TextBox AccessoryInput;
 
         /// <summary>
-        /// TextBox2 control.
+        /// ApparelDescriptionInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox ApparelDescriptionInput;
     }
 }

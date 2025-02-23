@@ -23,62 +23,62 @@
                     <asp:HyperLink ID="topviewmore" runat="server" NavigateUrl="/pages/Register.aspx">View More></asp:HyperLink>
                 </div>
                 <div class="slider">
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
+                    <asp:Repeater ID="topsSlider" runat="server">
+                        <ItemTemplate>
+                            <div>
+                                <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Name") %>' />
+                                <p><%# Eval("Name") %></p>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
             </div>
             <div class="slider_container">
                 <div class="slider_title_container">
-                    <asp:Label ID="Label1" runat="server" Text="Tops" CssClass="slider_title"></asp:Label>
+                    <asp:Label ID="Label1" runat="server" Text="Bottoms" CssClass="slider_title"></asp:Label>
                     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/pages/Register.aspx">View More></asp:HyperLink>
                 </div>
                 <div class="slider">
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
+                    <asp:Repeater ID="bottomsSlider" runat="server">
+                        <ItemTemplate>
+                            <div>
+                                <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Name") %>' />
+                                <p><%# Eval("Name") %></p>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
             </div>
             <div class="slider_container">
                 <div class="slider_title_container">
-                    <asp:Label ID="Label2" runat="server" Text="Tops" CssClass="slider_title"></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text="Footwears" CssClass="slider_title"></asp:Label>
                     <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="/pages/Register.aspx">View More></asp:HyperLink>
                 </div>
                 <div class="slider">
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
+                    <asp:Repeater ID="footwearsSlider" runat="server">
+                        <ItemTemplate>
+                            <div>
+                                <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Name") %>' />
+                                <p><%# Eval("Name") %></p>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
             </div>
             <div class="slider_container">
                 <div class="slider_title_container">
-                    <asp:Label ID="Label3" runat="server" Text="Tops" CssClass="slider_title"></asp:Label>
+                    <asp:Label ID="Label3" runat="server" Text="Accessories" CssClass="slider_title"></asp:Label>
                     <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="/pages/Register.aspx">View More></asp:HyperLink>
                 </div>
                 <div class="slider">
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
-                    <div>
-                    </div>
+                    <asp:Repeater ID="accessoriesSlider" runat="server">
+                        <ItemTemplate>
+                            <div>
+                                <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Name") %>' />
+                                <p><%# Eval("Name") %></p>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
             </div>
         </div>
