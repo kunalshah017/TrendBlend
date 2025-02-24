@@ -28,7 +28,7 @@ namespace TrendBlend.pages
         {
             FirstNameLabel.Text = Session["FirstName"].ToString();
             UserNameLabel.Text = Session["UserName"].ToString();
-            ProfileImage.ImageUrl = $"https://api.dicebear.com/9.x/dylan/svg?seed={Session["UserName"].ToString()}&facialHairProbability=0&backgroundColor=7573fc,a695f9,cec2ff";
+            ProfileImage.ImageUrl = $"https://api.dicebear.com/9.x/dylan/svg?seed={Session["UserName"].ToString()}&facialHairProbability=0&backgroundColor=7573fc,a695f9,cec2ff&mood=happy,superHappy";
             Page.Title = $"TrendBlend | {Session["UserName"].ToString()}";
         }
 
