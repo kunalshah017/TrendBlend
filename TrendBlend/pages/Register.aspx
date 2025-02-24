@@ -86,7 +86,6 @@
             var registerButton = $('#<%= registerButton.ClientID %>');
             var errorLabel = $('#<%= ErrorLabel.ClientID %>');
             var customColorPicker = $('#<%= customColorPicker.ClientID %>');
-
             // Initially disable the button
             registerButton.prop('disabled', true);
             registerButton.css('opacity', '0.5');

@@ -47,13 +47,45 @@ form {
 
 .top_bar_logo_text {
     font-family: "Pacifico", serif;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     text-shadow: 2px 2px 5px white;
+    text-decoration: none;
+    color: var(--medium-slate-blue);
+}
+
+.back_button {
+    font-family: "Pacifico", serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--medium-slate-blue);
+    font-size: 1.5rem;
+}
+
+    .back_button p {
+        font-size: 1.2rem;
+        color: var(--medium-slate-blue);
+    }
+
+.right_button_panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.top_bar_search_btn {
+    margin-top: 3px;
+    font-size: 2rem;
+    color: white;
+    text-decoration: none;
 }
 
 .top_bar_user_account_btn {
     font-size: 1.9rem;
     color: white;
+    text-decoration: none;
 }
 
 

@@ -96,7 +96,7 @@
 
     .slider div {
         height: 180px;
-        width: 150px;
+        min-width: 150px;
         background-color: var(--tropical-indigo);
         border-radius: 20px;
         display: flex;

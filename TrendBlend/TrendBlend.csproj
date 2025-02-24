@@ -141,15 +141,25 @@
     <Content Include="assets\dress_icons\woman-dress-1.svg" />
     <Content Include="assets\dress_icons\woman-dress-2.svg" />
     <Content Include="assets\dress_icons\woman-shirt-1.svg" />
+    <Content Include="assets\favicon\favicon-16x16.png" />
+    <Content Include="assets\favicon\favicon-180x180.png" />
+    <Content Include="assets\favicon\favicon-32x32.png" />
+    <Content Include="assets\images\og-image.png" />
     <Content Include="Default.aspx" />
+    <Content Include="pages\Apparel.aspx" />
     <Content Include="pages\Home.aspx" />
     <Content Include="pages\Account.aspx" />
     <Content Include="pages\Onboarding.aspx" />
+    <Content Include="pages\Search.aspx" />
+    <Content Include="pages\Settings.aspx" />
     <Content Include="pages\SignIn.aspx" />
     <Content Include="pages\Register.aspx" />
     <Content Include="services\ApparelService.asmx" />
+    <Content Include="styles\Account\styles.css" />
+    <Content Include="styles\Apparel\styles.css" />
     <Content Include="styles\Home\styles.css" />
     <Content Include="styles\Layout\styles.css" />
+    <Content Include="styles\Search\styles.css" />
     <Content Include="styles\SignIn\styles.css" />
     <Content Include="styles\Onboarding\styles.css" />
     <Content Include="styles\Register\styles.css" />
@@ -177,6 +187,13 @@
     <Compile Include="layouts\PublicLayout.Master.designer.cs">
       <DependentUpon>PublicLayout.Master</DependentUpon>
     </Compile>
+    <Compile Include="pages\Apparel.aspx.cs">
+      <DependentUpon>Apparel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Apparel.aspx.designer.cs">
+      <DependentUpon>Apparel.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pages\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -197,6 +214,20 @@
     </Compile>
     <Compile Include="pages\Onboarding.aspx.designer.cs">
       <DependentUpon>Onboarding.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
@@ -233,9 +264,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="images\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

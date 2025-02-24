@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/layouts/PrivateLayout.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="TrendBlend.pages.WebForm1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>TrendBlend | Home</title>
     <link href="/styles/Home/styles.css" rel="stylesheet" />
 </asp:Content>
 
@@ -20,12 +21,14 @@
             <div class="slider_container">
                 <div class="slider_title_container">
                     <asp:Label ID="sliderTitle" runat="server" Text="Tops" CssClass="slider_title"></asp:Label>
-                    <asp:HyperLink ID="topviewmore" runat="server" NavigateUrl="/pages/Register.aspx">View More></asp:HyperLink>
+                    <asp:HyperLink ID="topviewmore" runat="server" NavigateUrl="~/pages/Search.aspx?type=Top">
+                        View More
+                    </asp:HyperLink>
                 </div>
                 <div class="slider">
                     <asp:Repeater ID="topsSlider" runat="server">
                         <ItemTemplate>
-                            <div>
+                            <div class="apparel-item" onclick="window.location.href='/pages/Apparel.aspx?id=<%# Eval("Id") %>'">
                                 <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Name") %>' />
                                 <p><%# Eval("Name") %></p>
                             </div>
@@ -36,12 +39,14 @@
             <div class="slider_container">
                 <div class="slider_title_container">
                     <asp:Label ID="Label1" runat="server" Text="Bottoms" CssClass="slider_title"></asp:Label>
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/pages/Register.aspx">View More></asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/pages/Search.aspx?type=Bottom">
+                        View More
+                    </asp:HyperLink>
                 </div>
                 <div class="slider">
                     <asp:Repeater ID="bottomsSlider" runat="server">
                         <ItemTemplate>
-                            <div>
+                            <div class="apparel-item" onclick="window.location.href='/pages/Apparel.aspx?id=<%# Eval("Id") %>'">
                                 <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Name") %>' />
                                 <p><%# Eval("Name") %></p>
                             </div>
@@ -52,12 +57,14 @@
             <div class="slider_container">
                 <div class="slider_title_container">
                     <asp:Label ID="Label2" runat="server" Text="Footwears" CssClass="slider_title"></asp:Label>
-                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="/pages/Register.aspx">View More></asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/pages/Search.aspx?type=Footwear">
+                        View More
+                    </asp:HyperLink>
                 </div>
                 <div class="slider">
                     <asp:Repeater ID="footwearsSlider" runat="server">
                         <ItemTemplate>
-                            <div>
+                            <div class="apparel-item" onclick="window.location.href='/pages/Apparel.aspx?id=<%# Eval("Id") %>'">
                                 <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Name") %>' />
                                 <p><%# Eval("Name") %></p>
                             </div>
@@ -68,12 +75,14 @@
             <div class="slider_container">
                 <div class="slider_title_container">
                     <asp:Label ID="Label3" runat="server" Text="Accessories" CssClass="slider_title"></asp:Label>
-                    <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="/pages/Register.aspx">View More></asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/pages/Search.aspx?type=Accessory">
+                        View More
+                    </asp:HyperLink>
                 </div>
                 <div class="slider">
                     <asp:Repeater ID="accessoriesSlider" runat="server">
                         <ItemTemplate>
-                            <div>
+                            <div class="apparel-item" onclick="window.location.href='/pages/Apparel.aspx?id=<%# Eval("Id") %>'">
                                 <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Name") %>' />
                                 <p><%# Eval("Name") %></p>
                             </div>

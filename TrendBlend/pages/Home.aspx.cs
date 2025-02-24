@@ -47,6 +47,7 @@ namespace TrendBlend.pages
                     {
                         apparels.Add(new Apparel
                         {
+                            Id = Convert.ToInt32(reader["ApparelId"]),
                             Name = reader["Name"].ToString(),
                             Type = reader["Type"].ToString(),
                             Size = reader["Size"].ToString(),
@@ -102,6 +103,7 @@ namespace TrendBlend.pages
 
     public class Apparel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public string Size { get; set; }

@@ -4,11 +4,34 @@
 
 <html>
 <head runat="server">
-
-    <title>TrendBlend | Home</title>
-
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
+    <!-- Basic Meta Tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="TrendBlend - Your Personal Digital Wardrobe" />
+    <meta name="keywords" content="wardrobe, fashion, clothing, personal style, outfit management" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/favicon/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="~/assets/favicon/favicon-180x180.png" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://trendblend.com/" />
+    <meta property="og:title" content="TrendBlend - Your Personal Digital Wardrobe" />
+    <meta property="og:description" content="Organize and manage your wardrobe digitally with TrendBlend" />
+    <meta property="og:image" content="~/assets/images/og-image.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://trendblend.com/" />
+    <meta property="twitter:title" content="TrendBlend - Your Personal Digital Wardrobe" />
+    <meta property="twitter:description" content="Organize and manage your wardrobe digitally with TrendBlend" />
+    <meta property="twitter:image" content="~/assets/images/og-image.png" />
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,10 +46,25 @@
     <form id="serverComponentsForm" runat="server">
 
         <div class="top_bar">
-            <p class="top_bar_logo_text">Trend Blend</p>
-            <div class="top_bar_user_account_btn">
-                <i class="fa fa-user"></i>
-            </div>
+            <asp:Panel ID="LogoPanel" runat="server" CssClass="top_bar_logo_text">
+                <p>Trend Blend</p>
+            </asp:Panel>
+
+            <asp:Panel ID="BackButtonPanel" runat="server" Visible="false">
+                <asp:HyperLink ID="BackLink" runat="server" NavigateUrl="~/pages/Home.aspx" CssClass="back_button">
+                    <i class="fa fa-arrow-left"></i>
+                    <asp:Label ID="backLabel" runat="server"></asp:Label>
+                </asp:HyperLink>
+            </asp:Panel>
+
+            <asp:Panel ID="RightButtonPanel" runat="server" CssClass="right_button_panel">
+                <asp:HyperLink ID="SearchLink" runat="server" NavigateUrl="~/pages/Search.aspx" CssClass="top_bar_search_btn">
+                    <i class='bx bx-search-alt' ></i>               
+                </asp:HyperLink>
+                <asp:HyperLink ID="TopBarRightLink" runat="server" NavigateUrl="~/pages/Account.aspx" CssClass="top_bar_user_account_btn">
+                    <i id="TopBarRightIcon" runat="server" class="fa fa-user"></i>
+                </asp:HyperLink>
+            </asp:Panel>
         </div>
 
         <asp:ContentPlaceHolder ID="body" runat="server">
@@ -123,8 +161,8 @@
             <div class="bottom_bar_item" style="position: absolute; left: 20%; transform: translate(-50%,0);">
                 <i class="fa fa-calendar"></i>
             </div>
-            <div class="bottom_bar_camera_btn" id="apparelUpload">
-                <i class="fa fa-camera"></i>
+            <div class="bottom_bar_camera_btn" id="apparelUpload" style="font-size: 3rem;">
+                <i class='bx bx-plus'></i>
             </div>
             <div class="bottom_bar_item" style="position: absolute; left: 80%; transform: translate(-50%,0);">
                 <i class="fa fa-star"></i>
