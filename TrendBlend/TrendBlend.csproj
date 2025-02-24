@@ -160,6 +160,7 @@
     <Content Include="styles\Home\styles.css" />
     <Content Include="styles\Layout\styles.css" />
     <Content Include="styles\Search\styles.css" />
+    <Content Include="styles\Settings\styles.css" />
     <Content Include="styles\SignIn\styles.css" />
     <Content Include="styles\Onboarding\styles.css" />
     <Content Include="styles\Register\styles.css" />
