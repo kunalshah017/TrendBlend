@@ -1,0 +1,92 @@
+﻿:root {
+    --pale-purple: hsla(269, 49%, 90%, 1);
+    --magnolia: hsla(263, 100%, 97%, 1);
+    --periwinkle: hsla(252, 100%, 88%, 1);
+    --tropical-indigo: hsla(250, 89%, 78%, 1);
+    --medium-slate-blue: hsla(241, 96%, 72%, 1);
+}
+
+.main_container {
+    padding: 120px 0 70px 0;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.account_info_container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    padding: 0 30px;
+}
+
+.user_profile_picture {
+    flex-basis: 25%;
+    display: flex;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+    .user_profile_picture img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+.account_info {
+    display: flex;
+    flex-direction: column;
+    line-height: 35px;
+}
+
+.account_info_fname {
+    font-family: "Pacifico",serif;
+    font-size: 2rem;
+    color: var(--medium-slate-blue);
+}
+
+.account_info_uname {
+    font-family: "Poppins", serif;
+    font-size: 1.3rem;
+    color: var(--tropical-indigo);
+}
+
+.apparels_stats_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+}
+
+.apparel_stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 35px;
+    font-family: "Poppins",serif;
+}
+
+.apparel_number {
+    font-size: 2rem;
+    color: var(--medium-slate-blue);
+}
+
+.apparel_type {
+    font-family: "Pacifico", serif;
+    color: var(--medium-slate-blue);
+}
+
+.fav_blends_title {
+    width: 100%;
+    font-family: "Poppins",serif;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--medium-slate-blue);
+    padding: 10px 0 15px 0;
+    border-bottom: 2px solid var(--tropical-indigo);
+}

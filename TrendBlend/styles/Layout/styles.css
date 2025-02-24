@@ -47,25 +47,58 @@ form {
 
 .top_bar_logo_text {
     font-family: "Pacifico", serif;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     text-shadow: 2px 2px 5px white;
+    text-decoration: none;
+    color: var(--medium-slate-blue);
+}
+
+.back_button {
+    font-family: "Pacifico", serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--medium-slate-blue);
+    font-size: 1.5rem;
+}
+
+    .back_button p {
+        font-size: 1.2rem;
+        color: var(--medium-slate-blue);
+    }
+
+.right_button_panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.top_bar_search_btn {
+    margin-top: 3px;
+    font-size: 2rem;
+    color: white;
+    text-decoration: none;
 }
 
 .top_bar_user_account_btn {
     font-size: 1.9rem;
     color: white;
+    text-decoration: none;
 }
 
 
 .bottom_bar {
     height: 70px;
     width: 100%;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background-color: var(--periwinkle);
     display: flex;
     align-items: center;
     border-radius: 30px 30px 0 0;
+    z-index: 10;
 }
 
 .bottom_bar_camera_btn {
@@ -127,24 +160,53 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 50%;
+    min-height: 50vh;
+    width: 100%;
     background-color: var(--tropical-indigo);
     border-radius: 30px;
     overflow: hidden;
     position: relative;
 }
 
-#webcam, #imgCapture {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-#imgCapture {
-    display: none;
+.camera_placeholder {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.camera_actions {
+    display: flex;
+    gap: 20px;
+}
+
+.camera_btn {
+    background: var(--medium-slate-blue);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+    .camera_btn i {
+        color: white;
+        font-size: 1.5rem;
+    }
+
+#imgCapture {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: none;
 }
 
 .multi_input_container {
@@ -264,11 +326,16 @@ form {
 .cta_buttons_container {
     position: sticky;
     bottom: 5px;
-    width: 100%;
-    padding: 0 20px;
+    left: 50%;
+    transform: translate(-50%,0);
+    width: fit-content;
+    padding: 20px 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 50px;
+    background-color: var(--tropical-indigo);
+    border-radius: 30px;
 }
 
 .cta_capture_btn {

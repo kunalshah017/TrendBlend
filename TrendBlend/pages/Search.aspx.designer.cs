@@ -11,61 +11,61 @@ namespace TrendBlend.pages
 {
 
 
-    public partial class WebForm2
+    public partial class Search
     {
 
         /// <summary>
-        /// ProfileImage control.
+        /// SearchText control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ProfileImage;
+        protected global::System.Web.UI.WebControls.TextBox SearchText;
 
         /// <summary>
-        /// FirstNameLabel control.
+        /// TypeDropDown control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FirstNameLabel;
+        protected global::System.Web.UI.WebControls.DropDownList TypeDropDown;
 
         /// <summary>
-        /// UserNameLabel control.
+        /// ColorInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label UserNameLabel;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl ColorInput;
 
         /// <summary>
-        /// TopsCountLabel control.
+        /// SelectedColorHidden control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TopsCountLabel;
+        protected global::System.Web.UI.WebControls.HiddenField SelectedColorHidden;
 
         /// <summary>
-        /// BottomsCountLabel control.
+        /// SearchButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BottomsCountLabel;
+        protected global::System.Web.UI.WebControls.Button SearchButton;
 
         /// <summary>
-        /// FootwearCountLabel control.
+        /// SearchResults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FootwearCountLabel;
+        protected global::System.Web.UI.WebControls.Repeater SearchResults;
     }
 }

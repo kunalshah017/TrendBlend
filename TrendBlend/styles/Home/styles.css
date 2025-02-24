@@ -95,8 +95,33 @@
     }
 
     .slider div {
-        height: 150px;
-        aspect-ratio: 1/1;
+        height: 180px;
+        min-width: 150px;
         background-color: var(--tropical-indigo);
         border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        padding-bottom: 3px;
     }
+
+        .slider div img {
+            position: absolute;
+            width: 100%;
+            height: 80%;
+            object-fit: cover;
+            border-radius: 20px;
+            inset: 0;
+        }
+
+        .slider div p {
+            margin: 0;
+            padding: 5px;
+            font-size: 0.9rem;
+            color: white;
+            text-align: center;
+            font-family: "Poppins",serif;
+        }

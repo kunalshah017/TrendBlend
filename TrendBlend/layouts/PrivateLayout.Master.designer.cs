@@ -33,6 +33,78 @@ namespace TrendBlend.layouts
         protected global::System.Web.UI.HtmlControls.HtmlForm serverComponentsForm;
 
         /// <summary>
+        /// LogoPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel LogoPanel;
+
+        /// <summary>
+        /// BackButtonPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel BackButtonPanel;
+
+        /// <summary>
+        /// BackLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink BackLink;
+
+        /// <summary>
+        /// backLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label backLabel;
+
+        /// <summary>
+        /// RightButtonPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel RightButtonPanel;
+
+        /// <summary>
+        /// SearchLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink SearchLink;
+
+        /// <summary>
+        /// TopBarRightLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink TopBarRightLink;
+
+        /// <summary>
+        /// TopBarRightIcon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl TopBarRightIcon;
+
+        /// <summary>
         /// body control.
         /// </summary>
         /// <remarks>
@@ -42,13 +114,13 @@ namespace TrendBlend.layouts
         protected global::System.Web.UI.WebControls.ContentPlaceHolder body;
 
         /// <summary>
-        /// TextBox1 control.
+        /// ApparelNameInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox ApparelNameInput;
 
         /// <summary>
         /// apparelTypeDropDown control.
@@ -87,12 +159,12 @@ namespace TrendBlend.layouts
         protected global::System.Web.UI.WebControls.TextBox AccessoryInput;
 
         /// <summary>
-        /// TextBox2 control.
+        /// ApparelDescriptionInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox ApparelDescriptionInput;
     }
 }
