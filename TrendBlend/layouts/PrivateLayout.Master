@@ -71,6 +71,47 @@
         </asp:ContentPlaceHolder>
 
         <div class="apparel_upload_form" id="apparelUploadModal">
+            <div id="loadingScreen" class="blur_bg" style="display: none;">
+                <div class="loading_container">
+                    <div class="loading_animation_container">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="loading_text">
+                        <p>
+                            Let our AI analyze this for you :)
+                        </p>
+                        <p>
+                            Please add the size according to you
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="notApparelDialog" class="blur_bg" style="display: none;">
+                <div class="dialog_container">
+                    <div class="dialog_animation_container">
+                        <i class="fa fa-exclamation-circle"></i>
+                    </div>
+                    <div class="dialog_text">
+                        <p>
+                            Oops! This doesn't look like an apparel item
+           
+                        </p>
+                        <p>
+                            Please try again with a clothing item image
+           
+                        </p>
+                    </div>
+                    <button type="button" id="retryButton">
+                        <i class="fa fa-refresh"></i>
+                        Retry
+                   
+                    </button>
+                </div>
+            </div>
+
             <div class="close_btn_container">
                 <i class='bx bx-x'></i>
             </div>
@@ -194,8 +235,95 @@
             const finalSubmitBtn = $('#finalSubmit');
             const btnReset = $('#btnReset');
             const username = '<%= Session["UserName"] %>';
+            const loadingScreen = $('#loadingScreen');
 
             let selectedColorBox = null;
+
+            const analyzeWithAI = async (imageData) => {
+                try {
+                    const serviceUrl = window.location.protocol + '//' + window.location.host + '/services/ApparelService.asmx/GetApparelDetailsFromAI';
+
+                    // Show loading indicator
+                    loadingScreen.show();
+
+                    const response = await $.ajax({
+                        type: "POST",
+                        url: serviceUrl,
+                        data: JSON.stringify({ imageData: imageData }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        timeout: 60000,
+                        beforeSend: function () {
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('analyzeWithAI: Ajax error', {
+                                status: status,
+                                error: error,
+                                responseText: xhr.responseText
+                            });
+                        }
+                    });
+
+                    loadingScreen.hide();
+
+                    if (!response || !response.d || !response.d.Result) {
+                        console.error('analyzeWithAI: Empty or invalid response');
+                        throw new Error('Invalid response from service');
+                    }
+
+                    // Extract the JSON content from the Result property
+                    // The Result contains markdown code blocks with JSON, so we need to extract the JSON part
+                    const resultString = response.d.Result;
+
+                    // Extract the JSON part from the markdown code block
+                    const jsonMatch = resultString.match(/```json\s*([\s\S]*?)\s*```/);
+
+                    if (!jsonMatch || !jsonMatch[1]) {
+                        console.error('analyzeWithAI: Could not extract JSON from response');
+                        throw new Error('Invalid JSON format in response');
+                    }
+
+                    const jsonString = jsonMatch[1].trim();
+
+                    // Parse the extracted JSON
+                    try {
+                        const aiResponse = JSON.parse(jsonString);
+
+                        if (aiResponse.notApparel) {
+                            // Show not apparel dialog
+                            $('#notApparelDialog').show();
+                            return;
+                        }
+
+                        // Populate form fields with AI response
+                        $("[id$='ApparelNameInput']").val(aiResponse.apparelName || '');
+                        $("[id$='apparelTypeDropDown']").val(aiResponse.apparelType || 'Top');
+                        $("[id$='ApparelDescriptionInput']").val(aiResponse.description || '');
+
+                        if (aiResponse.apparelType == 'Accessory') {
+                            $($("[id$='AccessoryInput']").val(aiResponse.accessoryType || ''));
+                        }
+
+                        // Set color
+                        if (aiResponse.color) {
+                            const hexColor = aiResponse.color;
+                            customColorInput.val(hexColor);
+                            customColorInput[0].style.backgroundColor = hexColor;
+                            selectColor(hexColor);
+                        }
+
+                        // Toggle accessory input if needed
+                        toggleAccessoryInput();
+
+                    } catch (parseError) {
+                        console.error('analyzeWithAI: JSON parsing error', parseError);
+                        throw new Error('Could not parse AI response');
+                    }
+                } catch (error) {
+                    console.error('analyzeWithAI: Error during analysis', error);
+                    alert('AI analysis failed: ' + error.message + '. Please fill in details manually.');
+                }
+            };
 
             function compressImage(imageData, maxWidth = 1280, maxHeight = 1280, quality = 0.7) {
                 return new Promise((resolve) => {
@@ -313,6 +441,7 @@
 
                             img.crossOrigin = "Anonymous";
                             img.src = compressedImage;
+                            analyzeWithAI(compressedImage);
                         } catch (error) {
                             console.error('Image compression error:', error);
                             alert('Error processing image. Please try again.');
@@ -329,7 +458,7 @@
                 cameraPlaceholder.show();
                 dominantColorsContainer.empty();
                 selectColor(customColorInput.val());
-                btnReset.hide(); // Hide reset button initially
+                btnReset.hide();
             }
 
             function hideModal() {
@@ -553,6 +682,23 @@
             $("#<%= apparelTypeDropDown.ClientID %>").change(function () {
                 toggleAccessoryInput();
             });
+
+            $('#retryButton').click(function () {
+                // Reset form
+                resetFormFields();
+                // Hide not apparel dialog
+                $('#notApparelDialog').hide();
+                // Hide captured image
+                imgCapture.hide();
+                // Show camera placeholder
+                cameraPlaceholder.show();
+                // Reset file inputs
+                cameraInput.val('');
+                galleryInput.val('');
+                // Hide reset button
+                btnReset.hide();
+            });
+
         });
 
 

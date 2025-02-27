@@ -26,6 +26,10 @@ namespace TrendBlend.pages
                     userNameLabel.Text = Session["FirstName"].ToString();
                     LoadApparels(Session["UserName"].ToString());
                 }
+                else
+                {
+                    Response.Redirect("~/pages/Onboarding.aspx");
+                }
             }
         }
 

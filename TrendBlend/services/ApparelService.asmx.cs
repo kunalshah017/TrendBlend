@@ -8,6 +8,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TrendBlend.services
 {
@@ -134,6 +138,99 @@ namespace TrendBlend.services
             catch (Exception ex)
             {
                 return $"Error: {ex.Message}";
+            }
+        }
+
+        [WebMethod]
+        public async Task<string> GetApparelDetailsFromAI(string imageData)
+        {
+
+            // Create a static HttpClient with proper settings
+            var handler = new HttpClientHandler();
+            using (var client = new HttpClient(handler))
+            {
+                try
+                {
+                    client.Timeout = TimeSpan.FromMinutes(2); // Increase timeout to 2 minutes
+
+                    string API_KEY = ConfigurationManager.AppSettings["GeminiApiKey"];
+                    string API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
+
+                    // Check if the image data is in correct format
+                    if (!imageData.StartsWith("data:image"))
+                    {
+                        throw new ArgumentException("Image data is not in valid base64 format");
+                    }
+
+                    // Extract the base64 part correctly
+                    string base64Data = imageData.Contains(",") ?
+                        imageData.Substring(imageData.IndexOf(",") + 1) :
+                        imageData;
+
+                    // Simplified request body structure
+                    var requestBody = new
+                    {
+                        contents = new[]
+                        {
+                    new
+                    {
+                        parts = new object[]
+                        {
+                            new { text = "Analyze this clothing item image, it is image from users wardrobe and has to saved digitally in virtual wardrobe such that it can be found easily and other ai models can understand the data, provide details in the following JSON format: {\"notApparel\":\"[true/false if not a Top/Bottom/Footwear/Accessory]\", \"apparelName\": \"[descriptive name]\", \"apparelType\": \"[Top/Bottom/Footwear/Accessory]\", \"color\": \"[hex color code]\", \"description\": \"[detailed description under 1000 characters by the perspective of user uploading]\",\"accessoryType\":\"[If apparelType is accessory then accessoryType as Watch/Cap/Sunglasses/Shades/Jewellery/Necklace/Earings/Rings/Braclets etc]\"}" },
+                            new
+                            {
+                                inline_data = new
+                                {
+                                    mime_type = "image/jpeg",
+                                    data = base64Data
+                                }
+                            }
+                        }
+                    }
+                }
+                    };
+
+                    string jsonRequest = JsonConvert.SerializeObject(requestBody);
+
+
+                    // Set up request with proper headers
+                    var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+                    // Set request headers directly
+                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                    // IMPORTANT: Add ConfigureAwait(false) to avoid deadlocks in ASP.NET
+                    var response = await client.PostAsync($"{API_URL}?key={API_KEY}", content).ConfigureAwait(false);
+
+                    string responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new HttpRequestException($"API returned {response.StatusCode}: {responseContent}");
+                    }
+
+
+                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
+
+                    // Make sure we're accessing the correct properties
+                    if (jsonResponse.candidates == null || jsonResponse.candidates.Count == 0)
+                    {
+                        throw new Exception("API response doesn't contain expected 'candidates' array");
+                    }
+
+                    var result = jsonResponse.candidates[0].content.parts[0].text.ToString();
+
+                    return result;
+                }
+                catch (TaskCanceledException)
+                {
+                    return JsonConvert.SerializeObject(new { error = "Request to Gemini API timed out. Please try again." });
+                }
+                catch (Exception ex)
+                {
+                    return JsonConvert.SerializeObject(new { error = ex.Message });
+                }
             }
         }
     }

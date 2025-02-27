@@ -18,6 +18,7 @@ namespace TrendBlend.layouts
             {
                 // Check for authentication
                 HttpCookie userCookie = Request.Cookies["UserInfo"];
+
                 if (userCookie == null && Session["UserName"] == null)
                 {
                     Response.Redirect("~/pages/Onboarding.aspx");
