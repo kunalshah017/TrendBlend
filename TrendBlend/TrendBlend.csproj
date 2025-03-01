@@ -144,6 +144,7 @@
     <Content Include="assets\favicon\favicon-16x16.png" />
     <Content Include="assets\favicon\favicon-180x180.png" />
     <Content Include="assets\favicon\favicon-32x32.png" />
+    <Content Include="assets\images\down_arrow.png" />
     <Content Include="assets\images\og-image.png" />
     <Content Include="Default.aspx" />
     <Content Include="pages\Apparel.aspx" />

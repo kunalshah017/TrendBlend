@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="apparels_container">
-            <div class="slider_container">
+            <asp:Panel ID="TopsPanel" runat="server" CssClass="slider_container">
                 <div class="slider_title_container">
                     <asp:Label ID="sliderTitle" runat="server" Text="Tops" CssClass="slider_title"></asp:Label>
                     <asp:HyperLink ID="topviewmore" runat="server" NavigateUrl="~/pages/Search.aspx?type=Top">
@@ -35,8 +35,9 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
-            </div>
-            <div class="slider_container">
+            </asp:Panel>
+
+            <asp:Panel ID="BottomsPanel" runat="server" CssClass="slider_container">
                 <div class="slider_title_container">
                     <asp:Label ID="Label1" runat="server" Text="Bottoms" CssClass="slider_title"></asp:Label>
                     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/pages/Search.aspx?type=Bottom">
@@ -53,8 +54,9 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
-            </div>
-            <div class="slider_container">
+            </asp:Panel>
+
+            <asp:Panel ID="FootwearsPanel" runat="server" CssClass="slider_container">
                 <div class="slider_title_container">
                     <asp:Label ID="Label2" runat="server" Text="Footwears" CssClass="slider_title"></asp:Label>
                     <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/pages/Search.aspx?type=Footwear">
@@ -71,8 +73,9 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
-            </div>
-            <div class="slider_container">
+            </asp:Panel>
+
+            <asp:Panel ID="AccessoriesPanel" runat="server" CssClass="slider_container">
                 <div class="slider_title_container">
                     <asp:Label ID="Label3" runat="server" Text="Accessories" CssClass="slider_title"></asp:Label>
                     <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/pages/Search.aspx?type=Accessory">
@@ -89,7 +92,18 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
-            </div>
+            </asp:Panel>
+
+            <asp:Panel ID="NoApparelsPanel" runat="server" CssClass="no_apparel_message_container" Visible="false">
+                <div class="no_apparel_message">
+                    <p>No apparels here yet,</p>
+                    <p>Use<span style="font-size: 2.5rem;"> + </span>icon to add them!</p>
+                </div>
+                <div>
+                    <img src="../assets/images/down_arrow.png" class="no_apparel_message_down_arrow" />
+                </div>
+            </asp:Panel>
         </div>
     </div>
 </asp:Content>
+

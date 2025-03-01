@@ -74,11 +74,30 @@ namespace TrendBlend.pages
 
         private void BindApparels(List<Apparel> apparels)
         {
-            // Bind the apparels to the sliders
-            BindSlider(apparels.Where(a => a.Type == "Top").ToList(), topsSlider);
-            BindSlider(apparels.Where(a => a.Type == "Bottom").ToList(), bottomsSlider);
-            BindSlider(apparels.Where(a => a.Type == "Footwear").ToList(), footwearsSlider);
-            BindSlider(apparels.Where(a => a.Type == "Accessory").ToList(), accessoriesSlider);
+            // Gets filtered lists
+            var tops = apparels.Where(a => a.Type == "Top").ToList();
+            var bottoms = apparels.Where(a => a.Type == "Bottom").ToList();
+            var footwears = apparels.Where(a => a.Type == "Footwear").ToList();
+            var accessories = apparels.Where(a => a.Type == "Accessory").ToList();
+
+            // Show/hide and bind tops
+            TopsPanel.Visible = tops.Any();
+            if (tops.Any()) BindSlider(tops, topsSlider);
+
+            // Show/hide and bind bottoms
+            BottomsPanel.Visible = bottoms.Any();
+            if (bottoms.Any()) BindSlider(bottoms, bottomsSlider);
+
+            // Show/hide and bind footwears
+            FootwearsPanel.Visible = footwears.Any();
+            if (footwears.Any()) BindSlider(footwears, footwearsSlider);
+
+            // Show/hide and bind accessories
+            AccessoriesPanel.Visible = accessories.Any();
+            if (accessories.Any()) BindSlider(accessories, accessoriesSlider);
+
+            // Show "No apparels" message if no apparels exist
+            NoApparelsPanel.Visible = !apparels.Any();
         }
 
         private void BindSlider(List<Apparel> apparels, Repeater repeater)
