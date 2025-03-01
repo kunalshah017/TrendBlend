@@ -17,7 +17,7 @@ namespace TrendBlend.pages
             {
                 if (Session["UserName"] == null)
                 {
-                    Response.Redirect("~/pages/SignIn.aspx");
+                    Response.Redirect("~/pages/Onboarding.aspx");
                 }
             }
         }
