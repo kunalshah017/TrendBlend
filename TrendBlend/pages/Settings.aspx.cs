@@ -108,7 +108,7 @@ namespace TrendBlend.pages
             Session.Clear();
 
             // Redirect to login
-            Response.Redirect("~/pages/SignIn.aspx");
+            Response.Redirect("~/pages/Onboarding.aspx");
         }
     }
 }
