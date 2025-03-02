@@ -1,5 +1,7 @@
 ﻿namespace TrendBlend.pages
 {
+    using CloudinaryDotNet.Actions;
+    using CloudinaryDotNet;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -107,7 +109,14 @@
                         byte b = Convert.ToByte(reader["B"]);
                         string rgbValue = $"rgb({r}, {g}, {b})";
                         ColorCircle.Style["background-color"] = rgbValue;
-                        ApparelColor.Text = GetColorName(r, g, b);
+                        if (reader["ColorName"].ToString() != "")
+                        {
+                            ApparelColor.Text = reader["ColorName"].ToString();
+                        }
+                        else
+                        {
+                            ApparelColor.Text = GetColorName(r, g, b);
+                        }
 
 
                         // Handle Accessory Type
@@ -141,6 +150,99 @@
                 }
             }
         }
+
+        protected void ConfirmDeleteButton_Click(object sender, EventArgs e)
+        {
+            string apparelId = Request.QueryString["id"];
+            if (string.IsNullOrEmpty(apparelId))
+            {
+                return;
+            }
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+
+                // First get the image URL
+                string getImageQuery = @"SELECT ImageUrl FROM Apparels 
+                               WHERE ApparelID = @ApparelId 
+                               AND UserID = (SELECT Id FROM Users WHERE UserName = @Username)";
+
+                string imageUrl = null;
+                using (SqlCommand getImageCmd = new SqlCommand(getImageQuery, con))
+                {
+                    getImageCmd.Parameters.AddWithValue("@ApparelId", apparelId);
+                    getImageCmd.Parameters.AddWithValue("@Username", Session["UserName"].ToString());
+
+                    imageUrl = (string)getImageCmd.ExecuteScalar();
+                }
+
+                if (string.IsNullOrEmpty(imageUrl))
+                {
+                    ShowError();
+                    return;
+                }
+
+                try
+                {
+                    // Setup Cloudinary
+                    Account account = new Account(
+                        ConfigurationManager.AppSettings["CloudinaryCloud"],
+                        ConfigurationManager.AppSettings["CloudinaryApiKey"],
+                        ConfigurationManager.AppSettings["CloudinaryApiSecret"]
+                    );
+
+                    Cloudinary cloudinary = new Cloudinary(account);
+
+                    // Extract public ID from URL
+                    string publicId = imageUrl.Split(new[] { "/upload/" }, StringSplitOptions.None)[1];
+                    publicId = publicId.Substring(publicId.IndexOf('/', publicId.IndexOf('/') + 1) + 1);
+                    publicId = publicId.Substring(0, publicId.LastIndexOf('.')); // Remove file extension
+                    publicId = "apparels/" + publicId; // Add folder name back
+
+                    // Try to delete from Cloudinary first
+                    var deleteParams = new DeletionParams(publicId);
+                    var deletionResult = cloudinary.Destroy(deleteParams);
+
+                    if (deletionResult.Result == "ok")
+                    {
+                        // Only if Cloudinary deletion was successful, delete from database
+                        string deleteQuery = @"DELETE FROM Apparels 
+                                     WHERE ApparelID = @ApparelId 
+                                     AND UserID = (SELECT Id FROM Users WHERE UserName = @Username)";
+
+                        using (SqlCommand deleteCmd = new SqlCommand(deleteQuery, con))
+                        {
+                            deleteCmd.Parameters.AddWithValue("@ApparelId", apparelId);
+                            deleteCmd.Parameters.AddWithValue("@Username", Session["UserName"].ToString());
+
+                            int result = deleteCmd.ExecuteNonQuery();
+
+                            if (result > 0)
+                            {
+                                Response.Redirect("~/pages/Home.aspx");
+                            }
+                            else
+                            {
+                                ShowError();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // If Cloudinary deletion failed, show error
+                        ShowError();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log the error for debugging
+                    System.Diagnostics.Debug.WriteLine($"Error deleting apparel: {ex.Message}");
+                    ShowError();
+                }
+            }
+        }
+
 
         /// <summary>
         /// The ShowError

@@ -219,6 +219,8 @@
         colorThiefScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js';
         document.head.appendChild(colorThiefScript);
 
+        var colorName;
+
         $(function () {
             const imgCapture = $('#imgCapture');
             const cameraInput = $('#cameraInput');
@@ -294,6 +296,8 @@
                             $('#notApparelDialog').show();
                             return;
                         }
+
+                        colorName = aiResponse.colorName || '';
 
                         // Populate form fields with AI response
                         $("[id$='ApparelNameInput']").val(aiResponse.apparelName || '');
@@ -631,7 +635,8 @@
                             color: color,
                             size: size,
                             accessoryType: accessoryType,
-                            description: description
+                            description: description,
+                            colorName: colorName
                         }),
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",

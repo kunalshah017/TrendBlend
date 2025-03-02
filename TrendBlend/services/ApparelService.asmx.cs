@@ -69,7 +69,8 @@ namespace TrendBlend.services
             string color,
             string size,
             string accessoryType,
-            string description
+            string description,
+            string colorName
         )
         {
             try
@@ -111,8 +112,8 @@ namespace TrendBlend.services
 
                         // Insert Apparel
                         string insertQuery = @"INSERT INTO Apparels 
-                    (UserID, Name, Type, Size, AccessoryType, Description, ImageUrl, CreatedAt, R, G, B) 
-                    VALUES (@UserID, @Name, @Type, @Size, @AccessoryType, @Description, @ImageUrl, GETDATE(), @R, @G, @B)";
+                    (UserID, Name, Type, Size, AccessoryType, Description, ImageUrl, CreatedAt, R, G, B, ColorName) 
+                    VALUES (@UserID, @Name, @Type, @Size, @AccessoryType, @Description, @ImageUrl, GETDATE(), @R, @G, @B, @ColorName)";
 
                         using (SqlCommand cmd = new SqlCommand(insertQuery, con))
                         {
@@ -127,6 +128,7 @@ namespace TrendBlend.services
                             cmd.Parameters.AddWithValue("@R", R);
                             cmd.Parameters.AddWithValue("@G", G);
                             cmd.Parameters.AddWithValue("@B", B);
+                            cmd.Parameters.AddWithValue("@ColorName", colorName);
 
                             cmd.ExecuteNonQuery();
                         }
@@ -176,7 +178,7 @@ namespace TrendBlend.services
                     {
                         parts = new object[]
                         {
-                            new { text = "Analyze this clothing item image, it is image from users wardrobe and has to saved digitally in virtual wardrobe such that it can be found easily and other ai models can understand the data, provide details in the following JSON format: {\"notApparel\":\"[true/false if not a Top/Bottom/Footwear/Accessory]\", \"apparelName\": \"[descriptive name]\", \"apparelType\": \"[Top/Bottom/Footwear/Accessory]\", \"color\": \"[hex color code]\", \"description\": \"[detailed description under 1000 characters by the perspective of user uploading]\",\"accessoryType\":\"[If apparelType is accessory then accessoryType as Watch/Cap/Sunglasses/Shades/Jewellery/Necklace/Earings/Rings/Braclets etc]\"}" },
+                            new { text = "Analyze this clothing item image, it is image from users wardrobe and has to saved digitally in virtual wardrobe such that it can be found easily and other ai models can understand the data, provide details in the following JSON format: {\"notApparel\":\"[true/false if not a Top/Bottom/Footwear/Accessory]\", \"apparelName\": \"[descriptive name]\", \"apparelType\": \"[Top/Bottom/Footwear/Accessory]\", \"color\": \"[hex color code]\", \"colorName\": \"[name of hexcode color]\", \"description\": \"[detailed description under 1000 characters by the perspective of user uploading]\",\"accessoryType\":\"[If apparelType is accessory then accessoryType as Watch/Cap/Sunglasses/Shades/Jewellery/Necklace/Earings/Rings/Braclets etc]\"}" },
                             new
                             {
                                 inline_data = new

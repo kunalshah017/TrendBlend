@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/styles/Apparel/styles.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
@@ -60,5 +61,50 @@
                 </asp:HyperLink>
             </div>
         </asp:Panel>
+
+        <button type="button" id="deleteButton" class="delete_button">
+            <i class="fa fa-trash"></i>
+        </button>
+        <div id="deleteConfirmModal" class="delete_confirm_modal">
+            <div class="delete_confirm_content">
+                <i class="fa fa-exclamation-triangle"></i>
+                <h3>Delete Apparel?</h3>
+                <p>Are you sure you want to delete this apparel? This action cannot be undone.</p>
+                <div class="delete_confirm_buttons">
+                    <asp:Button ID="CancelDeleteButton" runat="server" Text="Cancel"
+                        CssClass="delete_confirm_button delete_confirm_cancel" OnClientClick="hideDeleteModal(); return false;" />
+                    <asp:Button ID="ConfirmDeleteButton" runat="server" Text="Delete"
+                        CssClass="delete_confirm_button delete_confirm_delete" OnClick="ConfirmDeleteButton_Click" />
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const $deleteModal = $('#deleteConfirmModal');
+            const $deleteButton = $('#deleteButton');
+
+            $deleteButton.on('click', function (e) {
+                e.preventDefault();
+                showDeleteModal();
+            });
+
+            function showDeleteModal() {
+                console.log('Showing modal'); // Debug log
+                $deleteModal.addClass('visible');
+            }
+
+            function hideDeleteModal() {
+                console.log('Hiding modal'); // Debug log
+                $deleteModal.removeClass('visible');
+            }
+
+            // Make hideDeleteModal available globally for the cancel button
+            window.hideDeleteModal = hideDeleteModal;
+        });
+</script>
+
+
+
 </asp:Content>
