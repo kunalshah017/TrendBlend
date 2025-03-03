@@ -559,14 +559,21 @@
 
             window.goBack = function (e) {
                 e.preventDefault();
-                // Use browser's history
                 if (window.history.length > 1) {
-                    window.history.back();
+                    // Get the current and previous URLs
+                    const currentPath = window.location.pathname;
+                    const previousPath = document.referrer ? new URL(document.referrer).pathname : '';
+
+                    // If previous page is same as current page, go back twice
+                    if (previousPath === currentPath) {
+                        window.history.go(-2);
+                    } else {
+                        window.history.back();
+                    }
                 } else {
                     window.location.href = '/pages/Home.aspx';
                 }
             };
-
 
             // Event Listeners
             openCameraBtn.click(() => cameraInput.click());

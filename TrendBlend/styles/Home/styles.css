@@ -131,6 +131,7 @@
 .apparel_item {
     height: 180px;
     min-width: 150px;
+    max-width: 150px;
     background-color: var(--tropical-indigo);
     border-radius: 20px;
     display: flex;
