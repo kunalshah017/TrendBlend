@@ -78,13 +78,6 @@ form {
     gap: 30px;
 }
 
-.top_bar_search_btn {
-    margin-top: 3px;
-    font-size: 2rem;
-    color: white;
-    text-decoration: none;
-}
-
 .top_bar_user_account_btn {
     font-size: 1.9rem;
     color: white;
@@ -127,6 +120,7 @@ form {
     justify-content: center;
     align-items: center;
     color: white;
+    text-decoration: none;
 }
 
 .apparel_upload_form {

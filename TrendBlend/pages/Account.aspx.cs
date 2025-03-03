@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
 using System.Web.UI;
 
 namespace TrendBlend.pages
@@ -11,17 +13,9 @@ namespace TrendBlend.pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                if (Session["UserName"] == null)
-                {
-                    Response.Redirect("~/pages/SignIn.aspx");
-                    return;
-                }
-
-                LoadUserInfo();
-                LoadApparelStats();
-            }
+            LoadUserInfo();
+            LoadApparelStats();
+            LoadFavoriteBlends();
         }
 
         private void LoadUserInfo()
@@ -86,6 +80,59 @@ namespace TrendBlend.pages
                     Response.Write("Error: " + ex.Message);
                 }
             }
+        }
+
+        private void LoadFavoriteBlends()
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                string query = @"
+            SELECT 
+                b.BlendID, 
+                b.Name,
+                (
+                    SELECT TOP 4 a.ImageUrl + ';'
+                    FROM FavouriteBlendApparels ba
+                    JOIN Apparels a ON ba.ApparelID = a.ApparelID
+                    WHERE ba.BlendID = b.BlendID
+                    FOR XML PATH('')
+                ) AS BlendImages
+            FROM FavouriteBlend b
+            WHERE b.UserID = (SELECT Id FROM Users WHERE UserName = @Username)
+            ORDER BY b.CreatedAt DESC";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Username", Session["UserName"].ToString());
+
+                try
+                {
+                    con.Open();
+                    FavouriteBlendRepeater.DataSource = cmd.ExecuteReader();
+                    FavouriteBlendRepeater.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    // Handle error
+                    System.Diagnostics.Debug.WriteLine($"Error loading blends: {ex.Message}");
+                }
+            }
+        }
+
+        protected string RenderBlendImages(string imagesString)
+        {
+            if (string.IsNullOrEmpty(imagesString)) return "";
+
+            var images = imagesString.Split(';')
+                                    .Where(s => !string.IsNullOrEmpty(s))
+                                    .Take(4);
+
+            StringBuilder html = new StringBuilder();
+            foreach (var image in images)
+            {
+                html.Append($"<div class='blend_image'><img src='{image}' alt='blend item'/></div>");
+            }
+
+            return html.ToString();
         }
     }
 }

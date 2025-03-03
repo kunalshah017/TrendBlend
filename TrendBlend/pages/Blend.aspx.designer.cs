@@ -11,143 +11,116 @@ namespace TrendBlend.pages
 {
 
 
-    public partial class Apparel1
+    public partial class Blend
     {
 
         /// <summary>
-        /// ApparelPanel control.
+        /// BlendPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ApparelPanel;
+        protected global::System.Web.UI.WebControls.Panel BlendPanel;
 
         /// <summary>
-        /// ApparelImage control.
+        /// ImagesRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ApparelImage;
+        protected global::System.Web.UI.WebControls.Repeater ImagesRepeater;
 
         /// <summary>
-        /// ApparelName control.
+        /// BlendName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ApparelName;
+        protected global::System.Web.UI.WebControls.Label BlendName;
 
         /// <summary>
-        /// ApparelType control.
+        /// BlendDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ApparelType;
+        protected global::System.Web.UI.WebControls.Label BlendDate;
 
         /// <summary>
-        /// SizePanel control.
+        /// TopsPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel SizePanel;
+        protected global::System.Web.UI.WebControls.Panel TopsPanel;
 
         /// <summary>
-        /// ApparelSize control.
+        /// TopsRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ApparelSize;
+        protected global::System.Web.UI.WebControls.Repeater TopsRepeater;
 
         /// <summary>
-        /// AccessoryTypePanel control.
+        /// BottomsPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel AccessoryTypePanel;
+        protected global::System.Web.UI.WebControls.Panel BottomsPanel;
 
         /// <summary>
-        /// ApparelAccessoryType control.
+        /// BottomsRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ApparelAccessoryType;
+        protected global::System.Web.UI.WebControls.Repeater BottomsRepeater;
 
         /// <summary>
-        /// ApparelCreatedAt control.
+        /// FootwearPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ApparelCreatedAt;
+        protected global::System.Web.UI.WebControls.Panel FootwearPanel;
 
         /// <summary>
-        /// ColorCircle control.
+        /// FootwearRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ColorCircle;
+        protected global::System.Web.UI.WebControls.Repeater FootwearRepeater;
 
         /// <summary>
-        /// ApparelColor control.
+        /// AccessoriesPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ApparelColor;
+        protected global::System.Web.UI.WebControls.Panel AccessoriesPanel;
 
         /// <summary>
-        /// BlendRepeater control.
+        /// AccessoriesRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater BlendRepeater;
-
-        /// <summary>
-        /// NewBlendInput control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox NewBlendInput;
-
-        /// <summary>
-        /// CreateBlendButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CreateBlendButton;
-
-        /// <summary>
-        /// ApparelDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ApparelDescription;
+        protected global::System.Web.UI.WebControls.Repeater AccessoriesRepeater;
 
         /// <summary>
         /// ErrorPanel control.

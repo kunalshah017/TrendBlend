@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="~/styles/Layout/styles.css" rel="stylesheet" />
 
@@ -51,18 +51,16 @@
             </asp:Panel>
 
             <asp:Panel ID="BackButtonPanel" runat="server" Visible="false">
-                <asp:HyperLink ID="BackLink" runat="server" NavigateUrl="~/pages/Home.aspx" CssClass="back_button">
+                <a href="javascript:void(0)" onclick="goBack(event)" class="back_button">
                     <i class="fa fa-arrow-left"></i>
                     <asp:Label ID="backLabel" runat="server"></asp:Label>
-                </asp:HyperLink>
+                </a>
             </asp:Panel>
 
+
             <asp:Panel ID="RightButtonPanel" runat="server" CssClass="right_button_panel">
-                <asp:HyperLink ID="SearchLink" runat="server" NavigateUrl="~/pages/Search.aspx" CssClass="top_bar_search_btn">
-                    <i class='bx bx-search-alt' ></i>               
-                </asp:HyperLink>
-                <asp:HyperLink ID="TopBarRightLink" runat="server" NavigateUrl="~/pages/Account.aspx" CssClass="top_bar_user_account_btn">
-                    <i id="TopBarRightIcon" runat="server" class="fa fa-user"></i>
+                <asp:HyperLink ID="TopBarSettingsLink" runat="server" NavigateUrl="~/pages/Settings.aspx" CssClass="top_bar_user_account_btn">
+                    <i id="TopBarRightIcon" runat="server" class="fa fa-bars"></i>
                 </asp:HyperLink>
             </asp:Panel>
         </div>
@@ -173,7 +171,7 @@
             <div class="multi_input_container">
                 <div class="input_container">
                     <p>Size</p>
-                    <asp:TextBox ID="SizeInput" runat="server" CssClass="text_input" />
+                    <asp:TextBox ID="SizeInput" runat="server" CssClass="text_input" placeholder="M, L, XL / 10, 32, 48" />
                 </div>
                 <div class="input_container" style="display: none;">
                     <p>Type of Accessory</p>
@@ -199,15 +197,21 @@
         </div>
 
         <div class="bottom_bar">
-            <div class="bottom_bar_item" style="position: absolute; left: 20%; transform: translate(-50%,0);">
-                <i class="fa fa-calendar"></i>
-            </div>
+            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/pages/Home.aspx" CssClass="bottom_bar_item" Style="position: absolute; left: 11%; transform: translate(-50%,0);">
+                <i class='bx bxs-home'></i>
+            </asp:HyperLink>
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/pages/Search.aspx" CssClass="bottom_bar_item" Style="position: absolute; left: 29.5%; transform: translate(-50%,0);">
+                <i class='bx bx-search-alt' ></i>               
+            </asp:HyperLink>
             <div class="bottom_bar_camera_btn" id="apparelUpload" style="font-size: 3rem;">
                 <i class='bx bx-plus'></i>
             </div>
-            <div class="bottom_bar_item" style="position: absolute; left: 80%; transform: translate(-50%,0);">
-                <i class="fa fa-star"></i>
+            <div class="bottom_bar_item" style="position: absolute; left: 70.5%; transform: translate(-50%,0);">
+                <i class="fa fa-star" style="font-size: 1.7rem;"></i>
             </div>
+            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/pages/Account.aspx" CssClass="bottom_bar_item" Style="position: absolute; left: 89%; transform: translate(-50%,0);">
+                <i class="fa fa-user" style="font-size: 1.7rem;"></i>
+            </asp:HyperLink>
         </div>
     </form>
 
@@ -318,6 +322,8 @@
 
                         // Toggle accessory input if needed
                         toggleAccessoryInput();
+
+                        $("[id$='SizeInput']").focus();
 
                     } catch (parseError) {
                         console.error('analyzeWithAI: JSON parsing error', parseError);
@@ -524,7 +530,7 @@
                 }
 
                 // Size validation
-                if (!size) {
+                if (apparelType !== "Accessory" && !size) {
                     errors.push("Size is required");
                 } else if (size.length > 20) {
                     errors.push("Size must not exceed 20 characters");
@@ -550,6 +556,17 @@
                 const errorList = errors.join('\n• ');
                 alert('Please fix the following errors:\n\n• ' + errorList);
             }
+
+            window.goBack = function (e) {
+                e.preventDefault();
+                // Use browser's history
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.href = '/pages/Home.aspx';
+                }
+            };
+
 
             // Event Listeners
             openCameraBtn.click(() => cameraInput.click());
@@ -607,7 +624,7 @@
                     return;
                 }
 
-                if (!apparelName || !apparelType || !color || !size) {
+                if (!apparelName || !apparelType || !color) {
                     alert('Please fill in all required fields');
                     return;
                 }

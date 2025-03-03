@@ -41,5 +41,17 @@
         <div class="fav_blends_title">
             Your Favourite Blends 🩷
         </div>
+        <div class="favourite_blends_container">
+            <asp:Repeater ID="FavouriteBlendRepeater" runat="server">
+                <ItemTemplate>
+                    <div class="blend_card" onclick="window.location.href='/pages/Blend.aspx?id=<%# Eval("BlendID") %>'">
+                        <div class="blend_images_container">
+                            <%# RenderBlendImages(Eval("BlendImages") as string) %>
+                        </div>
+                        <span class="blend_name"><%# Eval("Name") %></span>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
     </div>
 </asp:Content>

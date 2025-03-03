@@ -11,16 +11,29 @@ namespace TrendBlend.pages
     {
         private readonly string cs = ConfigurationManager.ConnectionStrings["TrendBlendDB"].ConnectionString;
 
+        public string GetColorName(byte r, byte g, byte b)
+        {
+            if (r == 0 && g == 0 && b == 0) return "Black";
+            if (r == 255 && g == 255 && b == 255) return "White";
+            if (r > 220 && g < 30 && b < 30) return "Red";
+            if (r < 30 && g > 220 && b < 30) return "Green";
+            if (r < 30 && g < 30 && b > 220) return "Blue";
+            if (r == g && g == b) return "Grayish Black";
+            if (r > 220 && g > 220 && b < 30) return "Yellow";
+            if (r > 220 && g < 30 && b > 220) return "Purple";
+            if (r < 30 && g > 220 && b > 220) return "Cyan";
+
+            if (r > g && r > b) return "Reddish";
+            if (g > r && g > b) return "Greenish";
+            if (b > r && b > g) return "Bluish";
+
+            return "Custom Color";
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                if (Session["UserName"] == null)
-                {
-                    Response.Redirect("~/pages/SignIn.aspx");
-                    return;
-                }
-
                 // Check for type parameter in query string
                 string apparelType = Request.QueryString["type"];
                 if (!string.IsNullOrEmpty(apparelType))

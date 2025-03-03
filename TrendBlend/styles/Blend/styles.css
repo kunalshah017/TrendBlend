@@ -1,0 +1,387 @@
+﻿:root {
+    --pale-purple: hsla(269, 49%, 90%, 1);
+    --magnolia: hsla(263, 100%, 97%, 1);
+    --periwinkle: hsla(252, 100%, 88%, 1);
+    --tropical-indigo: hsla(250, 89%, 78%, 1);
+    --medium-slate-blue: hsla(241, 96%, 72%, 1);
+}
+
+.main_container {
+    padding: 70px 0 100px 0;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.blend_content {
+    padding: 30px 0;
+    width: 100%;
+}
+
+/* Slider Styles */
+.images_slider {
+    width: 85%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.slider_container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 20px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+    .slider_container::-webkit-scrollbar {
+        display: none;
+    }
+
+.slider_image {
+    flex: 0 0 300px;
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    scroll-snap-align: center;
+    border: 3px solid var(--medium-slate-blue);
+}
+
+    .slider_image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.slider_nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--medium-slate-blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+    .slider_nav:hover {
+        opacity: 1;
+    }
+
+.prev_btn {
+    left: 5px;
+}
+
+.next_btn {
+    right: 5px;
+}
+
+/* Blend Info Styles */
+.blend_info {
+    width: 85%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.blend_name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    color: var(--medium-slate-blue);
+    margin-bottom: 10px;
+}
+
+.blend_date {
+    font-family: 'Poppins', sans-serif;
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Apparels Section Styles */
+.apparels_section {
+    width: 85%;
+    margin: 30px auto;
+}
+
+.apparel_type_section {
+    margin: 20px 0;
+}
+
+.type_header {
+    font-family: 'Poppins', sans-serif;
+    color: var(--medium-slate-blue);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--pale-purple);
+}
+
+.apparels_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Apparel Card Styles */
+.apparel_card {
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    display: flex;
+    cursor: pointer;
+}
+
+    .apparel_card:hover {
+        transform: translateY(-5px);
+    }
+
+.apparel_image {
+    width: 40%;
+    height: 150px;
+    overflow: hidden;
+}
+
+    .apparel_image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.apparel_info {
+    width: 60%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+    .apparel_info h3 {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: 'Poppins', sans-serif;
+        color: var(--medium-slate-blue);
+        font-size: 1.1rem;
+    }
+
+    .apparel_info p {
+        margin: 5px 0 0 0;
+        font-family: 'Poppins', sans-serif;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+/* Color Display Styles */
+.color-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.color-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
+
+.color-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.remove_button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    background-color: #fff0f0;
+    color: #ff4444;
+    border: 1px solid #ff4444;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+}
+
+    .remove_button:hover {
+        background-color: #ff4444;
+        color: white;
+    }
+
+    .remove_button i {
+        font-size: 0.8rem;
+    }
+
+
+/* Error Panel Styles */
+.error_panel {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.error_content {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.error_icon {
+    color: var(--medium-slate-blue);
+    margin-bottom: 20px;
+    font-size: 3rem;
+}
+
+.error_content h2 {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.error_content p {
+    font-family: 'Poppins', sans-serif;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.error_back_button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--tropical-indigo);
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-family: 'Poppins', sans-serif;
+    transition: transform 0.2s ease;
+}
+
+    .error_back_button:hover {
+        transform: scale(1.05);
+    }
+
+/* Delete Button Styles */
+.delete_button {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ff4444;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    z-index: 20;
+}
+
+    .delete_button i {
+        font-size: 1.5rem;
+    }
+
+.delete_confirm_modal {
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 30;
+    padding: 20px;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+    .delete_confirm_modal.visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+.delete_confirm_content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+    .delete_confirm_content i {
+        font-size: 3rem;
+        color: #ff4444;
+        margin-bottom: 20px;
+    }
+
+    .delete_confirm_content h3 {
+        font-family: 'Poppins', sans-serif;
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+    }
+
+    .delete_confirm_content p {
+        font-family: 'Poppins', sans-serif;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+.delete_confirm_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.delete_confirm_button {
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+    .delete_confirm_button:hover {
+        transform: scale(1.05);
+    }
+
+.delete_confirm_cancel {
+    background-color: var(--tropical-indigo);
+    color: white;
+}
+
+.delete_confirm_delete {
+    background-color: #ff4444;
+    color: white;
+}

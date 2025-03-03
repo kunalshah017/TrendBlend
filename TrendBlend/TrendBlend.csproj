@@ -148,6 +148,7 @@
     <Content Include="assets\images\og-image.png" />
     <Content Include="Default.aspx" />
     <Content Include="pages\Apparel.aspx" />
+    <Content Include="pages\Blend.aspx" />
     <Content Include="pages\Home.aspx" />
     <Content Include="pages\Account.aspx" />
     <Content Include="pages\Onboarding.aspx" />
@@ -158,6 +159,7 @@
     <Content Include="services\ApparelService.asmx" />
     <Content Include="styles\Account\styles.css" />
     <Content Include="styles\Apparel\styles.css" />
+    <Content Include="styles\Blend\styles.css" />
     <Content Include="styles\Home\styles.css" />
     <Content Include="styles\Layout\styles.css" />
     <Content Include="styles\Search\styles.css" />
@@ -195,6 +197,13 @@
     </Compile>
     <Compile Include="pages\Apparel.aspx.designer.cs">
       <DependentUpon>Apparel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Blend.aspx.cs">
+      <DependentUpon>Blend.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Blend.aspx.designer.cs">
+      <DependentUpon>Blend.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>

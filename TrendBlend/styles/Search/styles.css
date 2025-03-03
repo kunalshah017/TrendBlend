@@ -127,10 +127,16 @@
 .apparel_info {
     width: 60%;
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
     .apparel_info h3 {
         margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-family: 'Poppins', sans-serif;
         color: var(--medium-slate-blue);
         font-size: 1.1rem;
@@ -142,3 +148,24 @@
         color: #666;
         font-size: 0.9rem;
     }
+
+.color-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.color-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    display: inline-block;
+}
+
+.color-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+}
