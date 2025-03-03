@@ -41,10 +41,5 @@ namespace TrendBlend.layouts
                 backLabel.Text = "Back";
             }
         }
-
-        protected void Account_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/pages/Account.aspx");
-        }
     }
 }
