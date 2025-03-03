@@ -229,12 +229,13 @@ namespace TrendBlend.pages
                 con.Open();
                 using (SqlTransaction transaction = con.BeginTransaction())
                 {
+                    bool transactionCompleted = false;
                     try
                     {
                         // First delete all apparel associations
                         string deleteApparelsQuery = @"
-                    DELETE FROM FavouriteBlendApparels 
-                    WHERE BlendID = @BlendId";
+                DELETE FROM FavouriteBlendApparels 
+                WHERE BlendID = @BlendId";
 
                         using (SqlCommand cmd = new SqlCommand(deleteApparelsQuery, con, transaction))
                         {
@@ -244,9 +245,9 @@ namespace TrendBlend.pages
 
                         // Then delete the blend itself
                         string deleteBlendQuery = @"
-                    DELETE FROM FavouriteBlend 
-                    WHERE BlendID = @BlendId 
-                    AND UserID = (SELECT Id FROM Users WHERE UserName = @Username)";
+                DELETE FROM FavouriteBlend 
+                WHERE BlendID = @BlendId 
+                AND UserID = (SELECT Id FROM Users WHERE UserName = @Username)";
 
                         using (SqlCommand cmd = new SqlCommand(deleteBlendQuery, con, transaction))
                         {
@@ -257,11 +258,11 @@ namespace TrendBlend.pages
                             if (result > 0)
                             {
                                 transaction.Commit();
+                                transactionCompleted = true;
                                 Response.Redirect("~/pages/Home.aspx");
                             }
                             else
                             {
-                                transaction.Rollback();
                                 ShowError();
                             }
                         }
@@ -269,7 +270,10 @@ namespace TrendBlend.pages
                     catch (Exception ex)
                     {
                         System.Diagnostics.Debug.WriteLine($"Error deleting blend: {ex.Message}");
-                        transaction.Rollback();
+                        if (!transactionCompleted)
+                        {
+                            transaction.Rollback();
+                        }
                         ShowError();
                     }
                 }
