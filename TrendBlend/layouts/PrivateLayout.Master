@@ -605,6 +605,7 @@
                 selectColor(customColorInput.val());
                 cameraInput.val('');
                 galleryInput.val('');
+                resetFormFields();
                 btnReset.hide(); // Hide reset button
             });
 
