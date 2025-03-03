@@ -12,7 +12,15 @@ namespace TrendBlend.pages
         private readonly string cs = ConfigurationManager.ConnectionStrings["TrendBlendDB"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
-        { }
+        {
+            if (!IsPostBack)
+            {
+                if (Session["UserName"] == null)
+                {
+                    Response.Redirect("~/pages/Onboarding.aspx");
+                }
+            }
+        }
 
         private string HashPassword(string password)
         {

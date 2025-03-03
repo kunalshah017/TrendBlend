@@ -34,6 +34,12 @@ namespace TrendBlend.pages
         {
             if (!IsPostBack)
             {
+                if (Session["UserName"] == null)
+                {
+                    Response.Redirect("~/pages/SignIn.aspx");
+                    return;
+                }
+
                 // Check for type parameter in query string
                 string apparelType = Request.QueryString["type"];
                 if (!string.IsNullOrEmpty(apparelType))

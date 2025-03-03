@@ -53,6 +53,12 @@
         {
             if (!IsPostBack)
             {
+                if (Session["UserName"] == null)
+                {
+                    Response.Redirect("~/pages/SignIn.aspx");
+                    return;
+                }
+
                 string apparelId = Request.QueryString["id"];
                 if (string.IsNullOrEmpty(apparelId))
                 {

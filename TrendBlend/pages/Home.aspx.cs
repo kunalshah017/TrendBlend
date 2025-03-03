@@ -17,9 +17,20 @@ namespace TrendBlend.pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // User is in session
-            userNameLabel.Text = Session["FirstName"].ToString();
-            LoadApparels(Session["UserName"].ToString());
+            if (!IsPostBack)
+            {
+                // Check for authentication
+                if (Session["FirstName"] != null)
+                {
+                    // User is in session
+                    userNameLabel.Text = Session["FirstName"].ToString();
+                    LoadApparels(Session["UserName"].ToString());
+                }
+                else
+                {
+                    Response.Redirect("~/pages/Onboarding.aspx");
+                }
+            }
         }
 
         private void LoadApparels(string username)

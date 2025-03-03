@@ -13,9 +13,17 @@ namespace TrendBlend.pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadUserInfo();
-            LoadApparelStats();
-            LoadFavoriteBlends();
+            if (!IsPostBack)
+            {
+                if (Session["UserName"] == null)
+                {
+                    Response.Redirect("~/pages/SignIn.aspx");
+                    return;
+                }
+
+                LoadUserInfo();
+                LoadApparelStats();
+            }
         }
 
         private void LoadUserInfo()
