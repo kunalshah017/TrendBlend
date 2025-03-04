@@ -108,7 +108,7 @@
 }
 
 .chat_input {
-    flex-basis: 90%;
+    width: 100%;
     padding: 12px 20px;
     border: 1px solid #e0e0e0;
     border-radius: 24px;
@@ -122,7 +122,6 @@
     }
 
 .send_btn {
-    flex-basis: 20%;
     background-color: var(--medium-slate-blue);
     color: white;
     border: none;
