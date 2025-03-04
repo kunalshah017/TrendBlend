@@ -1,0 +1,426 @@
+﻿:root {
+    --pale-purple: hsla(269, 49%, 90%, 1);
+    --magnolia: hsla(263, 100%, 97%, 1);
+    --periwinkle: hsla(252, 100%, 88%, 1);
+    --tropical-indigo: hsla(250, 89%, 78%, 1);
+    --medium-slate-blue: hsla(241, 96%, 72%, 1);
+    --light-bg: #f5f7fb;
+    --user-chat-bg: hsla(241, 96%, 72%, 1);
+    --ai-chat-bg: #f0f2f5;
+    --chat-text: #333;
+    --user-text: white;
+}
+
+.chat_container {
+    padding: 70px 0px 100px 0px;
+    height: 100%;
+    width: 100%;
+    max-width: 768px;
+    max-height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.chat_messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 20px;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 70px;
+    max-height: calc(100vh - 200px); /* Fixed height is important */
+    /* Remove justify-content: flex-end; to allow natural scrolling */
+}
+
+.messages_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    min-height: 100%; /* Ensure it fills the container */
+    max-height: 100%;
+    overflow: scroll;
+}
+
+/* Add styles to handle the bottom padding and focus area */
+.scroll_anchor {
+    height: 1px; /* Minimal height */
+    width: 100%;
+}
+
+
+.message {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+}
+
+.user_message {
+    align-self: flex-end;
+}
+
+.ai_message {
+    align-self: flex-start;
+}
+
+.message_content {
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.user_message .message_content {
+    background-color: var(--user-chat-bg);
+    color: var(--user-text);
+    border-bottom-right-radius: 4px;
+}
+
+.ai_message .message_content {
+    background-color: var(--ai-chat-bg);
+    color: var(--chat-text);
+    border-bottom-left-radius: 4px;
+}
+
+.message_content p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.chat_input_container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 165px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 12px 20px;
+    background-color: var(--periwinkle);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 30px 30px 0 0;
+}
+
+.chat_input {
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 24px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+}
+
+    .chat_input:focus {
+        border-color: var(--medium-slate-blue);
+    }
+
+.send_btn {
+    background-color: var(--medium-slate-blue);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+    .send_btn:hover {
+        transform: scale(1.05);
+    }
+
+    .send_btn i {
+        font-size: 1.2rem;
+    }
+
+/* Custom styles for outfit recommendations */
+.outfit_recommendation {
+    padding: 16px;
+    width: 100%;
+    max-width: 450px;
+}
+
+    .outfit_recommendation h2 {
+        font-size: 1.3rem;
+        color: var(--medium-slate-blue);
+        margin: 0 0 10px 0;
+        font-weight: 600;
+    }
+
+.outfit_description {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.outfit_items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.outfit_item {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+    .outfit_item:hover {
+        transform: translateY(-3px);
+    }
+
+.item_image_container {
+    height: 120px;
+    overflow: hidden;
+}
+
+    .item_image_container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.item_details {
+    padding: 10px;
+}
+
+    .item_details h3 {
+        font-size: 0.9rem;
+        margin: 0 0 5px 0;
+        color: var(--medium-slate-blue);
+    }
+
+    .item_details p {
+        font-size: 0.8rem;
+        margin: 2px 0;
+        color: #666;
+    }
+
+.item_reason {
+    font-style: italic;
+    font-size: 0.75rem !important;
+}
+
+.outfit_tips {
+    background-color: var(--magnolia);
+    padding: 10px 15px;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+    .outfit_tips h3 {
+        font-size: 1rem;
+        color: var(--medium-slate-blue);
+        margin: 0 0 8px 0;
+    }
+
+    .outfit_tips p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+.outfit_actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save_outfit_btn {
+    background-color: var(--tropical-indigo);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+    .save_outfit_btn:hover {
+        background-color: var(--medium-slate-blue);
+        transform: scale(1.05);
+    }
+
+    .save_outfit_btn:disabled {
+        background-color: #a0a0a0;
+        cursor: default;
+        transform: none;
+    }
+
+    .save_outfit_btn i {
+        font-size: 1rem;
+    }
+
+/* Typing indicator */
+.typing_indicator {
+    display: flex;
+    padding: 12px 16px;
+    border-radius: 18px;
+    background-color: var(--ai-chat-bg);
+    align-self: flex-start;
+    margin-bottom: 70px;
+    gap: 4px;
+}
+
+    .typing_indicator span {
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        background-color: #888;
+        display: block;
+        opacity: 0.4;
+        animation: typing 1s infinite;
+    }
+
+        .typing_indicator span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .typing_indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing_indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+@keyframes typing {
+    0% {
+        opacity: 0.4;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-5px);
+    }
+
+    100% {
+        opacity: 0.4;
+        transform: translateY(0);
+    }
+}
+
+/* Responsiveness */
+@media (max-width: 600px) {
+    .chat_messages {
+        padding: 10px;
+    }
+
+    .chat_input_container {
+        padding: 10px;
+    }
+
+    .message {
+        max-width: 90%;
+    }
+
+    .outfit_items {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Modal styles */
+.modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal_content {
+    background-color: white;
+    padding: 24px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+    .modal_content h3 {
+        font-family: 'Poppins', sans-serif;
+        color: var(--medium-slate-blue);
+        margin: 0 0 10px 0;
+        font-size: 1.3rem;
+    }
+
+    .modal_content p {
+        font-family: 'Poppins', sans-serif;
+        color: #666;
+        margin-bottom: 15px;
+    }
+
+.blend_name_input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+    .blend_name_input:focus {
+        border-color: var(--medium-slate-blue);
+        outline: none;
+    }
+
+.modal_buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.modal_button {
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancel_button {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+    .cancel_button:hover {
+        background-color: #e0e0e0;
+    }
+
+.confirm_button {
+    background-color: var(--medium-slate-blue);
+    color: white;
+}
+
+    .confirm_button:hover {
+        background-color: var(--tropical-indigo);
+        transform: scale(1.05);
+    }

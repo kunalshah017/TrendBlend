@@ -156,6 +156,7 @@
     <Content Include="pages\Settings.aspx" />
     <Content Include="pages\SignIn.aspx" />
     <Content Include="pages\Register.aspx" />
+    <Content Include="pages\TrendyChat.aspx" />
     <Content Include="services\ApparelService.asmx" />
     <Content Include="styles\Account\styles.css" />
     <Content Include="styles\Apparel\styles.css" />
@@ -167,6 +168,7 @@
     <Content Include="styles\SignIn\styles.css" />
     <Content Include="styles\Onboarding\styles.css" />
     <Content Include="styles\Register\styles.css" />
+    <Content Include="styles\TrendyChat\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +255,13 @@
     </Compile>
     <Compile Include="pages\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\TrendyChat.aspx.cs">
+      <DependentUpon>TrendyChat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\TrendyChat.aspx.designer.cs">
+      <DependentUpon>TrendyChat.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="services\ApparelService.asmx.cs">
