@@ -602,7 +602,7 @@ namespace TrendBlend.services
         }
 
         [WebMethod]
-        public int CreateBlend(string username, string blendName)
+        public int CreateBlend(string username, string blendName, string description = null, string wearingSuggestion = null)
         {
             // First get the user ID
             int userId = GetUserId(username);
@@ -616,14 +616,16 @@ namespace TrendBlend.services
             {
                 con.Open();
                 string query = @"
-                    INSERT INTO Blends (UserID, Name, CreatedAt) 
-                    VALUES (@UserID, @Name, GETDATE());
-                    SELECT SCOPE_IDENTITY();";
+            INSERT INTO FavouriteBlend (UserID, Name, Description, WearingSuggestion, CreatedAt) 
+            VALUES (@UserID, @Name, @Description, @WearingSuggestion, GETDATE());
+            SELECT SCOPE_IDENTITY();";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@UserID", userId);
                     cmd.Parameters.AddWithValue("@Name", blendName);
+                    cmd.Parameters.AddWithValue("@Description", (object)description ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@WearingSuggestion", (object)wearingSuggestion ?? DBNull.Value);
 
                     // Get the newly created blend ID
                     decimal result = (decimal)cmd.ExecuteScalar();
@@ -640,7 +642,7 @@ namespace TrendBlend.services
                 con.Open();
 
                 // First check if this apparel is already in the blend
-                string checkQuery = "SELECT COUNT(*) FROM BlendApparels WHERE BlendID = @BlendID AND ApparelID = @ApparelID";
+                string checkQuery = "SELECT COUNT(*) FROM FavouriteBlendApparels WHERE BlendID = @BlendID AND ApparelID = @ApparelID";
                 using (SqlCommand checkCmd = new SqlCommand(checkQuery, con))
                 {
                     checkCmd.Parameters.AddWithValue("@BlendID", blendId);
@@ -655,7 +657,7 @@ namespace TrendBlend.services
                 }
 
                 // Add to blend
-                string insertQuery = "INSERT INTO BlendApparels (BlendID, ApparelID) VALUES (@BlendID, @ApparelID)";
+                string insertQuery = "INSERT INTO FavouriteBlendApparels (BlendID, ApparelID) VALUES (@BlendID, @ApparelID)";
                 using (SqlCommand cmd = new SqlCommand(insertQuery, con))
                 {
                     cmd.Parameters.AddWithValue("@BlendID", blendId);

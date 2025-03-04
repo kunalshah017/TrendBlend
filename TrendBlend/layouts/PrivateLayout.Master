@@ -205,9 +205,13 @@
             <div class="bottom_bar_camera_btn" id="apparelUpload" style="font-size: 3rem;">
                 <i class='bx bx-plus'></i>
             </div>
-            <div class="bottom_bar_item" style="position: absolute; left: 70.5%; transform: translate(-50%,0);">
-                <i class="fa fa-star" style="font-size: 1.7rem;"></i>
-            </div>
+            <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/pages/TrendyChat.aspx" CssClass="bottom_bar_item trendy_chat_icon" Style="position: absolute; left: 70.5%; transform: translate(-50%,0);">
+                <div class="star_container">
+                    <i class="fa fa-star star_1"></i>
+                    <i class="fa fa-star star_2"></i>
+                    <i class="fa fa-star star_3"></i>
+                </div>
+            </asp:HyperLink>
             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/pages/Account.aspx" CssClass="bottom_bar_item" Style="position: absolute; left: 89%; transform: translate(-50%,0);">
                 <i class="fa fa-user" style="font-size: 1.7rem;"></i>
             </asp:HyperLink>

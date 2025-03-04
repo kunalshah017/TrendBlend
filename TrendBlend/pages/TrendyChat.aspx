@@ -12,7 +12,11 @@
                 <!-- Initial welcome message -->
                 <div class="message ai_message">
                     <div class="message_content">
-                        <p>Hi! I'm TrendyAI. I can help you find the perfect outfit from your wardrobe. What are you dressing for today?</p>
+                        <p>
+                            Hi! I'm TrendyAI. I can help you find the perfect outfit from your wardrobe.<br />
+                            <br />
+                            What are you dressing for today? 👕👗
+                        </p>
                     </div>
                 </div>
                 <!-- Add this invisible element to ensure we can scroll to the bottom -->
@@ -111,13 +115,24 @@
             }
 
             // Updated scrollToBottom function in TrendyChat.aspx
-            function scrollToBottom() {
+            function scrollToBottom(attempts = 0) {
                 // Force a reflow by accessing offsetHeight
                 const dummy = $chatMessages[0].offsetHeight;
 
-                // Use requestAnimationFrame for smoother scrolling after DOM updates
+                // Use requestAnimationFrame for smoother scrolling
                 requestAnimationFrame(() => {
+                    // Directly set scrollTop to the maximum value
                     $chatMessages.scrollTop($chatMessages[0].scrollHeight);
+
+                    // Check if we actually scrolled to bottom
+                    const currentScroll = $chatMessages.scrollTop();
+                    const maxScroll = $chatMessages[0].scrollHeight - $chatMessages[0].clientHeight;
+
+                    // If we didn't reach the bottom and haven't tried too many times, try again
+                    if (Math.abs(currentScroll - maxScroll) > 10 && attempts < 5) {
+                        // Try again with a delay, increasing for each attempt
+                        setTimeout(() => scrollToBottom(attempts + 1), 100 * (attempts + 1));
+                    }
                 });
             }
 
@@ -143,28 +158,28 @@
             }
 
             // Add AI message to the chat
-            function addAIMessage(message, saveToHistory = true) {
+            function addAIMessage(message, saveToHistory = true, isError = false) {
+                const messageClass = isError ? "ai_message error_message" : "ai_message";
+
                 const aiMessage = `
-        <div class="message ai_message">
+        <div class="message ${messageClass}">
             <div class="message_content">
                 <p>${message}</p>
             </div>
         </div>
     `;
 
-                // Insert before the anchor
                 $(aiMessage).insertBefore('#scrollAnchor');
 
-                if (saveToHistory) {
+                if (saveToHistory && !isError) {
                     chatHistory.push({ type: 'ai', content: message });
                     saveChatHistory();
                 }
 
-                // Force scroll update
                 scrollToBottom();
             }
 
-            // Add an outfit recommendation to the chat
+
             function addOutfitRecommendation(recommendation, saveToHistory = true) {
                 let recommendationHtml = `
         <div class="message ai_message">
@@ -180,12 +195,12 @@
                     <p>${recommendation.stylingTips}</p>
                 </div>
                 <div class="outfit_actions">
-                    <button class="save_outfit_btn" data-outfit='${JSON.stringify(recommendation)}'>
+                    <button class="save_outfit_btn" data-outfit-id="${btoa(JSON.stringify(recommendation))}">
                         <i class="fa fa-heart"></i> Save as Favorite Blend
                     </button>
                 </div>
             </div>
-        </div>Sa
+        </div>
     `;
 
                 // Insert before the anchor
@@ -249,6 +264,7 @@
                 scrollToBottom();
             }
 
+
             // Show loading indicator
             function showLoading() {
                 $loadingIndicator.show();
@@ -274,6 +290,7 @@
                 currentOutfitData = null;
             }
 
+            // Process user input and get recommendation
             // Process user input and get recommendation
             async function processUserInput() {
                 const eventType = $eventInput.val().trim();
@@ -324,11 +341,13 @@
 
                 } catch (error) {
                     console.error('Error:', error);
-                    addAIMessage(`Sorry, I encountered an error: ${error.message}. Please try again.`);
+                    // Show error but don't save to history
+                    addAIMessage(`Sorry, I encountered an error: ${error.message}. Please try again.`, false, true);
                 } finally {
                     hideLoading();
                 }
             }
+
 
             // Save outfit as blend
             async function saveOutfitAsBlend() {
@@ -339,13 +358,20 @@
                 const blendName = $blendNameInput.val().trim();
 
                 try {
-                    // First create the blend
+                    // Show a temporary saving message
+                    const $savingMsg = $('<div class="message ai_message saving_message"><div class="message_content"><p>Saving your blend...</p></div></div>');
+                    $savingMsg.insertBefore('#scrollAnchor');
+                    scrollToBottom();
+
+                    // First create the blend with description and styling tips
                     const createResponse = await $.ajax({
                         url: '/services/ApparelService.asmx/CreateBlend',
                         type: 'POST',
                         data: JSON.stringify({
                             username: username,
-                            blendName: blendName
+                            blendName: blendName,
+                            description: currentOutfitData.description,
+                            wearingSuggestion: currentOutfitData.stylingTips
                         }),
                         contentType: 'application/json',
                         dataType: 'json'
@@ -368,6 +394,9 @@
                             });
                         }
 
+                        // Remove the temporary saving message
+                        $savingMsg.remove();
+
                         // Hide modal
                         hideSaveBlendModal();
 
@@ -375,26 +404,21 @@
                         addAIMessage(`Great! I've saved "${blendName}" to your favorite blends.`);
 
                         // Disable the save button on the outfit
-                        $(`.save_outfit_btn[data-outfit]`).filter(function () {
-                            try {
-                                const btnData = JSON.parse($(this).attr('data-outfit'));
-                                return btnData.outfitName === currentOutfitData.outfitName;
-                            } catch (e) {
-                                return false;
-                            }
-                        }).prop('disabled', true).html('<i class="fa fa-check"></i> Saved!');
+                        $(`.save_outfit_btn[data-outfit-id="${btoa(JSON.stringify(currentOutfitData))}"`)
+                            .prop('disabled', true)
+                            .html('<i class="fa fa-check"></i> Saved!');
 
                         currentOutfitData = null;
                     }
                 } catch (error) {
                     console.error('Error saving blend:', error);
-                    addAIMessage(`Sorry, I couldn't save this outfit: ${error.message}`);
+                    // Remove any temporary saving message
+                    $('.saving_message').remove();
+                    // Show error but don't save to history
+                    addAIMessage(`Sorry, I couldn't save this outfit: ${error.message}. Please try again.`, false, true);
                     hideSaveBlendModal();
                 }
             }
-
-            // Make sure the chat scrolls to bottom on page load
-            scrollToBottom();
 
             // Event handlers
             $sendBtn.click(processUserInput);
@@ -405,15 +429,23 @@
                 }
             });
 
-            // Handle save outfit button click
-            $(document).on('click', '.save_outfit_btn', function () {
+            // Handle save outfit button click - prevent default behavior to avoid page reloads
+            $(document).on('click', '.save_outfit_btn', function (e) {
+                // Prevent default button behavior that might cause page reload
+                e.preventDefault();
+                e.stopPropagation();
+
                 try {
-                    const outfitData = JSON.parse($(this).attr('data-outfit'));
+                    // Get the base64 encoded data and decode it
+                    const encodedData = $(this).attr('data-outfit-id');
+                    const outfitData = JSON.parse(atob(encodedData));
                     showSaveBlendModal(outfitData);
                 } catch (error) {
                     console.error('Error parsing outfit data', error);
-                    addAIMessage("Sorry, I couldn't prepare this outfit for saving. Please try again.");
+                    addAIMessage("Sorry, I couldn't prepare this outfit for saving. Please try again.", false, true); // Don't save error to history
                 }
+
+                return false; // Prevent event bubbling
             });
 
             // Save blend modal controls
@@ -442,10 +474,10 @@
                 setTimeout(scrollToBottom, 300);
             });
 
-            // Initial scroll
-            setTimeout(scrollToBottom, 100);
-
-            loadChatHistory();
+            setTimeout(() => scrollToBottom(), 100);
+            setTimeout(() => scrollToBottom(), 300);
+            setTimeout(() => scrollToBottom(), 600);
+            setTimeout(() => scrollToBottom(), 1000);
         });
     </script>
 </asp:Content>

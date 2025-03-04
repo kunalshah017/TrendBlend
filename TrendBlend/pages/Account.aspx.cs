@@ -23,6 +23,7 @@ namespace TrendBlend.pages
 
                 LoadUserInfo();
                 LoadApparelStats();
+                LoadFavoriteBlends();
             }
         }
 
