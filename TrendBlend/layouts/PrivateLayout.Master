@@ -259,8 +259,6 @@
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         timeout: 60000,
-                        beforeSend: function () {
-                        },
                         error: function (xhr, status, error) {
                             console.error('analyzeWithAI: Ajax error', {
                                 status: status,
@@ -554,8 +552,8 @@
             }
 
             function showValidationErrors(errors) {
-                const errorList = errors.join('\n• ');
-                alert('Please fix the following errors:\n\n• ' + errorList);
+                const errorList = errors.join('\nï¿½ ');
+                alert('Please fix the following errors:\n\nï¿½ ' + errorList);
             }
 
             window.goBack = function (e) {
@@ -685,24 +683,7 @@
                 }
             });
 
-            // Accessory input toggle function
-            function toggleAccessoryInput() {
-                var selectedValue = $("#<%= apparelTypeDropDown.ClientID %>").val();
-                var accessoryContainer = $("#<%= AccessoryInput.ClientID %>").parent();
 
-                if (selectedValue === "Accessory") {
-                    accessoryContainer.fadeIn();
-                } else {
-                    accessoryContainer.fadeOut();
-                    $("#<%= AccessoryInput.ClientID %>").val('');
-                }
-            }
-
-            toggleAccessoryInput();
-
-            $("#<%= apparelTypeDropDown.ClientID %>").change(function () {
-                toggleAccessoryInput();
-            });
 
             $('#retryButton').click(function () {
                 // Reset form
