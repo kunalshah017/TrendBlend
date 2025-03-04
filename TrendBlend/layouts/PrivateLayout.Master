@@ -69,6 +69,7 @@
         </asp:ContentPlaceHolder>
 
         <div class="apparel_upload_form" id="apparelUploadModal">
+
             <div id="loadingScreen" class="blur_bg" style="display: none;">
                 <div class="loading_container">
                     <div class="loading_animation_container">
@@ -183,8 +184,6 @@
                 <asp:TextBox ID="ApparelDescriptionInput" runat="server" CssClass="text_input" TextMode="MultiLine" Rows="5" />
             </div>
 
-            <input type="file" id="fileInput" accept="image/jpeg,image/png" style="display: none;">
-
             <div class="cta_buttons_container">
                 <div id="btnReset">
                     <i class="fa fa-refresh" style="font-size: 2rem; color: var(--magnolia);"></i>
@@ -251,6 +250,7 @@
 
                     // Show loading indicator
                     loadingScreen.show();
+                    $('.apparel_upload_form').addClass('no-scroll');
 
                     const response = await $.ajax({
                         type: "POST",
@@ -271,6 +271,7 @@
                     });
 
                     loadingScreen.hide();
+                    $('.apparel_upload_form').removeClass('no-scroll');
 
                     if (!response || !response.d || !response.d.Result) {
                         console.error('analyzeWithAI: Empty or invalid response');
@@ -626,16 +627,6 @@
                 const accessoryType = $("[id$='AccessoryInput']").val();
                 const description = $("[id$='ApparelDescriptionInput']").val();
                 const originalImageData = imgCapture.attr('src');
-
-                if (!originalImageData) {
-                    alert('Please capture or upload an image first');
-                    return;
-                }
-
-                if (!apparelName || !apparelType || !color) {
-                    alert('Please fill in all required fields');
-                    return;
-                }
 
                 // Show loading state
                 finalSubmitBtn.prop('disabled', true);
