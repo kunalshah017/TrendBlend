@@ -727,6 +727,17 @@
             $("#<%= apparelTypeDropDown.ClientID %>").change(function () {
                 toggleAccessoryInput();
             });
+
+            function triggerHapticFeedback() {
+                if (navigator.vibrate) {
+                    navigator.vibrate(10); // Short 50ms vibration
+                }
+            }
+
+            // Add haptic feedback to all bottom bar items
+            $('.bottom_bar_item, .bottom_bar_camera_btn').on('click', function () {
+                triggerHapticFeedback();
+            });
         });
 
 

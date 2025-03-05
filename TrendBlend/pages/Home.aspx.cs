@@ -105,23 +105,6 @@ namespace TrendBlend.pages
             repeater.DataSource = apparels;
             repeater.DataBind();
         }
-
-        protected void LogoutButton_Click(object sender, EventArgs e)
-        {
-            // Clear cookie if exists
-            if (Request.Cookies["UserInfo"] != null)
-            {
-                HttpCookie userCookie = new HttpCookie("UserInfo");
-                userCookie.Expires = DateTime.Now.AddDays(-1);
-                Response.Cookies.Add(userCookie);
-            }
-
-            // Clear session
-            Session.Clear();
-
-            // Redirect to login
-            Response.Redirect("~/pages/SignIn.aspx");
-        }
     }
 
     public class Apparel
