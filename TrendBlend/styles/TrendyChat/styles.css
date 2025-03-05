@@ -198,7 +198,7 @@
     }
 
 .item_image_container {
-    height: 120px;
+    height: 300px;
     overflow: hidden;
 }
 
@@ -290,7 +290,7 @@
     border-radius: 18px;
     background-color: var(--ai-chat-bg);
     align-self: flex-start;
-    margin-bottom: 70px;
+    margin-bottom: 100px;
     gap: 4px;
 }
 

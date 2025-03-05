@@ -604,67 +604,98 @@ namespace TrendBlend.services
         [WebMethod]
         public int CreateBlend(string username, string blendName, string description = null, string wearingSuggestion = null)
         {
-            // First get the user ID
-            int userId = GetUserId(username);
-            if (userId <= 0)
+            try
             {
-                throw new Exception("User not found");
-            }
-
-            // Create the blend
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                con.Open();
-                string query = @"
-            INSERT INTO FavouriteBlend (UserID, Name, Description, WearingSuggestion, CreatedAt) 
-            VALUES (@UserID, @Name, @Description, @WearingSuggestion, GETDATE());
-            SELECT SCOPE_IDENTITY();";
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                // First get the user ID
+                int userId = GetUserId(username);
+                if (userId <= 0)
                 {
-                    cmd.Parameters.AddWithValue("@UserID", userId);
-                    cmd.Parameters.AddWithValue("@Name", blendName);
-                    cmd.Parameters.AddWithValue("@Description", (object)description ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@WearingSuggestion", (object)wearingSuggestion ?? DBNull.Value);
-
-                    // Get the newly created blend ID
-                    decimal result = (decimal)cmd.ExecuteScalar();
-                    return (int)result;
+                    throw new Exception("User not found");
                 }
+
+                // Sanitize inputs
+                blendName = blendName?.Trim() ?? "My Blend";
+                description = description?.Trim();
+                wearingSuggestion = wearingSuggestion?.Trim();
+
+                // Limit text lengths to prevent DB issues
+                if (blendName.Length > 100) blendName = blendName.Substring(0, 100);
+                if (description != null && description.Length > 500) description = description.Substring(0, 500);
+                if (wearingSuggestion != null && wearingSuggestion.Length > 500) wearingSuggestion = wearingSuggestion.Substring(0, 500);
+
+                // Create the blend
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    con.Open();
+                    string query = @"
+                INSERT INTO FavouriteBlend (UserID, Name, Description, WearingSuggestion, CreatedAt) 
+                VALUES (@UserID, @Name, @Description, @WearingSuggestion, GETDATE());
+                SELECT SCOPE_IDENTITY();";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", userId);
+                        cmd.Parameters.AddWithValue("@Name", blendName);
+                        cmd.Parameters.AddWithValue("@Description", (object)description ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@WearingSuggestion", (object)wearingSuggestion ?? DBNull.Value);
+
+                        // Get the newly created blend ID
+                        decimal result = (decimal)cmd.ExecuteScalar();
+                        return (int)result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in CreateBlend: {ex.Message}\n{ex.StackTrace}");
+                throw new Exception($"Failed to create blend: {ex.Message}");
             }
         }
 
         [WebMethod]
         public bool AddApparelToBlend(int blendId, int apparelId)
         {
-            using (SqlConnection con = new SqlConnection(cs))
+            try
             {
-                con.Open();
-
-                // First check if this apparel is already in the blend
-                string checkQuery = "SELECT COUNT(*) FROM FavouriteBlendApparels WHERE BlendID = @BlendID AND ApparelID = @ApparelID";
-                using (SqlCommand checkCmd = new SqlCommand(checkQuery, con))
+                if (blendId <= 0 || apparelId <= 0)
                 {
-                    checkCmd.Parameters.AddWithValue("@BlendID", blendId);
-                    checkCmd.Parameters.AddWithValue("@ApparelID", apparelId);
+                    throw new ArgumentException("Invalid blend or apparel ID");
+                }
 
-                    int count = (int)checkCmd.ExecuteScalar();
-                    if (count > 0)
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    con.Open();
+
+                    // First check if this apparel is already in the blend
+                    string checkQuery = "SELECT COUNT(*) FROM FavouriteBlendApparels WHERE BlendID = @BlendID AND ApparelID = @ApparelID";
+                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, con))
                     {
-                        // Already in blend, no need to add again
-                        return true;
+                        checkCmd.Parameters.AddWithValue("@BlendID", blendId);
+                        checkCmd.Parameters.AddWithValue("@ApparelID", apparelId);
+
+                        int count = (int)checkCmd.ExecuteScalar();
+                        if (count > 0)
+                        {
+                            // Already in blend, no need to add again
+                            return true;
+                        }
+                    }
+
+                    // Add to blend
+                    string insertQuery = "INSERT INTO FavouriteBlendApparels (BlendID, ApparelID) VALUES (@BlendID, @ApparelID)";
+                    using (SqlCommand cmd = new SqlCommand(insertQuery, con))
+                    {
+                        cmd.Parameters.AddWithValue("@BlendID", blendId);
+                        cmd.Parameters.AddWithValue("@ApparelID", apparelId);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
                     }
                 }
-
-                // Add to blend
-                string insertQuery = "INSERT INTO FavouriteBlendApparels (BlendID, ApparelID) VALUES (@BlendID, @ApparelID)";
-                using (SqlCommand cmd = new SqlCommand(insertQuery, con))
-                {
-                    cmd.Parameters.AddWithValue("@BlendID", blendId);
-                    cmd.Parameters.AddWithValue("@ApparelID", apparelId);
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected > 0;
-                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in AddApparelToBlend: {ex.Message}\n{ex.StackTrace}");
+                throw new Exception($"Failed to add apparel to blend: {ex.Message}");
             }
         }
     }

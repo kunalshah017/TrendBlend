@@ -299,84 +299,145 @@
                 }
             }
 
-            // Save outfit as blend
-            async function saveOutfitAsBlend() {
-                if (!currentOutfitData || !$blendNameInput.val().trim()) {
-                    return;
-                }
+async function saveOutfitAsBlend() {
+    if (!currentOutfitData || !$blendNameInput.val().trim()) {
+        return;
+    }
 
-                const blendName = $blendNameInput.val().trim();
+    const blendName = $blendNameInput.val().trim();
+    
+    // Create a local copy of the outfit data to prevent issues if currentOutfitData becomes null
+    const outfitData = {...currentOutfitData};
 
+    try {
+        // Show a temporary saving message
+        const $savingMsg = $('<div class="message ai_message saving_message"><div class="message_content"><p>Saving your blend...</p></div></div>');
+        $messagesWrapper.append($savingMsg);
+
+        // Safely handle various data types
+        let cleanDescription = "";
+        if (outfitData.description) {
+            cleanDescription = typeof outfitData.description === 'string' 
+                ? outfitData.description.substring(0, 500) 
+                : String(outfitData.description).substring(0, 500);
+        }
+        
+        let cleanStylingTips = "";
+        if (outfitData.stylingTips) {
+            cleanStylingTips = typeof outfitData.stylingTips === 'string' 
+                ? outfitData.stylingTips.substring(0, 500) 
+                : String(outfitData.stylingTips).substring(0, 500);
+        }
+
+        // First create the blend with description and styling tips
+        const createResponse = await $.ajax({
+            url: '/services/ApparelService.asmx/CreateBlend',
+            type: 'POST',
+            data: JSON.stringify({
+                username: username,
+                blendName: blendName,
+                description: cleanDescription,
+                wearingSuggestion: cleanStylingTips
+            }),
+            contentType: 'application/json',
+            dataType: 'json',
+            timeout: 30000 // 30 second timeout
+        });
+
+        if (createResponse.d) {
+            const blendId = createResponse.d;
+            let successCount = 0;
+            let failedItems = [];
+
+            // Make sure outfitData.items exists before proceeding
+            const items = outfitData.items || [];
+            const totalItems = items.length;
+
+            // Add each item to the blend
+            for (const item of items) {
                 try {
-                    // Show a temporary saving message
-                    const $savingMsg = $('<div class="message ai_message saving_message"><div class="message_content"><p>Saving your blend...</p></div></div>');
-                    $messagesWrapper.append($savingMsg);
-
-                    // First create the blend with description and styling tips
-                    const createResponse = await $.ajax({
-                        url: '/services/ApparelService.asmx/CreateBlend',
+                    // Ensure we have a valid ID
+                    const apparelId = parseInt(item.id, 10);
+                    if (isNaN(apparelId) || apparelId <= 0) {
+                        console.warn(`Skipping invalid apparel ID: ${item.id}`);
+                        continue;
+                    }
+                    
+                    const addResponse = await $.ajax({
+                        url: '/services/ApparelService.asmx/AddApparelToBlend',
                         type: 'POST',
                         data: JSON.stringify({
-                            username: username,
-                            blendName: blendName,
-                            description: currentOutfitData.description,
-                            wearingSuggestion: currentOutfitData.stylingTips
+                            blendId: blendId,
+                            apparelId: apparelId
                         }),
                         contentType: 'application/json',
-                        dataType: 'json'
+                        dataType: 'json',
+                        timeout: 10000 // 10 second timeout per item
                     });
-
-                    if (createResponse.d) {
-                        const blendId = createResponse.d;
-
-                        // Add each item to the blend
-                        for (const item of currentOutfitData.items) {
-                            await $.ajax({
-                                url: '/services/ApparelService.asmx/AddApparelToBlend',
-                                type: 'POST',
-                                data: JSON.stringify({
-                                    blendId: blendId,
-                                    apparelId: item.id
-                                }),
-                                contentType: 'application/json',
-                                dataType: 'json'
-                            });
-                        }
-
-                        // Remove the temporary saving message
-                        $savingMsg.remove();
-
-                        // Hide modal
-                        hideSaveBlendModal();
-
-                        // Add success message
-                        addAIMessage(`Great! I've saved "${blendName}" to your favorite blends.`);
-
-                        // Disable the save button on the outfit
-                        $(`.save_outfit_btn[data-outfit-id="${btoa(JSON.stringify(currentOutfitData))}"`)
-                            .prop('disabled', true)
-                            .html('<i class="fa fa-check"></i> Saved!');
-
-                        currentOutfitData = null;
+                    
+                    if (addResponse.d === true) {
+                        successCount++;
                     }
-                } catch (error) {
-                    console.error('Error saving blend:', error);
-                    // Remove any temporary saving message
-                    $('.saving_message').remove();
-                    // Show error but don't save to history
-                    addAIMessage(`Sorry, I couldn't save this outfit: ${error.message}. Please try again.`, false, true);
-                    hideSaveBlendModal();
+                } catch (itemError) {
+                    failedItems.push(item.id);
+                    console.error(`Failed to add item ${item.id} to blend:`, itemError);
                 }
             }
 
-            // Event handlers
-            $sendBtn.click(processUserInput);
+            // Remove the temporary saving message
+            $savingMsg.remove();
+            
+            // Save the current state before clearing it
+            const savedOutfitData = JSON.stringify(outfitData);
+            
+            // Hide modal (this will set currentOutfitData to null)
+            hideSaveBlendModal();
 
-            $eventInput.keypress(function (e) {
-                if (e.which === 13) { // Enter key
-                    processUserInput();
+            // Add success message based on how many items were added successfully
+            if (totalItems === 0) {
+                addAIMessage(`I've saved "${blendName}" to your favorite blends.`);
+            } else if (successCount === totalItems) {
+                addAIMessage(`Great! I've saved "${blendName}" to your favorite blends with all ${successCount} items.`);
+            } else if (successCount > 0) {
+                addAIMessage(`I've saved "${blendName}" to your favorite blends, but only ${successCount} out of ${totalItems} items were added successfully.`);
+            } else {
+                addAIMessage(`I've created "${blendName}" in your favorite blends, but couldn't add any items to it. Please try again.`, false, true);
+            }
+
+            // Disable the save button using the saved data (since currentOutfitData is now null)
+            try {
+                const encodedOutfitData = btoa(savedOutfitData);
+                $(`.save_outfit_btn[data-outfit-id="${encodedOutfitData}"]`)
+                    .prop('disabled', true)
+                    .html('<i class="fa fa-check"></i> Saved!');
+            } catch (btnError) {
+                console.error('Error updating save button:', btnError);
+            }
+        }
+    } catch (error) {
+        console.error('Error saving blend:', error);
+        // Remove any temporary saving message
+        $('.saving_message').remove();
+        
+        // Show detailed error message
+        let errorMessage = "Sorry, I couldn't save this outfit.";
+        if (error.responseText) {
+            try {
+                const errorDetails = JSON.parse(error.responseText);
+                if (errorDetails.Message) {
+                    errorMessage += ` Error: ${errorDetails.Message}`;
                 }
-            });
+            } catch (e) {
+                errorMessage += " Please try again later.";
+            }
+        } else if (error.message) {
+            errorMessage += ` Error: ${error.message}`;
+        }
+        
+        addAIMessage(errorMessage, false, true);
+        hideSaveBlendModal();
+    }
+}
 
                    // Handle save outfit button click - prevent default behavior to avoid page reloads
             $(document).on('click', '.save_outfit_btn', function (e) {
@@ -447,6 +508,41 @@
             const $clearHistoryBtn = $('<button class="clear_history_btn"><i class="fa fa-trash"></i> Clear History</button>');
             $('.chat_container').append($clearHistoryBtn);
             $clearHistoryBtn.on('click', clearChatHistory);
+
+            $(document).keypress(function(e) {
+    // Check if Enter key was pressed
+    if (e.which === 13) { 
+        // If the focused element is the event input field
+        if (document.activeElement === $eventInput[0]) {
+            // Only process if there's text in the input
+            if ($eventInput.val().trim()) {
+                e.preventDefault(); // Prevent default Enter key behavior
+                processUserInput();
+                return false;
+            }
+        } 
+        // If the focused element is the blend name input
+        else if (document.activeElement === $blendNameInput[0]) {
+            // Only process if there's text in the input
+            if ($blendNameInput.val().trim()) {
+                e.preventDefault(); // Prevent default Enter key behavior
+                saveOutfitAsBlend();
+                return false;
+            }
+        }
+    }
+});
+
+// Remove the individual keypress handlers and replace with the above global handler
+$eventInput.off('keypress');
+$blendNameInput.off('keypress');
+
+// Update event handlers to use the consolidated approach
+$sendBtn.click(function() {
+    if ($eventInput.val().trim()) {
+        processUserInput();
+    }
+});
             
             // Load chat history
             loadChatHistory();
