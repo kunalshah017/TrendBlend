@@ -8,7 +8,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <div class="chat_container">
         <div class="chat_messages" id="chatMessages">
-            <div class="messages_wrapper" id="messagesWrapper">
+            <div class="messages_wrapper messages_auto_scroll" id="messagesWrapper">
                 <!-- Initial welcome message -->
                 <div class="message ai_message">
                     <div class="message_content">
@@ -16,11 +16,10 @@
                             Hi! I'm TrendyAI. I can help you find the perfect outfit from your wardrobe.<br />
                             <br />
                             What are you dressing for today? 👕👗
+                       
                         </p>
                     </div>
                 </div>
-                <!-- Add this invisible element to ensure we can scroll to the bottom -->
-                <div class="scroll_anchor" id="scrollAnchor"></div>
             </div>
         </div>
 
@@ -89,9 +88,6 @@
                             // Clear existing welcome message
                             $messagesWrapper.empty();
 
-                            // Add scroll anchor back
-                            $messagesWrapper.append('<div class="scroll_anchor" id="scrollAnchor"></div>');
-
                             // Rebuild the chat from history
                             chatHistory.forEach(message => {
                                 if (message.type === 'user') {
@@ -102,9 +98,6 @@
                                     addOutfitRecommendation(message.content, false);
                                 }
                             });
-
-                            // Scroll to bottom after loading history
-                            scrollToBottom();
                         }
                     }
                 } catch (error) {
@@ -114,47 +107,22 @@
                 }
             }
 
-            // Updated scrollToBottom function in TrendyChat.aspx
-            function scrollToBottom(attempts = 0) {
-                // Force a reflow by accessing offsetHeight
-                const dummy = $chatMessages[0].offsetHeight;
-
-                // Use requestAnimationFrame for smoother scrolling
-                requestAnimationFrame(() => {
-                    // Directly set scrollTop to the maximum value
-                    $chatMessages.scrollTop($chatMessages[0].scrollHeight);
-
-                    // Check if we actually scrolled to bottom
-                    const currentScroll = $chatMessages.scrollTop();
-                    const maxScroll = $chatMessages[0].scrollHeight - $chatMessages[0].clientHeight;
-
-                    // If we didn't reach the bottom and haven't tried too many times, try again
-                    if (Math.abs(currentScroll - maxScroll) > 10 && attempts < 5) {
-                        // Try again with a delay, increasing for each attempt
-                        setTimeout(() => scrollToBottom(attempts + 1), 100 * (attempts + 1));
-                    }
-                });
-            }
-
             function addUserMessage(message, saveToHistory = true) {
                 const userMessage = `
-        <div class="message user_message">
-            <div class="message_content">
-                <p>${message}</p>
-            </div>
-        </div>
-    `;
+                    <div class="message user_message">
+                        <div class="message_content">
+                            <p>${message}</p>
+                        </div>
+                    </div>
+                `;
 
-                // Insert before the anchor
-                $(userMessage).insertBefore('#scrollAnchor');
+                // Append to the messages wrapper
+                $messagesWrapper.append(userMessage);
 
                 if (saveToHistory) {
                     chatHistory.push({ type: 'user', content: message });
                     saveChatHistory();
                 }
-
-                // Force scroll update
-                scrollToBottom();
             }
 
             // Add AI message to the chat
@@ -162,49 +130,46 @@
                 const messageClass = isError ? "ai_message error_message" : "ai_message";
 
                 const aiMessage = `
-        <div class="message ${messageClass}">
-            <div class="message_content">
-                <p>${message}</p>
-            </div>
-        </div>
-    `;
+                    <div class="message ${messageClass}">
+                        <div class="message_content">
+                            <p>${message}</p>
+                        </div>
+                    </div>
+                `;
 
-                $(aiMessage).insertBefore('#scrollAnchor');
+                $messagesWrapper.append(aiMessage);
 
                 if (saveToHistory && !isError) {
                     chatHistory.push({ type: 'ai', content: message });
                     saveChatHistory();
                 }
-
-                scrollToBottom();
             }
-
 
             function addOutfitRecommendation(recommendation, saveToHistory = true) {
                 let recommendationHtml = `
-        <div class="message ai_message">
-            <div class="message_content outfit_recommendation">
-                <h2>${recommendation.outfitName}</h2>
-                <p class="outfit_description">${recommendation.description}</p>
-                <div class="outfit_items">`;
+                    <div class="message ai_message">
+                        <div class="message_content outfit_recommendation">
+                            <h2>${recommendation.outfitName}</h2>
+                            <p class="outfit_description">${recommendation.description}</p>
+                            <div class="outfit_items">`;
 
                 // We'll populate the items later with AJAX calls
                 recommendationHtml += `</div>
-                <div class="outfit_tips">
-                    <h3>Styling Tips</h3>
-                    <p>${recommendation.stylingTips}</p>
-                </div>
-                <div class="outfit_actions">
-                    <button class="save_outfit_btn" data-outfit-id="${btoa(JSON.stringify(recommendation))}">
-                        <i class="fa fa-heart"></i> Save as Favorite Blend
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
+                            <div class="outfit_tips">
+                                <h3>Styling Tips</h3>
+                                <p>${recommendation.stylingTips}</p>
+                            </div>
+                            <div class="outfit_actions">
+                                <button class="save_outfit_btn" data-outfit-id="${btoa(JSON.stringify(recommendation))}">
+                                    <i class="fa fa-heart"></i> Save as Favorite Blend
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
 
-                // Insert before the anchor
-                $(recommendationHtml).insertBefore('#scrollAnchor');
+                // Append to messages wrapper
+                $messagesWrapper.append(recommendationHtml);
 
                 // Save to history just once here, outside the forEach loop
                 if (saveToHistory) {
@@ -232,43 +197,30 @@
                         const apparel = response.d;
                         if (apparel) {
                             const itemHtml = `
-                    <div class="outfit_item" onclick="window.location.href='/pages/Apparel.aspx?id=${apparel.ApparelId}'">
-                        <div class="item_image_container">
-                            <img src="${apparel.ImageUrl}" alt="${apparel.Name}" />
-                        </div>
-                        <div class="item_details">
-                            <h3>${apparel.Name}</h3>
-                            <p><strong>${item.type}</strong></p>
-                            <p class="item_reason">${item.reason}</p>
-                        </div>
-                    </div>`;
+                                <div class="outfit_item" onclick="window.location.href='/pages/Apparel.aspx?id=${apparel.ApparelId}'">
+                                    <div class="item_image_container">
+                                        <img src="${apparel.ImageUrl}" alt="${apparel.Name}" />
+                                    </div>
+                                    <div class="item_details">
+                                        <h3>${apparel.Name}</h3>
+                                        <p><strong>${item.type}</strong></p>
+                                        <p class="item_reason">${item.reason}</p>
+                                    </div>
+                                </div>`;
                             $lastOutfitItems.append(itemHtml);
 
                             itemsLoaded++;
-                            if (itemsLoaded === itemsToLoad) {
-                                // All items loaded, now scroll
-                                scrollToBottom();
-                            }
                         }
                     } catch (error) {
                         console.error(`Error fetching apparel ${item.id}:`, error);
                         itemsLoaded++;
-                        if (itemsLoaded === itemsToLoad) {
-                            // All items attempted, now scroll
-                            scrollToBottom();
-                        }
                     }
                 });
-
-                // Initial scroll after adding the message structure
-                scrollToBottom();
             }
-
 
             // Show loading indicator
             function showLoading() {
                 $loadingIndicator.show();
-                scrollToBottom();
             }
 
             // Hide loading indicator
@@ -290,7 +242,6 @@
                 currentOutfitData = null;
             }
 
-            // Process user input and get recommendation
             // Process user input and get recommendation
             async function processUserInput() {
                 const eventType = $eventInput.val().trim();
@@ -348,7 +299,6 @@
                 }
             }
 
-
             // Save outfit as blend
             async function saveOutfitAsBlend() {
                 if (!currentOutfitData || !$blendNameInput.val().trim()) {
@@ -360,8 +310,7 @@
                 try {
                     // Show a temporary saving message
                     const $savingMsg = $('<div class="message ai_message saving_message"><div class="message_content"><p>Saving your blend...</p></div></div>');
-                    $savingMsg.insertBefore('#scrollAnchor');
-                    scrollToBottom();
+                    $messagesWrapper.append($savingMsg);
 
                     // First create the blend with description and styling tips
                     const createResponse = await $.ajax({
@@ -429,7 +378,7 @@
                 }
             });
 
-            // Handle save outfit button click - prevent default behavior to avoid page reloads
+                   // Handle save outfit button click - prevent default behavior to avoid page reloads
             $(document).on('click', '.save_outfit_btn', function (e) {
                 // Prevent default button behavior that might cause page reload
                 e.preventDefault();
@@ -442,7 +391,7 @@
                     showSaveBlendModal(outfitData);
                 } catch (error) {
                     console.error('Error parsing outfit data', error);
-                    addAIMessage("Sorry, I couldn't prepare this outfit for saving. Please try again.", false, true); // Don't save error to history
+                    addAIMessage("Sorry, I couldn't prepare this outfit for saving. Please try again.", false, true);
                 }
 
                 return false; // Prevent event bubbling
@@ -467,17 +416,40 @@
             // Initial focus
             $eventInput.focus();
 
-            $(window).on('resize', scrollToBottom);
-
-            // Fix for mobile browsers that might resize on input focus
-            $eventInput.on('focus', function () {
-                setTimeout(scrollToBottom, 300);
+            // Make sure input is always visible when keyboard appears (mobile)
+            $eventInput.on('focus', function() {
+                // Add a slight delay to account for keyboard appearance
+                setTimeout(function() {
+                    $eventInput[0].scrollIntoView(false);
+                }, 300);
             });
 
-            setTimeout(() => scrollToBottom(), 100);
-            setTimeout(() => scrollToBottom(), 300);
-            setTimeout(() => scrollToBottom(), 600);
-            setTimeout(() => scrollToBottom(), 1000);
+            // Enable auto-hiding of the loading indicator
+            $loadingIndicator.on('show', function() {
+                // Auto-hide after 30 seconds to prevent it getting stuck
+                setTimeout(function() {
+                    if ($loadingIndicator.is(':visible')) {
+                        hideLoading();
+                        addAIMessage("It's taking longer than expected. Please try again if you don't see a response.", false, true);
+                    }
+                }, 30000);
+            });
+
+            // Clear chat history function
+            function clearChatHistory() {
+                if (confirm("Are you sure you want to clear your chat history?")) {
+                    localStorage.removeItem(`chatHistory_${username}`);
+                    location.reload();
+                }
+            }
+
+            // Add a clear history button
+            const $clearHistoryBtn = $('<button class="clear_history_btn"><i class="fa fa-trash"></i> Clear History</button>');
+            $('.chat_container').append($clearHistoryBtn);
+            $clearHistoryBtn.on('click', clearChatHistory);
+            
+            // Load chat history
+            loadChatHistory();
         });
     </script>
 </asp:Content>
