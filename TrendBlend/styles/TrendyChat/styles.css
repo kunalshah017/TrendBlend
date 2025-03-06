@@ -28,7 +28,7 @@
     flex-direction: column;
     overflow-y: auto;
     padding: 10px 20px;
-    max-height: calc(100vh - 235px);
+    max-height: calc(100dvh - 235px);
 }
 
     .chat_messages::-webkit-scrollbar {
@@ -335,9 +335,6 @@
 
 /* Responsiveness */
 @media (max-width: 600px) {
-    .chat_messages {
-        padding: 10px;
-    }
 
     .message {
         max-width: 90%;
