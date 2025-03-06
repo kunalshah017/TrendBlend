@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/layouts/PrivateLayout.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="TrendBlend.pages.WebForm1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <title>TrendBlend | Home</title>
+    <title>TrendBlend</title>
     <link href="/styles/Home/styles.css" rel="stylesheet" />
 </asp:Content>
 
