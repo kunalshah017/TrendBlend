@@ -228,7 +228,7 @@
 
         var colorName;
 
-        $(function () {
+        $(document).ready(function () {
             const imgCapture = $('#imgCapture');
             const cameraInput = $('#cameraInput');
             const galleryInput = $('#galleryInput');
@@ -705,11 +705,10 @@
                 btnReset.hide();
             });
 
-        });
 
 
-        // Accessory input toggle function
-        $(document).ready(function () {
+
+            // Accessory input toggle function
             function toggleAccessoryInput() {
                 var selectedValue = $("#<%= apparelTypeDropDown.ClientID %>").val();
                 var accessoryContainer = $("#<%= AccessoryInput.ClientID %>").parent();
