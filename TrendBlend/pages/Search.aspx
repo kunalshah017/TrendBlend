@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/styles/Search/styles.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <title>TrendBlend | Search</title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
@@ -34,13 +35,23 @@
         <div class="results_container">
             <asp:Repeater ID="SearchResults" runat="server">
                 <ItemTemplate>
-                    <div class="apparel_card">
+                    <div class="apparel_card" onclick="window.location.href='/pages/Apparel.aspx?id=<%# Eval("ApparelID") %>'">
                         <div class="apparel_image">
                             <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Name") %>' />
                         </div>
                         <div class="apparel_info">
                             <h3><%# Eval("Name") %></h3>
-                            <p>Size: <%# Eval("Size") %></p>
+                            <p <%# string.IsNullOrEmpty(Eval("Size")?.ToString()) ? "style='display:none'" : "" %>>
+                                Size: <%# Eval("Size") %>
+                            </p>
+                            <div class="color-display">
+                                <span class="color-circle" style='background-color: rgb(<%# Eval("R") %>, <%# Eval("G") %>, <%# Eval("B") %>)'></span>
+                                <span class="color-name">
+                                    <%# (string.IsNullOrEmpty(Eval("ColorName")?.ToString())) 
+                    ? GetColorName(Convert.ToByte(Eval("R")), Convert.ToByte(Eval("G")), Convert.ToByte(Eval("B"))) 
+                    : Eval("ColorName") %>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </ItemTemplate>

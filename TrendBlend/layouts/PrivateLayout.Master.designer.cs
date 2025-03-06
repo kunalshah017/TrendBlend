@@ -51,15 +51,6 @@ namespace TrendBlend.layouts
         protected global::System.Web.UI.WebControls.Panel BackButtonPanel;
 
         /// <summary>
-        /// BackLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink BackLink;
-
-        /// <summary>
         /// backLabel control.
         /// </summary>
         /// <remarks>
@@ -78,22 +69,13 @@ namespace TrendBlend.layouts
         protected global::System.Web.UI.WebControls.Panel RightButtonPanel;
 
         /// <summary>
-        /// SearchLink control.
+        /// TopBarSettingsLink control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink SearchLink;
-
-        /// <summary>
-        /// TopBarRightLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink TopBarRightLink;
+        protected global::System.Web.UI.WebControls.HyperLink TopBarSettingsLink;
 
         /// <summary>
         /// TopBarRightIcon control.
@@ -166,5 +148,41 @@ namespace TrendBlend.layouts
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ApparelDescriptionInput;
+
+        /// <summary>
+        /// HyperLink3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink3;
+
+        /// <summary>
+        /// HyperLink1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+
+        /// <summary>
+        /// HyperLink4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink4;
+
+        /// <summary>
+        /// HyperLink2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
     }
 }

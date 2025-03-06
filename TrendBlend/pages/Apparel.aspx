@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/styles/Apparel/styles.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
@@ -23,10 +24,10 @@
                             <span class="info_label">Type</span>
                             <asp:Label ID="ApparelType" runat="server" CssClass="info_value" />
                         </div>
-                        <div class="info_item">
+                        <asp:Panel ID="SizePanel" runat="server" CssClass="info_item">
                             <span class="info_label">Size</span>
                             <asp:Label ID="ApparelSize" runat="server" CssClass="info_value" />
-                        </div>
+                        </asp:Panel>
                         <asp:Panel ID="AccessoryTypePanel" runat="server" CssClass="info_item" Visible="false">
                             <span class="info_label">Accessory Type</span>
                             <asp:Label ID="ApparelAccessoryType" runat="server" CssClass="info_value" />
@@ -43,6 +44,46 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="blend_dropdown">
+                        <div class="blend_dropdown_header">
+                            <span>Add to Favourite Blend</span>
+                            <i class="fa fa-chevron-down"></i>
+                        </div>
+                        <div class="blend_dropdown_content" id="blendContent">
+                            <div class="blend_list">
+                                <asp:Repeater ID="BlendRepeater" runat="server">
+                                    <ItemTemplate>
+                                        <div class="blend_item">
+                                            <div class="blend_preview" onclick="window.location.href='/pages/Blend.aspx?id=<%# Eval("BlendID") %>'">
+                                                <div class="blend_images">
+                                                    <%# RenderBlendImages(Eval("BlendImages") as string) %>
+                                                </div>
+                                                <span><%# Eval("Name") %></span>
+                                            </div>
+                                            <asp:LinkButton ID="ToggleBlendButton" runat="server"
+                                                CssClass='blend_toggle'
+                                                OnClick="ToggleBlendButton_Click"
+                                                CommandArgument='<%# Eval("BlendID") %>'>
+                <i class='fa <%# Convert.ToBoolean(Eval("IsApparelInBlend")) ? "fa-xmark" : "fa-plus" %>'></i>
+                                            </asp:LinkButton>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+
+                            </div>
+                            <div class="new_blend_form">
+                                <div class="input_group">
+                                    <asp:TextBox ID="NewBlendInput" runat="server" CssClass="blend_input"
+                                        placeholder="Create new blend..." />
+                                </div>
+                                <asp:Button ID="CreateBlendButton" runat="server" Text="+"
+                                    CssClass="blend_button" OnClick="CreateBlendButton_Click" />
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="description_section">
                         <span class="info_label">Description</span>
                         <asp:Label ID="ApparelDescription" runat="server" CssClass="description_text" />
@@ -60,5 +101,68 @@
                 </asp:HyperLink>
             </div>
         </asp:Panel>
+
+        <button type="button" id="deleteButton" class="delete_button">
+            <i class="fa fa-trash"></i>
+        </button>
+        <div id="deleteConfirmModal" class="delete_confirm_modal">
+            <div class="delete_confirm_content">
+                <i class="fa fa-exclamation-triangle"></i>
+                <h3>Delete Apparel?</h3>
+                <p>Are you sure you want to delete this apparel? This action cannot be undone.</p>
+                <div class="delete_confirm_buttons">
+                    <asp:Button ID="CancelDeleteButton" runat="server" Text="Cancel"
+                        CssClass="delete_confirm_button delete_confirm_cancel" OnClientClick="hideDeleteModal(); return false;" />
+                    <asp:Button ID="ConfirmDeleteButton" runat="server" Text="Delete"
+                        CssClass="delete_confirm_button delete_confirm_delete" OnClick="ConfirmDeleteButton_Click" />
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const $deleteModal = $('#deleteConfirmModal');
+            const $deleteButton = $('#deleteButton');
+
+            $deleteButton.on('click', function (e) {
+                e.preventDefault();
+                showDeleteModal();
+            });
+
+            function showDeleteModal() {
+                $deleteModal.addClass('visible');
+            }
+
+            function hideDeleteModal() {
+                $deleteModal.removeClass('visible');
+            }
+
+            $('.blend_dropdown_header').on('click', function () {
+                const $content = $(this).next('.blend_dropdown_content');
+                const $icon = $(this).find('i');
+
+                $content.toggleClass('expanded');
+                $icon.toggleClass('rotated');
+            });
+
+            $(document).on('click', '.blend_toggle', function () {
+                const $icon = $(this).find('i');
+                const isActive = $(this).hasClass('active');
+
+                if (isActive) {
+                    $(this).removeClass('active');
+                    $icon.removeClass('fa-check').addClass('fa-plus');
+                } else {
+                    $(this).addClass('active');
+                    $icon.removeClass('fa-plus').addClass('fa-check');
+                }
+            });
+
+            window.hideDeleteModal = hideDeleteModal;
+        });
+    </script>
+
+
+
 </asp:Content>

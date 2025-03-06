@@ -11,17 +11,44 @@ namespace TrendBlend.pages
 {
 
 
-    public partial class WebForm1
+    public partial class Blend
     {
 
         /// <summary>
-        /// userNameLabel control.
+        /// BlendPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label userNameLabel;
+        protected global::System.Web.UI.WebControls.Panel BlendPanel;
+
+        /// <summary>
+        /// ImagesRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater ImagesRepeater;
+
+        /// <summary>
+        /// BlendName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BlendName;
+
+        /// <summary>
+        /// BlendDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BlendDate;
 
         /// <summary>
         /// TopsPanel control.
@@ -33,31 +60,13 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.Panel TopsPanel;
 
         /// <summary>
-        /// sliderTitle control.
+        /// TopsRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label sliderTitle;
-
-        /// <summary>
-        /// topviewmore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink topviewmore;
-
-        /// <summary>
-        /// topsSlider control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater topsSlider;
+        protected global::System.Web.UI.WebControls.Repeater TopsRepeater;
 
         /// <summary>
         /// BottomsPanel control.
@@ -69,67 +78,31 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.Panel BottomsPanel;
 
         /// <summary>
-        /// Label1 control.
+        /// BottomsRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Repeater BottomsRepeater;
 
         /// <summary>
-        /// HyperLink1 control.
+        /// FootwearPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.Panel FootwearPanel;
 
         /// <summary>
-        /// bottomsSlider control.
+        /// FootwearRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater bottomsSlider;
-
-        /// <summary>
-        /// FootwearsPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel FootwearsPanel;
-
-        /// <summary>
-        /// Label2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
-
-        /// <summary>
-        /// HyperLink2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
-
-        /// <summary>
-        /// footwearsSlider control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater footwearsSlider;
+        protected global::System.Web.UI.WebControls.Repeater FootwearRepeater;
 
         /// <summary>
         /// AccessoriesPanel control.
@@ -141,39 +114,39 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.Panel AccessoriesPanel;
 
         /// <summary>
-        /// Label3 control.
+        /// AccessoriesRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Repeater AccessoriesRepeater;
 
         /// <summary>
-        /// HyperLink3 control.
+        /// ErrorPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink3;
+        protected global::System.Web.UI.WebControls.Panel ErrorPanel;
 
         /// <summary>
-        /// accessoriesSlider control.
+        /// CancelDeleteButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater accessoriesSlider;
+        protected global::System.Web.UI.WebControls.Button CancelDeleteButton;
 
         /// <summary>
-        /// NoApparelsPanel control.
+        /// ConfirmDeleteButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel NoApparelsPanel;
+        protected global::System.Web.UI.WebControls.Button ConfirmDeleteButton;
     }
 }

@@ -51,6 +51,15 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.Label ApparelType;
 
         /// <summary>
+        /// SizePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel SizePanel;
+
+        /// <summary>
         /// ApparelSize control.
         /// </summary>
         /// <remarks>
@@ -105,6 +114,33 @@ namespace TrendBlend.pages
         protected global::System.Web.UI.WebControls.Label ApparelColor;
 
         /// <summary>
+        /// BlendRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater BlendRepeater;
+
+        /// <summary>
+        /// NewBlendInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox NewBlendInput;
+
+        /// <summary>
+        /// CreateBlendButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CreateBlendButton;
+
+        /// <summary>
         /// ApparelDescription control.
         /// </summary>
         /// <remarks>
@@ -121,5 +157,23 @@ namespace TrendBlend.pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel ErrorPanel;
+
+        /// <summary>
+        /// CancelDeleteButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CancelDeleteButton;
+
+        /// <summary>
+        /// ConfirmDeleteButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ConfirmDeleteButton;
     }
 }

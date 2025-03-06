@@ -5,7 +5,6 @@
     <title>TrendBlend | Welcome</title>
 </asp:Content>
 
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="main_container">
         <div class="app_title">
