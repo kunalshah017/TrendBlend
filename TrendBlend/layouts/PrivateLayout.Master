@@ -738,6 +738,11 @@
             $('.bottom_bar_item, .bottom_bar_camera_btn').on('click', function () {
                 triggerHapticFeedback();
             });
+
+            // Add haptic feedback to top bar buttons
+            $('.back_button, .top_bar_user_account_btn').on('click', function () {
+                triggerHapticFeedback();
+            });
         });
 
 
