@@ -17,7 +17,7 @@ TrendBlend helps you organize your clothing collection digitally and provides AI
 - **Personalized Outfit Recommendations** 👚👖 - Receive AI-powered suggestions based on your wardrobe
 - **Responsive Design** 📱 - Access your wardrobe from any device
 
-## 🚀 Demo
+## 🚀 Deployment
 
 Visit our live application: [trendblend.azurewebsites.net](https://trendblend.azurewebsites.net)
 
