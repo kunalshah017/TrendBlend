@@ -15,11 +15,9 @@ namespace TrendBlend.pages
             if (!IsPostBack)
             {
                 string blendId = Request.QueryString["id"];
-                System.Diagnostics.Debug.WriteLine($"QueryString ID: {blendId}");
 
                 if (string.IsNullOrEmpty(blendId))
                 {
-                    System.Diagnostics.Debug.WriteLine("BlendId is null or empty");
                     ShowError();
                     return;
                 }
@@ -33,13 +31,9 @@ namespace TrendBlend.pages
             // Convert blendId to integer
             if (!int.TryParse(blendId, out int blendIdInt))
             {
-                System.Diagnostics.Debug.WriteLine($"Failed to parse BlendId: {blendId}");
                 ShowError();
                 return;
             }
-
-            System.Diagnostics.Debug.WriteLine($"Parsed BlendId: {blendIdInt}");
-            System.Diagnostics.Debug.WriteLine($"Current User: {Session["UserName"]}");
 
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -50,8 +44,6 @@ namespace TrendBlend.pages
                     WHERE b.BlendID = @BlendId 
                     AND u.UserName = @Username";
 
-                System.Diagnostics.Debug.WriteLine($"Query: {query}");
-
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BlendId", blendIdInt);
                 cmd.Parameters.AddWithValue("@Username", Session["UserName"].ToString());
@@ -59,7 +51,6 @@ namespace TrendBlend.pages
                 try
                 {
                     con.Open();
-                    System.Diagnostics.Debug.WriteLine("DB Connection opened");
 
                     // First, let's check if the blend exists at all
                     var checkQuery = "SELECT COUNT(*) FROM FavouriteBlend WHERE BlendID = @BlendId";
@@ -67,24 +58,18 @@ namespace TrendBlend.pages
                     {
                         checkCmd.Parameters.AddWithValue("@BlendId", blendIdInt);
                         int count = (int)checkCmd.ExecuteScalar();
-                        System.Diagnostics.Debug.WriteLine($"Blend exists check: {count > 0}");
                     }
 
                     SqlDataReader reader = cmd.ExecuteReader();
-                    System.Diagnostics.Debug.WriteLine("Executed reader");
 
                     if (reader.Read())
                     {
-                        System.Diagnostics.Debug.WriteLine("Found blend data");
                         BlendPanel.Visible = true;
                         ErrorPanel.Visible = false;
 
                         BlendName.Text = reader["Name"].ToString();
                         DateTime createdAt = Convert.ToDateTime(reader["CreatedAt"]);
                         BlendDate.Text = createdAt.ToString("MMM dd, yyyy");
-
-                        System.Diagnostics.Debug.WriteLine($"Blend Name: {BlendName.Text}");
-                        System.Diagnostics.Debug.WriteLine($"Created At: {BlendDate.Text}");
 
                         reader.Close();
 
@@ -94,14 +79,11 @@ namespace TrendBlend.pages
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("No blend data found");
                         ShowError();
                     }
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Error loading blend details: {ex.Message}");
-                    System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
                     ShowError();
                 }
             }
@@ -133,8 +115,6 @@ namespace TrendBlend.pages
                 WHERE ba.BlendID = @BlendId
                 ORDER BY TypeOrder, a.CreatedAt DESC";
 
-                    System.Diagnostics.Debug.WriteLine($"Loading apparels for BlendID: {blendId}");
-
                     newCon.Open();
                     SqlCommand cmd = new SqlCommand(query, newCon);
                     cmd.Parameters.AddWithValue("@BlendId", blendId);
@@ -144,8 +124,6 @@ namespace TrendBlend.pages
                     {
                         da.Fill(dt);
                     }
-
-                    System.Diagnostics.Debug.WriteLine($"Found {dt.Rows.Count} total apparels");
 
                     // Filter and bind data by type
                     DataView dv = new DataView(dt);
@@ -159,28 +137,24 @@ namespace TrendBlend.pages
                     TopsRepeater.DataSource = dv.ToTable();
                     TopsRepeater.DataBind();
                     TopsPanel.Visible = dv.Count > 0;
-                    System.Diagnostics.Debug.WriteLine($"Tops count: {dv.Count}");
 
                     // Bottoms
                     dv.RowFilter = "Type = 'Bottom'";
                     BottomsRepeater.DataSource = dv.ToTable();
                     BottomsRepeater.DataBind();
                     BottomsPanel.Visible = dv.Count > 0;
-                    System.Diagnostics.Debug.WriteLine($"Bottoms count: {dv.Count}");
 
                     // Footwear
                     dv.RowFilter = "Type = 'Footwear'";
                     FootwearRepeater.DataSource = dv.ToTable();
                     FootwearRepeater.DataBind();
                     FootwearPanel.Visible = dv.Count > 0;
-                    System.Diagnostics.Debug.WriteLine($"Footwear count: {dv.Count}");
 
                     // Accessories
                     dv.RowFilter = "Type = 'Accessory'";
                     AccessoriesRepeater.DataSource = dv.ToTable();
                     AccessoriesRepeater.DataBind();
                     AccessoriesPanel.Visible = dv.Count > 0;
-                    System.Diagnostics.Debug.WriteLine($"Accessories count: {dv.Count}");
                 }
             }
             catch (Exception ex)

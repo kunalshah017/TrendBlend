@@ -133,8 +133,7 @@ namespace TrendBlend.services
                         throw new InvalidOperationException("Gemini API key not configured");
                     }
 
-                    // Changed to use gemini-1.5-flash instead of the deprecated model
-                    string apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={apiKey}";
+                    string apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apiKey}";
                     System.Diagnostics.Debug.WriteLine($"[{DateTime.Now:HH:mm:ss.fff}] Using API URL: {apiUrl}");
 
                     var partsList = new List<object>();
@@ -415,7 +414,7 @@ namespace TrendBlend.services
                     client.Timeout = TimeSpan.FromMinutes(2); // Increase timeout to 2 minutes
 
                     string API_KEY = ConfigurationManager.AppSettings["GeminiApiKey"];
-                    string API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
+                    string API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
                     // Check if the image data is in correct format
                     if (!imageData.StartsWith("data:image"))
