@@ -365,3 +365,6 @@ FodyWeavers.xsd
 # DB Config
 db.config
 env.config
+
+# VSCode
+.vscode
