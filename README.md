@@ -62,11 +62,13 @@ Visit our live application: [trendblend.azurewebsites.net](https://trendblend.az
 
 ## 📋 Getting Started
 
-### Prerequisites
+### Prerequisites for Self Host
 
-- .NET Core SDK 6.0 or later
+- .NET SDK 4.0
 - Visual Studio 2022 or preferred IDE
 - Azure account (for deployment)
+- Cloudinary API for CDN
+- Gemini API for AI
 
 ### Installation
 
