@@ -62,11 +62,13 @@ Visit our live application: [trendblend.azurewebsites.net](https://trendblend.az
 
 ## 📋 Getting Started
 
-### Prerequisites
+### Prerequisites for Self Host
 
-- .NET Core SDK 6.0 or later
+- .NET SDK 4.0
 - Visual Studio 2022 or preferred IDE
 - Azure account (for deployment)
+- Cloudinary API for CDN
+- Gemini API for AI
 
 ### Installation
 
@@ -79,7 +81,29 @@ Visit our live application: [trendblend.azurewebsites.net](https://trendblend.az
 
 2. Open the project via SLN file in Visual Studio
 
-3. Open your browser and navigate to `http://localhost:51368`
+3. Create 2 Files in root of Project `db.config` & `env.config` with below templates
+   
+   - **db.config**
+     ```xml
+     <?xml version="1.0" encoding="utf-8" ?>
+      <connectionStrings>
+	      <add name="Your DB Name" connectionString="Your DB Connection String till Password" providerName="System.Data.SqlClient" />
+      </connectionStrings>
+     ```
+     
+   - **env.config**
+     ```xml
+      <appSettings>
+      	<add key="PasswordSalt" value="Your random password salt" />
+      	<add key="CloudinaryCloud" value="Your Cloudinary Cloud Name" />
+      	<add key="CloudinaryApiKey" value="Your Cloudinary API key" />
+      	<add key="CloudinaryApiSecret" value="Your Cloudinary API Secret" />
+      	<add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
+      	<add key="GeminiApiKey" value="Your Google Gemini API key" />
+      </appSettings>
+     ```
+4. Run the project in Debug Mode     
+5. Open your browser and navigate to `http://localhost:51368`
 
 ## 👥 Contributors
 
