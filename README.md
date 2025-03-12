@@ -82,15 +82,14 @@ Visit our live application: [trendblend.azurewebsites.net](https://trendblend.az
 2. Open the project via SLN file in Visual Studio
 
 3. Create 2 Files in root of Project `db.config` & `env.config` with below templates
-   
+
    - **db.config**
      ```xml
      <?xml version="1.0" encoding="utf-8" ?>
       <connectionStrings>
-	      <add name="Your DB Name" connectionString="Your DB Connection String till Password" providerName="System.Data.SqlClient" />
+         <add name="Your DB Name" connectionString="Your DB Connection String till Password" providerName="System.Data.SqlClient" />
       </connectionStrings>
      ```
-     
    - **env.config**
      ```xml
       <appSettings>
@@ -102,8 +101,19 @@ Visit our live application: [trendblend.azurewebsites.net](https://trendblend.az
       	<add key="GeminiApiKey" value="Your Google Gemini API key" />
       </appSettings>
      ```
-4. Run the project in Debug Mode     
-5. Open your browser and navigate to `http://localhost:51368`
+
+4. Recreate Database Schema
+   1. Get Server Name of your Azure SQL Database or Local DB
+   2. Connect to it via [SQL Server Management Studio(SSMS)](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16)
+   3. Once you are on your desired database
+      1. Select `File` Option from top menu
+      2. Select `Open` Option
+      3. Select `File`
+      4. Open `schema.sql` file from TrendBlend project
+      5. Click `f5` or `Execute` option to execute the script
+   
+5. Run the project in Debug Mode
+6. Open your browser and navigate to `http://localhost:51368`
 
 ## 👥 Contributors
 
