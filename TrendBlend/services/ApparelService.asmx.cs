@@ -414,7 +414,7 @@ namespace TrendBlend.services
                     client.Timeout = TimeSpan.FromMinutes(2); // Increase timeout to 2 minutes
 
                     string API_KEY = ConfigurationManager.AppSettings["GeminiApiKey"];
-                    string API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+                    string API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
                     // Check if the image data is in correct format
                     if (!imageData.StartsWith("data:image"))
